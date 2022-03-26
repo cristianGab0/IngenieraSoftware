@@ -8,7 +8,8 @@ package com.gt.umg.ing.software.controller;
 import com.gt.umg.ing.software.dto.request.UsuarioDto;
 import com.gt.umg.ing.software.models.entity.Pasajero;
 import com.gt.umg.ing.software.service.PasajeroService;
-import com.gt.umg.ing.software.service.UsuarioService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -27,16 +28,15 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Cristian
  */
-@RestController(value = "usuarioPasajero")
+@Api
+@RestController()
 public class ControllerUsuarioPasajero {
 
     @Autowired
     private PasajeroService pasajeroService;
-
-    @Autowired
-    private UsuarioService usuarioService;
-
+    
     @GetMapping("/existePasaporte/{noPasaporte}")
+    @ApiOperation(value = "Retorna si existe el pasaporte")
     public ResponseEntity<Boolean> existePasaporte(@PathVariable Long noPasaporte) {
         Optional<Pasajero> o = pasajeroService.findById(noPasaporte);
 
@@ -44,6 +44,7 @@ public class ControllerUsuarioPasajero {
     }
 
     @PostMapping("crearPasajero")
+    @ApiOperation(value = "Crea el usuario pasajero")
     public ResponseEntity<?> crearUsuarioPasajero(@Valid @RequestBody UsuarioDto user, BindingResult result) {
         if (result.hasErrors()) {
             return this.validar(result);

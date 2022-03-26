@@ -3,6 +3,7 @@ package com.gt.umg.ing.software.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -36,11 +39,11 @@ public class Vuelo implements java.io.Serializable {
     private int aeropuertoSalida;
 //    private Avion avion;
     private int avion;
-    private Date fechaSalida;
-    private Date fechaLlegada;
-    private Date horaSalida;
-    private Date horaLlegada;
+    private Date fechaHoraSalida;
+    private Date fechaHoraLlegada;
     private String estado;
+    private BigDecimal precioEconomica;
+    private BigDecimal precioEjecutiva;
     private List<Tripulante> tripulantes;
     private List<VueloPasajero> vueloPasajeros;
 
@@ -54,21 +57,22 @@ public class Vuelo implements java.io.Serializable {
         this.avion = avion;
     }
 
-    public Vuelo(int id_vuelo, int aeropuertoByAeropuertoLlegada, int aeropuertoByAeropuertoSalida, int avion, Date fechaSalida, Date fechaLlegada, Date horaSalida, Date horaLlegada, String estado, Set detalleVuelos, List<Tripulante> tripulantes, List<VueloPasajero> vueloPasajeros) {
+    public Vuelo(int id_vuelo, int aeropuertoByAeropuertoLlegada, int aeropuertoByAeropuertoSalida, int avion, Date fechaHoraSalida, Date fechaHoraLlegada, String estado, Set detalleVuelos, BigDecimal precioEconomica, BigDecimal precioEjecutiva, List<Tripulante> tripulantes, List<VueloPasajero> vueloPasajeros) {
         this.id_vuelo = id_vuelo;
         this.aeropuertoLlegada = aeropuertoByAeropuertoLlegada;
         this.aeropuertoSalida = aeropuertoByAeropuertoSalida;
         this.avion = avion;
-        this.fechaSalida = fechaSalida;
-        this.fechaLlegada = fechaLlegada;
-        this.horaSalida = horaSalida;
-        this.horaLlegada = horaLlegada;
+        this.fechaHoraSalida = fechaHoraSalida;
+        this.fechaHoraLlegada = fechaHoraLlegada;
         this.estado = estado;
+        this.precioEconomica = precioEconomica;
+        this.precioEjecutiva = precioEjecutiva;
         this.tripulantes = tripulantes;
         this.vueloPasajeros = vueloPasajeros;
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_vuelo", unique = true, nullable = false)
     public int getIdvuelo() {
         return this.id_vuelo;
@@ -108,44 +112,24 @@ public class Vuelo implements java.io.Serializable {
         this.avion = avion;
     }
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "fecha_salida", length = 13)
-    public Date getFechaSalida() {
-        return this.fechaSalida;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_hora_salida", length = 29)
+    public Date getFechaHoraSalida() {
+        return this.fechaHoraSalida;
     }
 
-    public void setFechaSalida(Date fechaSalida) {
-        this.fechaSalida = fechaSalida;
+    public void setFechaHoraSalida(Date fechaHoraSalida) {
+        this.fechaHoraSalida = fechaHoraSalida;
     }
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "fecha_llegada", length = 13)
-    public Date getFechaLlegada() {
-        return this.fechaLlegada;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_hora_llegada", length = 29)
+    public Date getFechaHoraLlegada() {
+        return this.fechaHoraLlegada;
     }
 
-    public void setFechaLlegada(Date fechaLlegada) {
-        this.fechaLlegada = fechaLlegada;
-    }
-
-    @Temporal(TemporalType.TIME)
-    @Column(name = "hora_salida", length = 15)
-    public Date getHoraSalida() {
-        return this.horaSalida;
-    }
-
-    public void setHoraSalida(Date horaSalida) {
-        this.horaSalida = horaSalida;
-    }
-
-    @Temporal(TemporalType.TIME)
-    @Column(name = "hora_llegada", length = 15)
-    public Date getHoraLlegada() {
-        return this.horaLlegada;
-    }
-
-    public void setHoraLlegada(Date horaLlegada) {
-        this.horaLlegada = horaLlegada;
+    public void setFechaHoraLlegada(Date fechaHoraLlegada) {
+        this.fechaHoraLlegada = fechaHoraLlegada;
     }
 
     @Column(name = "estado", length = 25)
@@ -155,6 +139,24 @@ public class Vuelo implements java.io.Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    @Column(name = "precio_economica", precision = 7)
+    public BigDecimal getPrecioEconomica() {
+        return this.precioEconomica;
+    }
+
+    public void setPrecioEconomica(BigDecimal precioEconomica) {
+        this.precioEconomica = precioEconomica;
+    }
+
+    @Column(name = "precio_ejecutiva", precision = 7)
+    public BigDecimal getPrecioEjecutiva() {
+        return this.precioEjecutiva;
+    }
+
+    public void setPrecioEjecutiva(BigDecimal precioEjecutiva) {
+        this.precioEjecutiva = precioEjecutiva;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -169,7 +171,7 @@ public class Vuelo implements java.io.Serializable {
         this.tripulantes = tripulantes;
     }
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "vuelo")
     public List<VueloPasajero> getVueloPasajeros() {
         return this.vueloPasajeros;

@@ -1,11 +1,17 @@
 package com.gt.umg.ing.software.models.entity;
 // Generated 17/03/2022 09:17:45 PM by Hibernate Tools 4.3.1
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -13,17 +19,19 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "avion",
-         schema = "public"
+        schema = "public"
 )
 public class Avion implements java.io.Serializable {
 
     private int id_avion;
-     private Aerolinea aerolinea;
+    private Aerolinea aerolinea;
 //    private int aerolinea;
     private String modelo;
     private String marca;
     private String anio;
+    private String estado;
 //     private Set vuelos = new HashSet(0);
+//     private List<Sillon> sillons;
 
     public Avion() {
     }
@@ -33,13 +41,15 @@ public class Avion implements java.io.Serializable {
         this.aerolinea = aerolinea;
     }
 
-    public Avion(int id_avion, Aerolinea aerolinea, String modelo, String marca, String anio) {
+    public Avion(int id_avion, Aerolinea aerolinea, String modelo, String marca, String anio, List<Sillon> sillons, String estado) {
         this.id_avion = id_avion;
         this.aerolinea = aerolinea;
         this.modelo = modelo;
         this.marca = marca;
         this.anio = anio;
+        this.estado = estado;
 //       this.vuelos = vuelos;
+//       this.sillons = sillons;
     }
 
     @Id
@@ -89,6 +99,15 @@ public class Avion implements java.io.Serializable {
         this.anio = anio;
     }
 
+    @Column(name = "estado", length = 1)
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "avion")
 //    public Set getVuelos() {
 //        return this.vuelos;
@@ -97,5 +116,4 @@ public class Avion implements java.io.Serializable {
 //    public void setVuelos(Set vuelos) {
 //        this.vuelos = vuelos;
 //    }
-
 }

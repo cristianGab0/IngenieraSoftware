@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "rol",
-         schema = "public"
+        schema = "public"
 )
 public class Rol implements java.io.Serializable {
 

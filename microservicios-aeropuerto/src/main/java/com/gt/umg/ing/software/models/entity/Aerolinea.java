@@ -1,4 +1,4 @@
-    package com.gt.umg.ing.software.models.entity;
+package com.gt.umg.ing.software.models.entity;
 // Generated 17/03/2022 09:17:45 PM by Hibernate Tools 4.3.1
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "aerolinea",
-         schema = "public"
+        schema = "public"
 )
 public class Aerolinea implements java.io.Serializable {
 
@@ -65,11 +65,11 @@ public class Aerolinea implements java.io.Serializable {
     }
 
     @JsonIgnoreProperties("aerolineas")
-    @ManyToMany(fetch=FetchType.LAZY, mappedBy="aerolineas")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "aerolineas")
     public List<Aeropuerto> getAeropuertos() {
         return this.aeropuertos;
     }
-    
+
     public void setAeropuertos(List<Aeropuerto> aeropuertos) {
         this.aeropuertos = aeropuertos;
     }

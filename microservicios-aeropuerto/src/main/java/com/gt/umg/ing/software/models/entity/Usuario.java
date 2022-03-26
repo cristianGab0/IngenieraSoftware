@@ -18,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "usuario",
-         schema = "public"
+        schema = "public"
 )
 public class Usuario implements java.io.Serializable {
 

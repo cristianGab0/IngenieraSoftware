@@ -5,16 +5,15 @@
  */
 package com.gt.umg.ing.software.service;
 
-import com.gt.umg.ing.software.models.entity.Aerolinea;
-import com.gt.umg.ing.software.models.repository.AerolineaRepository;
+import com.gt.umg.ing.software.models.entity.Sillon;
+import com.gt.umg.ing.software.models.repository.SillonRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Cristian
  */
 @Service
-public class AerolineaService extends CommonService<Aerolinea,Integer, AerolineaRepository> {
+public class SillonService extends CommonService<Sillon, Integer, SillonRepository> {
     
 }
