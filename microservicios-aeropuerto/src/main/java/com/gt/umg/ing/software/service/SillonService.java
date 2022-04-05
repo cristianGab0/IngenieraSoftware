@@ -8,6 +8,7 @@ package com.gt.umg.ing.software.service;
 import com.gt.umg.ing.software.models.entity.Sillon;
 import com.gt.umg.ing.software.models.repository.SillonRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -16,4 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SillonService extends CommonService<Sillon, Integer, SillonRepository> {
     
+    @Transactional(readOnly = true)
+    public Iterable<Sillon> findSillonesDisponiblesByVuelo(Integer idVuelo){
+        return this.repository.findSillonesDisponiblesByVuelo(idVuelo);
+    }
 }

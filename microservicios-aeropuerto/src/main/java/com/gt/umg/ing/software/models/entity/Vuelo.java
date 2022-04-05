@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,8 +40,8 @@ public class Vuelo implements java.io.Serializable {
     private int aeropuertoSalida;
 //    private Avion avion;
     private int avion;
-    private Date fechaHoraSalida;
-    private Date fechaHoraLlegada;
+    private Date fecha_hora_salida;
+    private Date fecha_hora_llegada;
     private String estado;
     private BigDecimal precioEconomica;
     private BigDecimal precioEjecutiva;
@@ -62,8 +63,8 @@ public class Vuelo implements java.io.Serializable {
         this.aeropuertoLlegada = aeropuertoByAeropuertoLlegada;
         this.aeropuertoSalida = aeropuertoByAeropuertoSalida;
         this.avion = avion;
-        this.fechaHoraSalida = fechaHoraSalida;
-        this.fechaHoraLlegada = fechaHoraLlegada;
+        this.fecha_hora_salida = fechaHoraSalida;
+        this.fecha_hora_llegada = fechaHoraLlegada;
         this.estado = estado;
         this.precioEconomica = precioEconomica;
         this.precioEjecutiva = precioEjecutiva;
@@ -114,22 +115,22 @@ public class Vuelo implements java.io.Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_hora_salida", length = 29)
-    public Date getFechaHoraSalida() {
-        return this.fechaHoraSalida;
+    public Date getFecha_hora_salida() {
+        return this.fecha_hora_salida;
     }
 
-    public void setFechaHoraSalida(Date fechaHoraSalida) {
-        this.fechaHoraSalida = fechaHoraSalida;
+    public void setFecha_hora_salida(Date fecha_hora_salida) {
+        this.fecha_hora_salida = fecha_hora_salida;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_hora_llegada", length = 29)
-    public Date getFechaHoraLlegada() {
-        return this.fechaHoraLlegada;
+    public Date getFecha_hora_llegada() {
+        return this.fecha_hora_llegada;
     }
 
-    public void setFechaHoraLlegada(Date fechaHoraLlegada) {
-        this.fechaHoraLlegada = fechaHoraLlegada;
+    public void setFecha_hora_llegada(Date fecha_hora_llegada) {
+        this.fecha_hora_llegada = fecha_hora_llegada;
     }
 
     @Column(name = "estado", length = 25)
@@ -180,4 +181,40 @@ public class Vuelo implements java.io.Serializable {
     public void setVueloPasajeros(List<VueloPasajero> vueloPasajeros) {
         this.vueloPasajeros = vueloPasajeros;
     }
+
+    @Override
+    public String toString() {
+        return "Vuelo{" + "id_vuelo=" + id_vuelo + ", aeropuertoLlegada=" + aeropuertoLlegada + ", aeropuertoSalida=" + aeropuertoSalida + ", avion=" + avion + ", fecha_hora_salida=" + fecha_hora_salida + ", fecha_hora_llegada=" + fecha_hora_llegada + ", estado=" + estado + ", precioEconomica=" + precioEconomica + ", precioEjecutiva=" + precioEjecutiva + ", tripulantes=" + tripulantes + ", vueloPasajeros=" + vueloPasajeros + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + this.id_vuelo;
+        hash = 17 * hash + this.aeropuertoLlegada;
+        hash = 17 * hash + this.aeropuertoSalida;
+        hash = 17 * hash + this.avion;
+        hash = 17 * hash + Objects.hashCode(this.fecha_hora_salida);
+        hash = 17 * hash + Objects.hashCode(this.fecha_hora_llegada);
+        hash = 17 * hash + Objects.hashCode(this.estado);
+        hash = 17 * hash + Objects.hashCode(this.precioEconomica);
+        hash = 17 * hash + Objects.hashCode(this.precioEjecutiva);
+        hash = 17 * hash + Objects.hashCode(this.tripulantes);
+        hash = 17 * hash + Objects.hashCode(this.vueloPasajeros);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Vuelo)) {
+            return false;
+        }
+        Vuelo v = (Vuelo) obj;
+
+        return this.id_vuelo == v.getIdvuelo();
+    }
+    
 }
