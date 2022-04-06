@@ -11,6 +11,8 @@ import com.gt.umg.ing.software.dto.request.FechasDto;
 import com.gt.umg.ing.software.dto.request.VuelosResumenDto;
 import com.gt.umg.ing.software.models.entity.Aeropuerto;
 import com.gt.umg.ing.software.models.entity.Vuelo;
+import com.gt.umg.ing.software.models.entity.VueloPasajero;
+import com.gt.umg.ing.software.models.entity.VueloPasajeroId;
 import com.gt.umg.ing.software.service.AeropuertoService;
 import com.gt.umg.ing.software.service.SillonService;
 import com.gt.umg.ing.software.service.VueloService;
@@ -124,8 +126,18 @@ public class ControllerAgregarPasajero {
         }
     }
 
-    @PostMapping("agregarPasajeroVuelo")
-    public ResponseEntity<?> agregarPasajeroVuelo(@RequestBody AgregarVueloPasajeroDto dto) {
-        return null;
+    @PostMapping("agregarPasajeroVuelo/{pasaporte}")
+    public ResponseEntity<?> agregarPasajeroVuelo(@RequestBody AgregarVueloPasajeroDto dto, @PathVariable Long pasaporte) {
+        try {
+            Vuelo vuelo = dto.getVuelo();
+            Vuelo vueloBD = vueloService.save(vuelo);
+
+            VueloPasajero vp = dto.getVueloPasajero();
+            vp.setId(new VueloPasajeroId(vueloBD.getIdvuelo(), pasaporte));
+        } catch (Exception e) {
+            return ResponseEntity.ok().body(false);
+        }
+
+        return ResponseEntity.ok().body(true);
     }
 }

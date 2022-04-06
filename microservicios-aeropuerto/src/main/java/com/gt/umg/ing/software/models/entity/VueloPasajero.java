@@ -30,7 +30,8 @@ public class VueloPasajero implements java.io.Serializable {
     private int sillon;
     private String estadoBoleto;
     private String claseVuelo;
-
+    private BigDecimal pagoExtra;
+    
     public VueloPasajero() {
     }
 
@@ -40,7 +41,7 @@ public class VueloPasajero implements java.io.Serializable {
         this.vuelo = vuelo;
     }
 
-    public VueloPasajero(VueloPasajeroId id, Pasajero pasajero, Vuelo vuelo, String equipaje, BigDecimal pesoEquipaje, int sillon, String estadoBoleto, String claseVuelo, BigDecimal precioVuelo) {
+    public VueloPasajero(VueloPasajeroId id, Pasajero pasajero, Vuelo vuelo, String equipaje, BigDecimal pesoEquipaje, int sillon, String estadoBoleto, String claseVuelo, BigDecimal precioVuelo, BigDecimal pagoExtra) {
         this.id = id;
         this.pasajero = pasajero;
         this.vuelo = vuelo;
@@ -49,6 +50,7 @@ public class VueloPasajero implements java.io.Serializable {
         this.sillon = sillon;
         this.estadoBoleto = estadoBoleto;
         this.claseVuelo = claseVuelo;
+        this.pagoExtra = pagoExtra;
     }
 
     @EmbeddedId
@@ -129,6 +131,15 @@ public class VueloPasajero implements java.io.Serializable {
 
     public void setClaseVuelo(String claseVuelo) {
         this.claseVuelo = claseVuelo;
+    }
+
+    @Column(name = "pago_extra", precision = 7)
+    public BigDecimal getPagoExtra() {
+        return pagoExtra;
+    }
+
+    public void setPagoExtra(BigDecimal pagoExtra) {
+        this.pagoExtra = pagoExtra;
     }
 
 

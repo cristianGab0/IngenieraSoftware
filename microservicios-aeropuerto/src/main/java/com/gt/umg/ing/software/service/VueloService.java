@@ -80,6 +80,10 @@ public class VueloService extends CommonService<Vuelo, Integer, VueloRepository>
         return this.repository.getTieneVuelosUsuario(idUsuario , fechaSalida, fechaLlegada );
     }
     
+    public Iterable<Vuelo> getVuelosAbordar(Integer idAerolinea){
+        return this.repository.getVuelosAbordar(idAerolinea);
+    }
+        
     public String obtenerTiempoTotal(Date fechaHoraSalida, Date fechaHoraLlegada) {        
         long dif = fechaHoraLlegada.getTime() - fechaHoraSalida.getTime();
         long diffHoras = (dif / (1000 * 60 * 60)) % 24;

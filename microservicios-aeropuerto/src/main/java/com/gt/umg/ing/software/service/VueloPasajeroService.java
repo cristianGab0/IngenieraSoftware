@@ -8,6 +8,7 @@ package com.gt.umg.ing.software.service;
 import com.gt.umg.ing.software.models.entity.VueloPasajero;
 import com.gt.umg.ing.software.models.entity.VueloPasajeroId;
 import com.gt.umg.ing.software.models.repository.VueloPasajeroRepository;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +18,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class VueloPasajeroService extends CommonService<VueloPasajero, VueloPasajeroId, VueloPasajeroRepository> {
     
+    public boolean validarPasaporteVuelo(Long noPasaporte, Integer idVuelo){
+        Integer vuelos = this.repository.getVuelosFechaInicial(noPasaporte, idVuelo);
+        return (vuelos > 0);
+    }
+    
+    public Iterable<VueloPasajero> getBoletosSinAbordar(Integer idVuelo){
+        return this.repository.getBoletosSinAbordar(idVuelo);
+    }
+    
+    public void saveAll(List<VueloPasajero> vp){
+        this.repository.saveAll(vp);
+    }
 }

@@ -16,7 +16,7 @@ public class AgregarVueloPasajeroDto {
 
     private Vuelo vuelo;
     private VueloPasajero vueloPasajero;
-
+    
     public AgregarVueloPasajeroDto() {
     }
 

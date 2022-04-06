@@ -28,7 +28,8 @@ public class Usuario implements java.io.Serializable {
     private String email;
     private String password;
     private List<Rol> rols;
-
+    private Integer aerolinea;
+    
     public Usuario() {
     }
 
@@ -36,13 +37,14 @@ public class Usuario implements java.io.Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(int idUsuario, String usuario, String nombre, String email, String password, List<Rol> rols) {
+    public Usuario(int idUsuario, String usuario, String nombre, String email, String password, List<Rol> rols, Integer aerolinea) {
         this.idUsuario = idUsuario;
         this.usuario = usuario;
         this.nombre = nombre;
         this.email = email;
         this.password = password;
         this.rols = rols;
+        this.aerolinea = aerolinea;
     }
 
     @Id
@@ -103,5 +105,15 @@ public class Usuario implements java.io.Serializable {
     public void setRols(List<Rol> rols) {
         this.rols = rols;
     }
+    
+    @Column(name = "aerolinea")
+    public Integer getAerolinea() {
+        return aerolinea;
+    }
 
+    public void setAerolinea(Integer aerolinea) {
+        this.aerolinea = aerolinea;
+    }
+
+    
 }

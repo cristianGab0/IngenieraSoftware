@@ -6,7 +6,9 @@
 package com.gt.umg.ing.software.service;
 
 import com.gt.umg.ing.software.models.entity.Aerolinea;
+import com.gt.umg.ing.software.models.entity.Vuelo;
 import com.gt.umg.ing.software.models.repository.AerolineaRepository;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,4 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AerolineaService extends CommonService<Aerolinea,Integer, AerolineaRepository> {
     
+    public Optional<Aerolinea> getAerolineaPorUsuario(String usuario){
+        return this.repository.getAerolineaPorUsuario(usuario);
+    }
 }
