@@ -6,11 +6,9 @@
 package com.gt.umg.ing.software.service;
 
 import com.gt.umg.ing.software.models.entity.Aerolinea;
-import com.gt.umg.ing.software.models.entity.Vuelo;
 import com.gt.umg.ing.software.models.repository.AerolineaRepository;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *

@@ -2,8 +2,8 @@ package com.gt.umg.ing.software.controller;
 
 import com.gt.umg.ing.software.dto.request.FechasDto;
 import com.gt.umg.ing.software.dto.response.IAvionDto;
+import com.gt.umg.ing.software.models.entity.Aerolinea;
 import com.gt.umg.ing.software.models.entity.Aeropuerto;
-import com.gt.umg.ing.software.models.entity.Avion;
 import com.gt.umg.ing.software.models.entity.Tripulante;
 import com.gt.umg.ing.software.models.entity.Vuelo;
 import com.gt.umg.ing.software.service.AerolineaService;
@@ -13,7 +13,9 @@ import com.gt.umg.ing.software.service.TripulanteService;
 import com.gt.umg.ing.software.service.VueloService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +35,7 @@ public class ControllerCrearVuelo {
 
     @Autowired
     private AvionService avionService;
-    
+
     @Autowired
     private VueloService vueloService;
 
@@ -42,7 +44,23 @@ public class ControllerCrearVuelo {
 
     @Autowired
     private TripulanteService tripulanteService;
-    
+
+    @Autowired
+    private AerolineaService aerolineaService;
+
+    @GetMapping("obtenerAerolineas")
+    public ResponseEntity<?> getAerolineas() {
+        List<Aerolinea> aerolinea =(List<Aerolinea>) aerolineaService.findAll();
+
+        aerolinea = aerolinea.stream().peek(a->{
+            a.setAeropuertos(new ArrayList());
+            a.setAvions(new ArrayList());
+            
+        }).collect(Collectors.toList());
+        
+        return ResponseEntity.ok().body(aerolinea);
+    }
+
     @GetMapping("hayAvionesDisponiblesByAerolinea/{nombreAerolinea}")
     @ApiOperation(value = "Valida los aviones y aeropuertos disponibles por aerolinea")
     public ResponseEntity<?> hayAvionesDisponibles(@PathVariable String nombreAerolinea) {
@@ -51,6 +69,9 @@ public class ControllerCrearVuelo {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se puede crear un vuelo porque la aerolínea no cuenta con aviones disponibles.");
         }
         List<Aeropuerto> aeropuertos = (List<Aeropuerto>) aeropuertoService.getAeropuertoByAerolinea(aviones.get(0).getIdAerolinea());
+
+        aeropuertos = aeropuertos.stream().peek(a -> a.setAerolineas(new ArrayList<>())).collect(Collectors.toList());
+
         if (aeropuertos.size() == 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron aeropuertos autorizados para la aerolínea.");
         }
@@ -103,10 +124,10 @@ public class ControllerCrearVuelo {
         }
         return ResponseEntity.ok().body(tripulantes);
     }
-    
+
     @PostMapping("crearVuelo")
     @ApiOperation(value = "Crea Nuevo Vuelo")
-    public ResponseEntity<?> crearVuelo(@RequestBody Vuelo dto){
+    public ResponseEntity<?> crearVuelo(@RequestBody Vuelo dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(vueloService.save(dto));
     }
 }
