@@ -1,6 +1,7 @@
 package com.gt.umg.ing.software.controller;
 
 import com.gt.umg.ing.software.dto.request.FechasDto;
+import com.gt.umg.ing.software.dto.response.IAvionDto;
 import com.gt.umg.ing.software.models.entity.Aeropuerto;
 import com.gt.umg.ing.software.models.entity.Avion;
 import com.gt.umg.ing.software.models.entity.Tripulante;
@@ -45,23 +46,23 @@ public class ControllerCrearVuelo {
     @GetMapping("hayAvionesDisponiblesByAerolinea/{nombreAerolinea}")
     @ApiOperation(value = "Valida los aviones y aeropuertos disponibles por aerolinea")
     public ResponseEntity<?> hayAvionesDisponibles(@PathVariable String nombreAerolinea) {
-        List<Avion> aviones = (List<Avion>) avionService.findAvionesByNombreAerolinea(nombreAerolinea);
+        List<IAvionDto> aviones = (List<IAvionDto>) avionService.findAvionesByNombreAerolinea(nombreAerolinea);
         if (aviones.size() == 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se puede crear un vuelo porque la aerolínea no cuenta con aviones disponibles.");
         }
-        List<Aeropuerto> aeropuertos = (List<Aeropuerto>) aeropuertoService.getAeropuertoByAerolinea(aviones.get(0).getAerolinea().getIdAerolinea());
+        List<Aeropuerto> aeropuertos = (List<Aeropuerto>) aeropuertoService.getAeropuertoByAerolinea(aviones.get(0).getIdAerolinea());
         if (aeropuertos.size() == 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron aeropuertos autorizados para la aerolínea.");
         }
         return ResponseEntity.ok().body(aeropuertos);
     }
 
-    @PostMapping("obtenerAvionsPorFechaHora/{idAerolinea}")
+    @PostMapping("obtenerAvionesPorFechaHora/{idAerolinea}")
     @ApiOperation(value = "Obtiene los aviones disponibles de una aerolinea segun horarios de vuelo")
     public ResponseEntity<?> obtenerAvionesDisponiblesPorFechaHora(
             @RequestBody FechasDto fechas, @PathVariable Long idAerolinea
     ) {
-        List<Avion> aviones = (List<Avion>) avionService.findAvionesByAerolineaFechaHora(fechas, idAerolinea);
+        List<IAvionDto> aviones = (List<IAvionDto>) avionService.findAvionesByAerolineaFechaHora(fechas, idAerolinea);
         if (aviones.size() == 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay aviones disponibles para el vuelo seleccionado.");
         }

@@ -2,13 +2,14 @@ package com.gt.umg.ing.software.models.entity;
 // Generated 17/03/2022 09:17:45 PM by Hibernate Tools 4.3.1
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.Set;
-import java.util.HashSet;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -19,51 +20,49 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "avion",
-        schema = "public"
+         schema = "public"
 )
 public class Avion implements java.io.Serializable {
 
-    private int id_avion;
+    private AvionId id;
     private Aerolinea aerolinea;
-//    private int aerolinea;
-    private String modelo;
-    private String marca;
+    private CatalogoAvion catalogoAvion;
     private String anio;
-    private String estado;
-//     private Set vuelos = new HashSet(0);
-//     private List<Sillon> sillons;
+    private Character estado;
+    private List<Vuelo> vuelos;
 
     public Avion() {
     }
 
-    public Avion(int id_avion, Aerolinea aerolinea) {
-        this.id_avion = id_avion;
+    public Avion(AvionId id, Aerolinea aerolinea, CatalogoAvion catalogoAvion) {
+        this.id = id;
         this.aerolinea = aerolinea;
+        this.catalogoAvion = catalogoAvion;
     }
 
-    public Avion(int id_avion, Aerolinea aerolinea, String modelo, String marca, String anio, List<Sillon> sillons, String estado) {
-        this.id_avion = id_avion;
+    public Avion(AvionId id, Aerolinea aerolinea, CatalogoAvion catalogoAvion, String anio, Character estado,List<Vuelo> vuelos) {
+        this.id = id;
         this.aerolinea = aerolinea;
-        this.modelo = modelo;
-        this.marca = marca;
+        this.catalogoAvion = catalogoAvion;
         this.anio = anio;
         this.estado = estado;
-//       this.vuelos = vuelos;
-//       this.sillons = sillons;
+        this.vuelos = vuelos;
     }
 
-    @Id
-    @Column(name = "id_avion", unique = true, nullable = false)
-    public int getIdAvion() {
-        return this.id_avion;
+    @EmbeddedId
+    @AttributeOverrides({
+        @AttributeOverride(name = "idAvion", column = @Column(name = "id_avion", nullable = false)),
+        @AttributeOverride(name = "idAerolinea", column = @Column(name = "id_aerolinea", nullable = false))})
+    public AvionId getId() {
+        return this.id;
     }
 
-    public void setIdAvion(int id_avion) {
-        this.id_avion = id_avion;
+    public void setId(AvionId id) {
+        this.id = id;
     }
-
-    @ManyToOne()
-    @JoinColumn(name = "id_aerolinea", nullable = false)
+    @JsonIgnore()
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_aerolinea", nullable = false, insertable = false, updatable = false)
     public Aerolinea getAerolinea() {
         return this.aerolinea;
     }
@@ -71,26 +70,19 @@ public class Avion implements java.io.Serializable {
     public void setAerolinea(Aerolinea aerolinea) {
         this.aerolinea = aerolinea;
     }
-
-    @Column(name = "modelo", length = 45)
-    public String getModelo() {
-        return this.modelo;
+    
+    @JsonIgnore()
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_avion", nullable = false, insertable = false, updatable = false)
+    public CatalogoAvion getCatalogoAvion() {
+        return this.catalogoAvion;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public void setCatalogoAvion(CatalogoAvion catalogoAvion) {
+        this.catalogoAvion = catalogoAvion;
     }
 
-    @Column(name = "marca", length = 30)
-    public String getMarca() {
-        return this.marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    @Column(name = "anio", length = 4)
+    @Column(name = "anio", length = 45)
     public String getAnio() {
         return this.anio;
     }
@@ -100,20 +92,23 @@ public class Avion implements java.io.Serializable {
     }
 
     @Column(name = "estado", length = 1)
-    public String getEstado() {
-        return estado;
+    public Character getEstado() {
+        return this.estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Character estado) {
         this.estado = estado;
     }
+    
+    @JsonIgnore()
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "avion")
+    public List<Vuelo> getVuelos() {
+        return vuelos;
+    }
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "avion")
-//    public Set getVuelos() {
-//        return this.vuelos;
-//    }
-//
-//    public void setVuelos(Set vuelos) {
-//        this.vuelos = vuelos;
-//    }
+    public void setVuelos(List<Vuelo> vuelos) {
+        this.vuelos = vuelos;
+    }
+
+    
 }

@@ -1,13 +1,11 @@
 package com.gt.umg.ing.software.models.entity;
 
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -15,28 +13,26 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sillon",
-        schema = "public"
+         schema = "public"
 )
 public class Sillon implements java.io.Serializable {
 
     private int idSillon;
-    private int avion;
+    private int catalogoAvion;
     private String nombre;
-//    private List<VueloPasajero> vueloPasajeros ;
 
     public Sillon() {
     }
 
-    public Sillon(int idSillon, int avion) {
+    public Sillon(int idSillon, int catalogoAvion) {
         this.idSillon = idSillon;
-        this.avion = avion;
+        this.catalogoAvion = catalogoAvion;
     }
 
-    public Sillon(int idSillon, int avion, String nombre, List<VueloPasajero> vueloPasajeros) {
+    public Sillon(int idSillon, int catalogoAvion, String nombre) {
         this.idSillon = idSillon;
-        this.avion = avion;
+        this.catalogoAvion = catalogoAvion;
         this.nombre = nombre;
-//        this.vueloPasajeros = vueloPasajeros;
     }
 
     @Id
@@ -50,14 +46,14 @@ public class Sillon implements java.io.Serializable {
         this.idSillon = idSillon;
     }
 
-//    @ManyToOne()
+//    @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "id_avion", nullable = false)
-    public int getAvion() {
-        return this.avion;
+    public int getCatalogoAvion() {
+        return this.catalogoAvion;
     }
 
-    public void setAvion(int avion) {
-        this.avion = avion;
+    public void setCatalogoAvion(int catalogoAvion) {
+        this.catalogoAvion = catalogoAvion;
     }
 
     @Column(name = "nombre", length = 45)
@@ -69,12 +65,4 @@ public class Sillon implements java.io.Serializable {
         this.nombre = nombre;
     }
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sillon")
-//    public List<VueloPasajero> getVueloPasajeros() {
-//        return this.vueloPasajeros;
-//    }
-//
-//    public void setVueloPasajeros(List<VueloPasajero> vueloPasajeros) {
-//        this.vueloPasajeros = vueloPasajeros;
-//    }
 }

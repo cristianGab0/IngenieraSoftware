@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -38,8 +39,8 @@ public class Vuelo implements java.io.Serializable {
 //     private Aeropuerto aeropuertoByAeropuertoSalida;
     private int aeropuertoLlegada;
     private int aeropuertoSalida;
-//    private Avion avion;
-    private int avion;
+    private Avion avion;
+//    private int avion;
     private Date fecha_hora_salida;
     private Date fecha_hora_llegada;
     private String estado;
@@ -51,14 +52,14 @@ public class Vuelo implements java.io.Serializable {
     public Vuelo() {
     }
 
-    public Vuelo(int id_vuelo, int aeropuertoByAeropuertoLlegada, int aeropuertoByAeropuertoSalida, int avion) {
+    public Vuelo(int id_vuelo, int aeropuertoByAeropuertoLlegada, int aeropuertoByAeropuertoSalida, Avion avion) {
         this.id_vuelo = id_vuelo;
         this.aeropuertoLlegada = aeropuertoByAeropuertoLlegada;
         this.aeropuertoSalida = aeropuertoByAeropuertoSalida;
         this.avion = avion;
     }
 
-    public Vuelo(int id_vuelo, int aeropuertoByAeropuertoLlegada, int aeropuertoByAeropuertoSalida, int avion, Date fechaHoraSalida, Date fechaHoraLlegada, String estado, Set detalleVuelos, BigDecimal precioEconomica, BigDecimal precioEjecutiva, List<Tripulante> tripulantes, List<VueloPasajero> vueloPasajeros) {
+    public Vuelo(int id_vuelo, int aeropuertoByAeropuertoLlegada, int aeropuertoByAeropuertoSalida, Avion avion, Date fechaHoraSalida, Date fechaHoraLlegada, String estado, Set detalleVuelos, BigDecimal precioEconomica, BigDecimal precioEjecutiva, List<Tripulante> tripulantes, List<VueloPasajero> vueloPasajeros) {
         this.id_vuelo = id_vuelo;
         this.aeropuertoLlegada = aeropuertoByAeropuertoLlegada;
         this.aeropuertoSalida = aeropuertoByAeropuertoSalida;
@@ -103,13 +104,16 @@ public class Vuelo implements java.io.Serializable {
         this.aeropuertoSalida = aeropuertoSalida;
     }
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "id_avion", nullable = false)
-    public int getAvion() {
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumns({
+        @JoinColumn(name = "id_avion", referencedColumnName = "id_avion"),
+        @JoinColumn(name = "id_aerolinea", referencedColumnName = "id_aerolinea")})
+    public Avion getAvion() {
         return this.avion;
     }
 
-    public void setAvion(int avion) {
+    public void setAvion(Avion avion) {
         this.avion = avion;
     }
 
@@ -187,34 +191,4 @@ public class Vuelo implements java.io.Serializable {
         return "Vuelo{" + "id_vuelo=" + id_vuelo + ", aeropuertoLlegada=" + aeropuertoLlegada + ", aeropuertoSalida=" + aeropuertoSalida + ", avion=" + avion + ", fecha_hora_salida=" + fecha_hora_salida + ", fecha_hora_llegada=" + fecha_hora_llegada + ", estado=" + estado + ", precioEconomica=" + precioEconomica + ", precioEjecutiva=" + precioEjecutiva + ", tripulantes=" + tripulantes + ", vueloPasajeros=" + vueloPasajeros + '}';
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 17 * hash + this.id_vuelo;
-        hash = 17 * hash + this.aeropuertoLlegada;
-        hash = 17 * hash + this.aeropuertoSalida;
-        hash = 17 * hash + this.avion;
-        hash = 17 * hash + Objects.hashCode(this.fecha_hora_salida);
-        hash = 17 * hash + Objects.hashCode(this.fecha_hora_llegada);
-        hash = 17 * hash + Objects.hashCode(this.estado);
-        hash = 17 * hash + Objects.hashCode(this.precioEconomica);
-        hash = 17 * hash + Objects.hashCode(this.precioEjecutiva);
-        hash = 17 * hash + Objects.hashCode(this.tripulantes);
-        hash = 17 * hash + Objects.hashCode(this.vueloPasajeros);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Vuelo)) {
-            return false;
-        }
-        Vuelo v = (Vuelo) obj;
-
-        return this.id_vuelo == v.getIdvuelo();
-    }
-    
 }
