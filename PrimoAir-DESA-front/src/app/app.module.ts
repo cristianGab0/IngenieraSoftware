@@ -7,18 +7,24 @@ import { LoginComponent } from './components/login/login.component';
 import { GestorComponentComponent } from './components/gestor-component/gestor-component.component';
 import { CrearPasajeroComponent } from './components/crear-pasajero/crear-pasajero.component';
 import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CreacionVueloComponent } from './components/creacion-vuelo/creacion-vuelo.component';
+import { AgregarPasajeroComponent } from './components/agregar-pasajero/agregar-pasajero.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     GestorComponentComponent,
-    CrearPasajeroComponent
+    CrearPasajeroComponent,
+    CreacionVueloComponent,
+    AgregarPasajeroComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

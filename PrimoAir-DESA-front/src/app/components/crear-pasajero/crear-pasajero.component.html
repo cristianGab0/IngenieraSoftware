@@ -1,78 +1,161 @@
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="well well-sm">
-                <form class="form-horizontal" method="post" style="margin-left: 10vw; margin-right: 10vw;">
-                    <fieldset>
-                        <legend class="text-center header">Crear Usuario</legend>
+                <div>
 
-                        <div class="form-group">
+                    <form (ngSubmit)="onSubmit()" #formCarga="ngForm" class="form-horizontal" method="post"
+                        style="margin-left: 10vw; margin-right: 10vw;">
+                        <fieldset>
+                            <div id="enc">
+                                <span id="encTitle">Crear Usuario</span></div>
 
-                            <div>
-                                <input id="fpasaporte" name="pasaporte"  type="text" placeholder="Número de pasaporte"
-                                    maxlength="15" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
+                            <div class="form-group">
 
-                            <div>
-                                <input id="fnombre" name="Nombre" type="text" placeholder="Nombre Completo"
-                                    class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
-                            <div class="form-control" style="width: 100%; display: flex;">
-                                <div style="width: 49%; color: grey;">Seleccione su fecha de nacimiento</div>
-                                <input id="date" style="width: 49%; border-style:none; text-align: right;" type="date">
-                            </div>
-                        </div>
-                        <div class="form-group"> <!-- State Button -->
-                            
-                            <select placeholder="Nombre Completo"  class="form-control" id="state_id">
-                                <option disabled selected>Nacionalidad</option>
-                                    <option *ngFor="let pais of paises" value={{pais[0]}}>{{pais[1]}} <option>
-                            </select>                    
-                        </div>
+                                <div style="display: flex; flex-direction: row;">
+                                    <input (keyup)="onValidarPasaporte()" style="width: 80%;" id="fpasaporte"
+                                        name="pasaporte" type="number" placeholder="Número de pasaporte" maxlength="15"
+                                        class="form-control" [(ngModel)]="Pasajero.noPasaporte" required>
 
-                        <div class="form-group">
-                            <div>
-                                <input id="email" name="email" type="text" placeholder="Correo Electronico"
-                                    class="form-control">
+                                    <div id="valiPas" *ngIf="!pasaporteVerificado" style="background-color: red;">
+                                        No Valido
+                                    </div>
+                                    <div id="valiPas" *ngIf="pasaporteVerificado"
+                                        style="background-color: greenyellow;">
+                                        Valido
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <div>
+                                    <input id="fnombre" name="Nombre" type="text" placeholder="Nombre Completo"
+                                        maxlength="50" [(ngModel)]="Pasajero.nombreCompleto" class="form-control"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="form-group">
 
-                        <div class="form-group">
-                            <span class="col-md-1 col-md-offset-2 text-center"><i
-                                    class="fa fa-phone-square bigicon"></i></span>
-                            <div class="form-control">
-                                <input style="width: 7%; border-style: none;" id="phone" name="phone" type="text" placeholder="Area" >
-                                <input style="width: 93%; border-style: none;" id="phone" name="phone" type="text" placeholder="Telefono" >
+                                <div class="form-control" style="width: 100%; display: flex;">
+                                    <div style="width: 49%; color: grey;">Seleccione su fecha de nacimiento</div>
+                                    <input name="Fecha" [(ngModel)]="Pasajero.fechaNacimiento"
+                                        style="width: 49%; border-style:none; text-align: right;" type="date" required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
+                            <div class="form-group">
+                                <!-- State Button -->
 
-                            <div>
-                                <input id="fnombre" name="Emergencias" type="text" placeholder="Numero para emergencias completo"
-                                    class="form-control">
+                                <select name="Nacion" [(ngModel)]="Pasajero.paisNacimiento"
+                                    placeholder="Nombre Completo" class="form-control" id="state_id" ngModel required>
+                                    <option disabled selected>Nacionalidad</option>
+                                    <option *ngFor="let pais of paises" value={{pais[0]}}>{{pais[1]}}
+                                    <option>
+                                </select>
                             </div>
-                        </div>
-                        <div class="form-group">
 
-                            <div>
-                                <input id="fnombre" name="Nombre" type="text" placeholder="Direccion"
-                                    class="form-control">
+                            <div class="form-group">
+                                <div>
+                                    <input id="fcorreo" name="Correo" type="text" placeholder="Correo Electronico"
+                                        maxlength="50" [(ngModel)]="Pasajero.correoElectronico" class="form-control"
+                                        required>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <div class="col-md-12 text-center">
-                                <button type="submit" class="btn btn-primary btn-lg">VALIDAR</button>
+                            <div class="form-group">
+
+                                <div class="form-control">
+                                    <input [(ngModel)]="Pasajero.codigoArea" maxlength="3"
+                                        style="width: 7%; border-style: none;" id="phonearea" name="phonearea"
+                                        type="number" placeholder="Area" required>
+                                    <input [(ngModel)]="Pasajero.numeroTelefono" maxlength="8"
+                                        style="width: 93%; border-style: none;" id="phone" name="phone" type="number"
+                                        placeholder="Telefono" required>
+                                </div>
                             </div>
-                        </div>
-                    </fieldset>
-                </form>
+                            <div class="form-group">
+
+                                <div>
+                                    <input maxlength="11" [(ngModel)]="Pasajero.numeroEmergencias" id="fEmergencia"
+                                        name="Emergencias" type="number" placeholder="Numero para emergencias completo"
+                                        class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div>
+                                    <input [(ngModel)]="Pasajero.direccion" maxlength="100" id="fDireccion"
+                                        name="Direccion" type="text" placeholder="Direccion" class="form-control"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div style="display:flex; flex-direction:row ">
+                                    <div style="width: 75%;">
+                                        <input (keyup)="compararClaves()"
+                                            pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/"
+                                            [(ngModel)]="Pasajero.password" placeholder="Contraseña"
+                                            class="form-control" type="password" name="password" id="password">
+                                    </div>
+                                    <div style="width: 25%;">
+                                        <button *ngIf="!verClave" style="width: 100%;" class="btn btn-primary"
+                                            type="button" (click)="mostrarcontrasena()">Mostrar Contraseña</button>
+                                        <button *ngIf="verClave" style="width: 100%;" class="btn btn-primary"
+                                            type="button" (click)="mostrarcontrasena()">Ocultar Contraseña</button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <div style="display:flex; flex-direction:row ">
+                                    <div style="width: 75%;">
+                                        <input (keyup)="compararClaves()"
+                                            pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/"
+                                            [(ngModel)]="contraTemp" placeholder="Confirmar Contraseña"
+                                            class="form-control" type="password" name="password1" id="password1">
+                                    </div>
+                                    <div style="width: 25%;">
+                                        <button *ngIf="!verClave1"
+                                            style="width: 100%;margin-top: 0.1vw; margin-bottom: 0.1vw;"
+                                            class="btn btn-primary" type="button" (click)="mostrarcontrasena1()">Mostrar
+                                            Contraseña</button>
+                                        <button *ngIf="verClave1"
+                                            style="width: 100%; margin-top: 0.1vw; margin-bottom: 0.1vw;"
+                                            class="btn btn-primary" type="button" (click)="mostrarcontrasena1()">Ocultar
+                                            Contraseña</button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12 text-center">
+                                    <button [disabled]="formCarga.invalid && !ClaveValida" type="submit"
+                                        class="btn btn-primary btn-lg">VALIDAR</button>
+                                </div>
+                            </div>
+
+
+                        </fieldset>
+                    </form>
+
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function mostrarContrasena() {
+        var tipo = document.getElementById("password");
+        if (tipo.type == "password") {
+            tipo.type = "text";
+        } else {
+            tipo.type = "password";
+        }
+    }
+</script>
