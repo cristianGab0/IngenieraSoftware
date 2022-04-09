@@ -55,16 +55,15 @@ public class ControllerCrearVuelo {
         aerolinea = aerolinea.stream().peek(a->{
             a.setAeropuertos(new ArrayList());
             a.setAvions(new ArrayList());
-            
         }).collect(Collectors.toList());
         
         return ResponseEntity.ok().body(aerolinea);
     }
 
-    @GetMapping("hayAvionesDisponiblesByAerolinea/{nombreAerolinea}")
+    @GetMapping("hayAvionesDisponiblesByAerolinea/{idAerolinea}")
     @ApiOperation(value = "Valida los aviones y aeropuertos disponibles por aerolinea")
-    public ResponseEntity<?> hayAvionesDisponibles(@PathVariable String nombreAerolinea) {
-        List<IAvionDto> aviones = (List<IAvionDto>) avionService.findAvionesByNombreAerolinea(nombreAerolinea);
+    public ResponseEntity<?> hayAvionesDisponibles(@PathVariable int idAerolinea) {
+        List<IAvionDto> aviones = (List<IAvionDto>) avionService.findAvionesByNombreAerolinea(idAerolinea);
         if (aviones.size() == 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se puede crear un vuelo porque la aerolínea no cuenta con aviones disponibles.");
         }

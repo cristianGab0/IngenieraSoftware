@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class AvionService extends CommonService<Avion, AvionId, AvionRepository> {
 
     @Transactional(readOnly = true)
-    public Iterable<IAvionDto> findAvionesByNombreAerolinea(String nombreAerolinea) {
-        return this.repository.findAvionesByNombreAerolinea(nombreAerolinea);
+    public Iterable<IAvionDto> findAvionesByNombreAerolinea(int idAerolinea) {
+        return this.repository.findAvionesByNombreAerolinea(idAerolinea);
     }
     
     @Transactional(readOnly = true)
