@@ -6,8 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gestor-component.component.css']
 })
 export class GestorComponentComponent implements OnInit {
-  verLogin:boolean=true;
+  verLogin:boolean=false;
   verCrearPasajero=false;
+  verCrearVuelo=false;
+  verReserva=false;
   constructor() { }
 
   ngOnInit(): void {
@@ -15,7 +17,21 @@ export class GestorComponentComponent implements OnInit {
 
   OnVerCrearPasajero(){
     this.verLogin=false;
+    this.verCrearVuelo=false;
     this.verCrearPasajero=true;
+    this.verReserva=false;
+  }
+  OnVerCrearVuelo(){
+    this.verLogin=false;
+    this.verCrearPasajero=false;
+    this.verCrearVuelo=true;
+    this.verReserva=false;
+  }
+  OnVerReserva(){
+    this.verReserva=true;
+    this.verLogin=false;
+    this.verCrearPasajero=false;
+    this.verCrearVuelo=false;
   }
 
 }

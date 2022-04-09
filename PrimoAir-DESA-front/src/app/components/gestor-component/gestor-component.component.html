@@ -1,3 +1,69 @@
-<login *ngIf="verCrearPasajero" (Registro)="OnVerCrearPasajero()"></login>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" style="display: flex; flex-direction: row; align-items: center; padding-left: 4vw;"
+        href="#">
+        <img class="mb-4" src="./assets/Primo air.jpg" style="width: 5vw" class="d-inline-block align-top">
+        Aereopuerto Los Primos
+    </a>
 
-<crear-pasajero *ngIf="verLogin" ></crear-pasajero>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item dropdown">
+                <div class="dropdown">
+
+                    <div ngbDropdown class="dropdown">
+                        <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton1"
+                            aria-expanded="false">
+                            AereoLinea
+                        </button>
+                        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-item" (click)="OnVerCrearVuelo()">Agregar Vuelo</div>
+                           
+                        </div>
+                    </div>
+
+
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <div class="dropdown">
+                    <div ngbDropdown class="dropdown">
+                        <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton1"
+                            aria-expanded="false">
+                            Registrarse
+                        </button>
+                        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <div (click)="OnVerCrearPasajero()" class="dropdown-item" >Crear Usuario Pasajero</div>
+                      
+                        </div>
+                    </div>
+                </div>
+
+            </li>
+            <li class="nav-item dropdown">
+                <div class="dropdown">
+                    <div ngbDropdown class="dropdown">
+                        <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton1"
+                            aria-expanded="false">
+                            Vuelos
+                        </button>
+                        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <div (click)="OnVerReserva()" class="dropdown-item" >Reservar Vuelo</div>
+                      
+                        </div>
+                    </div>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<login *ngIf="verLogin" (Registro)="OnVerCrearPasajero()"></login>
+
+<crear-pasajero *ngIf="verCrearPasajero"></crear-pasajero>
+
+<creacion-vuelo *ngIf="verCrearVuelo"></creacion-vuelo>
+
+<agregar-pasajero *ngIf="verReserva"></agregar-pasajero>

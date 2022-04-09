@@ -4,7 +4,51 @@
     padding: 10px;
 }
 
+#enc{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5vw;
+    border-style: solid;
+    border-width: 1px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #384c60;
+    color: #a88d5b;
+  }
+  #encTitle{
+    color: white;
+  }
+
 .bigicon {
     font-size: 35px;
     color: #36A0FF;
+}
+#valiPas{
+    width: 20%; 
+    border-style: solid; 
+    border-width: 1px; 
+    border-radius: 5px; 
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+#valiPas:hover{
+    width: 19%; 
+    font-size: 1.2vw;
+    border-style: solid; 
+    border-width: 1px; 
+    border-radius: 5px; 
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    text-align: center;
+}
+
+*{
+    font-size: 1.2vw;
 }

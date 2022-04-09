@@ -1,0 +1,127 @@
+<div>
+    <div id="cont">
+
+        <div *ngIf="verAereo">
+            <div id="tab">
+
+                <div id="enc">
+                    <span id="encTitle">Areolinea</span>
+                </div>
+                <div id="fil">
+                    <div id="colu">Seleccione Areolinea</div>
+                    <div id="colu">
+                        <select id="AirSalida" #Aeroli="ngModel" [(ngModel)]="Aereoline" name="Aereolinea" ngModel>
+                            <option *ngFor="let item of Aereo;let indice=index" value={{indice}}>
+                                {{item.nombre}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+
+            </div>
+            <div id="contSig">
+                <button type="button" (click)="getAereopuerto()" id="btnSig">Siguiente</button>
+            </div>
+
+        </div>
+        <div *ngIf="verCrear">
+            <div id="tab">
+
+                <div id="enc">
+                    <span id="encTitle">Datos vuelo</span>
+                </div>
+                <div id="fil">
+                    <div id="colu">Seleccione Areopuerto de Salida</div>
+                    <div id="colu">
+                        <select id="AirSalida">
+                            <option *ngFor="let item of Aereopuertos">
+                                {{item.nombre}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Seleccione Fecha y Hora de Salida</div>
+                    <div id="colu">
+                        <input size="16" id="FechaSalida" #FechaSalida="ngModel" name="FechaSalida" type="date" class="form-control"
+                            id="datetime" ngModel>
+                        <input type="time" #HoraSalida="ngModel" id="HoraSalida" name="HoraSalida" ngModel>
+                       
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Seleccione Areopuerto de Llegada</div>
+                    <div id="colu">
+                        <select id="AirSalida" #AirLLegada="ngModel" ngModel>
+                            <option *ngFor="let item of Aereopuertos">
+                               {{item.nombre}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Seleccione Fecha y Hora de Salida</div>
+                    <div id="colu">
+                        <input size="16" #FechaLLegada="ngModel" id="FechaLLegada" name="FechaLLegada" type="date" class="form-control" ngModel
+                            id="datetime">
+                        <input type="time" id="FechaLLegada" name="FechaLLegada" #FechaLLegada="ngModel" ngModel>
+                    </div>
+                </div>
+            </div>
+            <div id="contSig">
+                <button type="button" (click)="getAviones(HoraSalida.value,HoraSalida.value,FechaLLegada.value,FechaSalida.value)" id="btnSig">Siguiente</button>
+            </div>
+        </div>
+
+        <div *ngIf="verAviones">
+            <div id="tab">
+                <div id="enc">
+                    <span id="encTitle">Ajustes del vuelo</span>
+                </div>
+                <div id="fil">
+                    <div id="colu">Seleccione Avión</div>
+                    <div id="colu">
+                        <select id="AvDisponible">
+                            <option *ngFor="let item of Aviones">
+                                {{item.modelo}}--#ID{{item.idAvion}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Ingrese el costo para la clase economica</div>
+                    <div id="colu">
+                        <input type="number" id="cEco" name="cEco">
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Ingrese el costo para la clase Ejecutiva</div>
+                    <div id="colu">
+                        <input type="number" id="cEco" name="cEco">
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Seleccione el Equipo de tripulantes del vuelo</div>
+                    <div id="colu">
+                        <select id="AvDisponible">
+                            <option>
+                                Equipo 1
+                            </option>
+                            <option>
+                                Equipo 2
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div id="contSig">
+                <button type="button" id="btnSig">Guardar Vuelo</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
