@@ -1,4 +1,5 @@
 package com.gt.umg.ing.software.controller.config;
+
 import org.springframework.stereotype.Component;
 
 import javax.servlet.Filter;
@@ -9,12 +10,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Cors filter allowing cross-domain requests
- * Needed for Heroku deployment
- *
- * @author valeryyakovlev
- */
 @Component
 public class CorsFilter implements Filter {
 

@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -21,45 +23,37 @@ import javax.persistence.Table;
 )
 public class Rol implements java.io.Serializable {
 
-    private int idRol;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(unique = true, length = 20)
     private String nombre;
+    
+    @JsonIgnore()
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
     private List<Usuario> usuarios;
 
-    public Rol() {
+    public int getId() {
+        return id;
     }
 
-    public Rol(int idRol) {
-        this.idRol = idRol;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Rol(int idRol, String nombre, List<Usuario> usuarios) {
-        this.idRol = idRol;
-        this.nombre = nombre;
-        this.usuarios = usuarios;
-    }
-
-    @Id
-
-    @Column(name = "id_rol", unique = true, nullable = false)
-    public int getIdRol() {
-        return this.idRol;
-    }
-
-    public void setIdRol(int idRol) {
-        this.idRol = idRol;
-    }
-
-    @Column(name = "nombre", length = 45)
     public String getNombre() {
-        return this.nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    @JsonIgnore()
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")
+    public Rol(int id) {
+        this.id = id;
+    }
+    
     public List<Usuario> getUsuarios() {
         return this.usuarios;
     }
@@ -67,5 +61,26 @@ public class Rol implements java.io.Serializable {
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
+
+    public Rol(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    public Rol() {
+    }
+
+    public Rol(int id, String nombre, List<Usuario> usuarios) {
+        this.id = id;
+        this.nombre = nombre;
+        this.usuarios = usuarios;
+    }
+    
+    
+    
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
 }

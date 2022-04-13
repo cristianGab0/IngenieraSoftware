@@ -29,10 +29,12 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -41,8 +43,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api
 @RestController()
+@RequestMapping("/agregar-pasajero")
 public class ControllerAgregarPasajero {
-
+    
     @Autowired
     private AeropuertoService aeropuertoService;
 
@@ -52,6 +55,7 @@ public class ControllerAgregarPasajero {
     @Autowired
     private SillonService sillonService;
 
+    @Secured("ROLE_CLIENTE")
     @GetMapping("obtenerAeropuertos")
     @ApiOperation(value = "Obtiene los aeropuertos")
     public ResponseEntity<?> obtenerAeropuertos() {
@@ -64,6 +68,7 @@ public class ControllerAgregarPasajero {
         return ResponseEntity.ok().body(aeropuertos);
     }
 
+    @Secured("ROLE_CLIENTE")
     @PostMapping("obtenerVuelosByAeropuertosFechas")
     @ApiOperation(value = "Obtiene los vuelos segun aeropuertos y fechas de salida y llegada")
     public ResponseEntity<?> obtenerVuelosByAeropuertosFechas(@RequestBody AeropuertoFechasSalidaLLegadaDto dto) {
@@ -95,6 +100,7 @@ public class ControllerAgregarPasajero {
         return ResponseEntity.ok().body(respuestaList);
     }
 
+    @Secured("ROLE_CLIENTE")
     @PostMapping("/obtenerDetalleVuelos")
     public ResponseEntity<?> obtenerDetalleVuelos(@RequestBody List<Integer> vuelos) {
         vuelos = vuelos.stream().distinct().collect(Collectors.toList());
@@ -110,11 +116,13 @@ public class ControllerAgregarPasajero {
         return ResponseEntity.ok().body(respuesta);
     }
 
+    @Secured("ROLE_CLIENTE")
     @GetMapping("obtenerSillonesDiponiblesByVuelo/{idVuelo}")
     public ResponseEntity<?> findSillonesDisponiblesByVuelo(@PathVariable Integer idVuelo) {
         return ResponseEntity.ok().body(sillonService.findSillonesDisponiblesByVuelo(idVuelo));
     }
 
+    @Secured("ROLE_CLIENTE")
     @PostMapping("validarVuelosUsuario/{idUsuario}")
     public ResponseEntity<?> getTieneVuelosUsuario(@PathVariable Long idUsuario, @RequestBody FechasDto fechas) {
         int cantidadVuelos = this.vueloService.getTieneVuelosUsuario(fechas.getFechaHoraSalida(), fechas.getFechaHoraLlegada(), idUsuario);
@@ -126,6 +134,7 @@ public class ControllerAgregarPasajero {
         }
     }
 
+    @Secured("ROLE_CLIENTE")
     @PostMapping("agregarPasajeroVuelo/{pasaporte}")
     public ResponseEntity<?> agregarPasajeroVuelo(@RequestBody AgregarVueloPasajeroDto dto, @PathVariable Long pasaporte) {
         try {

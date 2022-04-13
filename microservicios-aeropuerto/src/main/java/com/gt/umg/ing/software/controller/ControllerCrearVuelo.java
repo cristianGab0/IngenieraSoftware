@@ -19,10 +19,12 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -31,8 +33,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api
 @RestController()
+@RequestMapping("/crear-vuelo")
 public class ControllerCrearVuelo {
-
+    
     @Autowired
     private AvionService avionService;
 
@@ -48,6 +51,7 @@ public class ControllerCrearVuelo {
     @Autowired
     private AerolineaService aerolineaService;
 
+    @Secured("ROLE_ADMIN_AEROLINEA")
     @GetMapping("obtenerAerolineas")
     public ResponseEntity<?> getAerolineas() {
         List<Aerolinea> aerolinea =(List<Aerolinea>) aerolineaService.findAll();
@@ -60,6 +64,7 @@ public class ControllerCrearVuelo {
         return ResponseEntity.ok().body(aerolinea);
     }
 
+    @Secured("ROLE_ADMIN_AEROLINEA")
     @GetMapping("hayAvionesDisponiblesByAerolinea/{idAerolinea}")
     @ApiOperation(value = "Valida los aviones y aeropuertos disponibles por aerolinea")
     public ResponseEntity<?> hayAvionesDisponibles(@PathVariable int idAerolinea) {
@@ -77,6 +82,7 @@ public class ControllerCrearVuelo {
         return ResponseEntity.ok().body(aeropuertos);
     }
 
+    @Secured("ROLE_ADMIN_AEROLINEA")
     @PostMapping("obtenerAvionesPorFechaHora/{idAerolinea}")
     @ApiOperation(value = "Obtiene los aviones disponibles de una aerolinea segun horarios de vuelo")
     public ResponseEntity<?> obtenerAvionesDisponiblesPorFechaHora(
@@ -89,6 +95,7 @@ public class ControllerCrearVuelo {
         return ResponseEntity.ok().body(aviones);
     }
 
+    @Secured("ROLE_ADMIN_AEROLINEA")
     @PostMapping("obtenerTripulantesPorFechaHora")
     @ApiOperation(value = "Obtiene los aviones disponibles de una aerolinea segun horarios de vuelo")
     public ResponseEntity<?> findTripulantesByFechaHora(@RequestBody FechasDto fechas) {
@@ -124,6 +131,7 @@ public class ControllerCrearVuelo {
         return ResponseEntity.ok().body(tripulantes);
     }
 
+    @Secured("ROLE_ADMIN_AEROLINEA")
     @PostMapping("crearVuelo")
     @ApiOperation(value = "Crea Nuevo Vuelo")
     public ResponseEntity<?> crearVuelo(@RequestBody Vuelo dto) {

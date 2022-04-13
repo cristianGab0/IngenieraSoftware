@@ -1,8 +1,8 @@
 package com.gt.umg.ing.software.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gt.umg.ing.software.models.entity.Pasajero;
 import com.gt.umg.ing.software.models.entity.Usuario;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.validation.constraints.Email;
@@ -49,13 +49,18 @@ public class UsuarioDto {
     @NotEmpty(message = "ID debe ser un número de 20 dígitos")
     private String direccion;
 
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,16}$",message= "El formato de la contraseña debe incluir al menos una letra mayúscula, un carácter especial y un número")
+    @Pattern(regexp = "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,16}$", message = "El formato de la contraseña debe incluir al menos una letra mayúscula, un carácter especial y un número")
     private String password;
+
+    private Boolean enabled;
+
+    @Size(min = 5, max = 10, message = "El usuario debe ser de 5 a 10 letras")
+    private String username;
 
     public UsuarioDto() {
     }
 
-    public UsuarioDto(Long noPasaporte, String nombreCompleto, Date fechaNacimiento, String paisNacimiento, String correoElectronico, Integer codigoArea, int numeroTelefono, int numeroEmergencias, String direccion, String password) {
+    public UsuarioDto(Long noPasaporte, String nombreCompleto, Date fechaNacimiento, String paisNacimiento, String correoElectronico, int codigoArea, int numeroTelefono, int numeroEmergencias, String direccion, String password, Boolean enabled, String username) {
         this.noPasaporte = noPasaporte;
         this.nombreCompleto = nombreCompleto;
         this.fechaNacimiento = fechaNacimiento;
@@ -66,6 +71,8 @@ public class UsuarioDto {
         this.numeroEmergencias = numeroEmergencias;
         this.direccion = direccion;
         this.password = password;
+        this.enabled = enabled;
+        this.username = username;
     }
 
     public Usuario usuarioDtoToUsuario() {
@@ -73,22 +80,30 @@ public class UsuarioDto {
         user.setEmail(this.getCorreoElectronico());
         user.setNombre(this.getNombreCompleto());
         user.setPassword(this.getPassword());
-        user.setUsuario(this.getDireccion());
+        user.setUsername(this.getUsername());
+        user.setEnabled(this.getEnabled());
         return user;
     }
-    
+
     public Pasajero usuarioDtoToPasajero(){
         Pasajero pasajero = new Pasajero();
         pasajero.setCodigoAera(this.getCodigoArea());
         pasajero.setCorreoElectronico(this.getCorreoElectronico());
         pasajero.setDireccion(this.getDireccion());
-        pasajero.setFechaNacimiento(this.getFechaNacimiento());
+        pasajero.setFechaNacimiento(sumarDiasAFecha(this.getFechaNacimiento()));
         pasajero.setNoPasaporte(this.getNoPasaporte());
         pasajero.setNombre(this.getNombreCompleto());
         pasajero.setNumeroEmergencia(this.getNumeroEmergencias());
         pasajero.setNumeroTelefono(this.getNumeroTelefono());
         pasajero.setPaisNacimiento(this.getPaisNacimiento());
         return pasajero;
+    }
+
+    public static Date sumarDiasAFecha(Date fecha) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        return calendar.getTime();
     }
 
     public Long getNoPasaporte() {
@@ -98,7 +113,7 @@ public class UsuarioDto {
     public void setNoPasaporte(Long noPasaporte) {
         this.noPasaporte = noPasaporte;
     }
-
+     
     public String getNombreCompleto() {
         return nombreCompleto;
     }
@@ -169,6 +184,22 @@ public class UsuarioDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 }

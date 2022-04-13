@@ -25,9 +25,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,10 +37,11 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Cristian
  */
-@Api
-@RestController
+@Api(tags = "Abordaje " )
+@RestController()
+@RequestMapping("/abordaje")
 public class ControllerAbordar {
-
+    
     @Autowired
     private VueloService vueloService;
 
@@ -51,9 +54,10 @@ public class ControllerAbordar {
     @Autowired
     private VueloPasajeroService vueloPasajeroService;
 
-    @GetMapping("obtenerVuelosAbordar/{usuario}")
-    public ResponseEntity<?> getVuelosAbordar(@PathVariable String usuario) {
-        Optional<Aerolinea> aerolineaBd = aerolineaService.getAerolineaPorUsuario(usuario);
+    @Secured("ROLE_ADMIN_ABORDAJE")
+    @GetMapping("obtenerVuelosAbordar/{idAerolinea}")
+    public ResponseEntity<?> getVuelosAbordar(@PathVariable int idAerolinea) {
+        Optional<Aerolinea> aerolineaBd = aerolineaService.findById(idAerolinea);
 
         if (aerolineaBd.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No tiene una aerolínea asignada.");
@@ -87,6 +91,7 @@ public class ControllerAbordar {
         return ResponseEntity.ok().body(vuelosResp);
     }
 
+    @Secured("ROLE_ADMIN_ABORDAJE")
     @GetMapping("validarPasaporteVuelo/{noPasaporte}/{idVuelo}")
     public ResponseEntity<?> validarPasaporteVuelo(@PathVariable Long noPasaporte, @PathVariable Integer idVuelo) {
         boolean perteneceAlVuelo = vueloPasajeroService.validarPasaporteVuelo(noPasaporte, idVuelo);
@@ -94,6 +99,7 @@ public class ControllerAbordar {
         return ResponseEntity.ok().body(perteneceAlVuelo);
     }
 
+    @Secured("ROLE_ADMIN_ABORDAJE")
     @PutMapping("abordarPasajero/{noPasaporte}/{idVuelo}")
     public ResponseEntity<?> abordarPasajero(@PathVariable Long noPasaporte, @PathVariable Integer idVuelo, @RequestParam AbordarPasajeroDto dto) {
         Optional<VueloPasajero> vp = vueloPasajeroService.findById(new VueloPasajeroId(idVuelo, noPasaporte));
@@ -111,6 +117,7 @@ public class ControllerAbordar {
         return ResponseEntity.ok().body(respuesta);
     }
 
+    @Secured("ROLE_ADMIN_ABORDAJE")
     @PutMapping("finalizarAbordaje/{idVuelo}")
     public ResponseEntity<?> finalizarAbordaje(@PathVariable Integer idVuelo) {
         List<VueloPasajero> vpBD = (List<VueloPasajero>) vueloPasajeroService.getBoletosSinAbordar(idVuelo);

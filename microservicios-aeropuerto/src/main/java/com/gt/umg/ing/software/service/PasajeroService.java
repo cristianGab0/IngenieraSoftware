@@ -15,6 +15,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,16 +29,19 @@ public class PasajeroService extends CommonService<Pasajero, Long, PasajeroRepos
     @Autowired
     private UsuarioService usuarioService;
 
-    @Transactional(readOnly = false, rollbackFor = Throwable.class)
-    public ResponseEntity<?> crearUsuarioPersonaje(UsuarioDto usuario) {
-        try {
-            Usuario userDb=usuario.usuarioDtoToUsuario();
-            Pasajero pasajeroDb=usuario.usuarioDtoToPasajero();
-            
-            List<Rol> roles = new ArrayList<>();
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
+    @Transactional(readOnly = false, rollbackFor = Throwable.class)
+    public ResponseEntity<?> crearUsuarioPasajero(UsuarioDto usuario) {
+        try {
+            Usuario userDb = usuario.usuarioDtoToUsuario();
+            Pasajero pasajeroDb = usuario.usuarioDtoToPasajero();
+
+            userDb.setPassword(passwordEncoder.encode(userDb.getPassword()));
+            List<Rol> roles = new ArrayList<>();
             roles.add(new Rol(2));
-            userDb.setRols(roles);
+            userDb.setRoles(roles);
             
             
             usuarioService.save(userDb);

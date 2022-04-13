@@ -14,19 +14,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 //@EnableWebMvc
 
-public class MicroservicioAeropuertoApplication  {
+public class MicroservicioAeropuertoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MicroservicioAeropuertoApplication.class, args);
     }
-    
+
 //    @Bean
 //    @Override
 //    public void addCorsMappings(CorsRegistry corsRegistry) {
 //        corsRegistry.addMapping("/**")
 //                .allowedOrigins("*");
 //    }
-
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
