@@ -52,4 +52,7 @@ public class PasajeroService extends CommonService<Pasajero, Long, PasajeroRepos
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    public Iterable<Pasajero> obtenerPasajerosByVuelo(int idVuelo){
+        return this.repository.obtenerPasajerosByVuelo(idVuelo);
+    }
 }

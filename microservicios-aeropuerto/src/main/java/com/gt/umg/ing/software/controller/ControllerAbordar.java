@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "Abordaje " )
 @RestController()
-@RequestMapping("/abordaje")
+//@RequestMapping("/abordaje")
 public class ControllerAbordar {
     
     @Autowired
@@ -54,7 +54,7 @@ public class ControllerAbordar {
     @Autowired
     private VueloPasajeroService vueloPasajeroService;
 
-    @Secured("ROLE_ADMIN_ABORDAJE")
+//    @Secured("ROLE_ADMIN_ABORDAJE")
     @GetMapping("obtenerVuelosAbordar/{idAerolinea}")
     public ResponseEntity<?> getVuelosAbordar(@PathVariable int idAerolinea) {
         Optional<Aerolinea> aerolineaBd = aerolineaService.findById(idAerolinea);
@@ -91,7 +91,7 @@ public class ControllerAbordar {
         return ResponseEntity.ok().body(vuelosResp);
     }
 
-    @Secured("ROLE_ADMIN_ABORDAJE")
+//    @Secured("ROLE_ADMIN_ABORDAJE")
     @GetMapping("validarPasaporteVuelo/{noPasaporte}/{idVuelo}")
     public ResponseEntity<?> validarPasaporteVuelo(@PathVariable Long noPasaporte, @PathVariable Integer idVuelo) {
         boolean perteneceAlVuelo = vueloPasajeroService.validarPasaporteVuelo(noPasaporte, idVuelo);
@@ -99,7 +99,7 @@ public class ControllerAbordar {
         return ResponseEntity.ok().body(perteneceAlVuelo);
     }
 
-    @Secured("ROLE_ADMIN_ABORDAJE")
+//    @Secured("ROLE_ADMIN_ABORDAJE")
     @PutMapping("abordarPasajero/{noPasaporte}/{idVuelo}")
     public ResponseEntity<?> abordarPasajero(@PathVariable Long noPasaporte, @PathVariable Integer idVuelo, @RequestParam AbordarPasajeroDto dto) {
         Optional<VueloPasajero> vp = vueloPasajeroService.findById(new VueloPasajeroId(idVuelo, noPasaporte));
@@ -117,7 +117,7 @@ public class ControllerAbordar {
         return ResponseEntity.ok().body(respuesta);
     }
 
-    @Secured("ROLE_ADMIN_ABORDAJE")
+//    @Secured("ROLE_ADMIN_ABORDAJE")
     @PutMapping("finalizarAbordaje/{idVuelo}")
     public ResponseEntity<?> finalizarAbordaje(@PathVariable Integer idVuelo) {
         List<VueloPasajero> vpBD = (List<VueloPasajero>) vueloPasajeroService.getBoletosSinAbordar(idVuelo);

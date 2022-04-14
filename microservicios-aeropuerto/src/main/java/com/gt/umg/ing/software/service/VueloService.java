@@ -6,9 +6,12 @@
 package com.gt.umg.ing.software.service;
 
 import com.gt.umg.ing.software.dto.request.VuelosResumenDto;
+import com.gt.umg.ing.software.dto.response.IRepoListadoVuelos;
 import com.gt.umg.ing.software.models.entity.Vuelo;
 import com.gt.umg.ing.software.models.repository.VueloRepository;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -17,6 +20,8 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +33,7 @@ import org.springframework.stereotype.Service;
 public class VueloService extends CommonService<Vuelo, Integer, VueloRepository> {
 
     public Iterable<Vuelo> getVuelosFechaInicial(Date fecha) {
-        return this.repository.getVuelosFechaInicial(fecha);
+        return this.repository.getVuelosFechaInicial(fecha.toGMTString());
     }
 
     public List<Vuelo> limpiarLista(List<Vuelo> vuelosInicial, List<Vuelo> vuelosFinales) {
@@ -75,23 +80,30 @@ public class VueloService extends CommonService<Vuelo, Integer, VueloRepository>
         return respuestaList;
     }
 
-    
-    public int getTieneVuelosUsuario(Date fechaSalida,Date fechaLlegada, Long idUsuario){
-        return this.repository.getTieneVuelosUsuario(idUsuario , fechaSalida, fechaLlegada );
+    public int getTieneVuelosUsuario(Date fechaSalida, Date fechaLlegada, Long idUsuario) {
+        return this.repository.getTieneVuelosUsuario(idUsuario, fechaSalida.toGMTString(), fechaLlegada.toGMTString());
     }
-    
-    public Iterable<Vuelo> getVuelosAbordar(Integer idAerolinea){
+
+    public Iterable<Vuelo> getVuelosAbordar(Integer idAerolinea) {
         return this.repository.getVuelosAbordar(idAerolinea);
     }
-        
-    public String obtenerTiempoTotal(Date fechaHoraSalida, Date fechaHoraLlegada) {        
+
+    public Iterable<IRepoListadoVuelos> getVuelosByFechaHoraSalidaLlegada(Date fechaSalida, Date fechaLlegada) throws ParseException {
+        return this.repository.getVuelosByFechaHoraSalidaLlegada(fechaSalida.toGMTString(), fechaLlegada.toGMTString());
+    }
+
+    public Optional<IRepoListadoVuelos> getDetalleVuelo(int idVuelo){
+        return this.repository.getDetalleVuelo(idVuelo);
+    }
+    
+    public String obtenerTiempoTotal(Date fechaHoraSalida, Date fechaHoraLlegada) {
         long dif = fechaHoraLlegada.getTime() - fechaHoraSalida.getTime();
         long diffHoras = (dif / (1000 * 60 * 60)) % 24;
         long diffSegundos = (dif / 1000) % 60;
         long diffMinitos = (dif / (1000 * 60)) % 60;
         return diffHoras + " horas, " + diffMinitos + " minutos, " + diffSegundos + " segundos";
     }
-    
+
     public List<Vuelo> armarEscalas(List<Vuelo> vuelosBd, Long aeropuertoSalida, Long aeropuertoLlegada) {
         List<Vuelo> vuelosSalida = vuelosBd.stream()
                 .filter(v -> v.getAeropuertoSalida() == aeropuertoSalida)

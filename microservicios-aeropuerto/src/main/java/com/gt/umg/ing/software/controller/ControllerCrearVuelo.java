@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api
 @RestController()
-@RequestMapping("/crear-vuelo")
+//@RequestMapping("/crear-vuelo")
 public class ControllerCrearVuelo {
     
     @Autowired
@@ -51,7 +51,7 @@ public class ControllerCrearVuelo {
     @Autowired
     private AerolineaService aerolineaService;
 
-    @Secured("ROLE_ADMIN_AEROLINEA")
+//    @Secured("ROLE_ADMIN_AEROLINEA")
     @GetMapping("obtenerAerolineas")
     public ResponseEntity<?> getAerolineas() {
         List<Aerolinea> aerolinea =(List<Aerolinea>) aerolineaService.findAll();
@@ -64,7 +64,7 @@ public class ControllerCrearVuelo {
         return ResponseEntity.ok().body(aerolinea);
     }
 
-    @Secured("ROLE_ADMIN_AEROLINEA")
+//    @Secured("ROLE_ADMIN_AEROLINEA")
     @GetMapping("hayAvionesDisponiblesByAerolinea/{idAerolinea}")
     @ApiOperation(value = "Valida los aviones y aeropuertos disponibles por aerolinea")
     public ResponseEntity<?> hayAvionesDisponibles(@PathVariable int idAerolinea) {
@@ -82,7 +82,7 @@ public class ControllerCrearVuelo {
         return ResponseEntity.ok().body(aeropuertos);
     }
 
-    @Secured("ROLE_ADMIN_AEROLINEA")
+//    @Secured("ROLE_ADMIN_AEROLINEA")
     @PostMapping("obtenerAvionesPorFechaHora/{idAerolinea}")
     @ApiOperation(value = "Obtiene los aviones disponibles de una aerolinea segun horarios de vuelo")
     public ResponseEntity<?> obtenerAvionesDisponiblesPorFechaHora(
@@ -95,7 +95,7 @@ public class ControllerCrearVuelo {
         return ResponseEntity.ok().body(aviones);
     }
 
-    @Secured("ROLE_ADMIN_AEROLINEA")
+//    @Secured("ROLE_ADMIN_AEROLINEA")
     @PostMapping("obtenerTripulantesPorFechaHora")
     @ApiOperation(value = "Obtiene los aviones disponibles de una aerolinea segun horarios de vuelo")
     public ResponseEntity<?> findTripulantesByFechaHora(@RequestBody FechasDto fechas) {
@@ -118,7 +118,7 @@ public class ControllerCrearVuelo {
                     case "Ingeniero de vuelo":
                         contadorIng++;
                         break;
-                    case "Tripulante de Cabina":
+                    case "Tripulante de cabina":
                         contadorTripulante++;
                         break;
                 }
@@ -131,7 +131,7 @@ public class ControllerCrearVuelo {
         return ResponseEntity.ok().body(tripulantes);
     }
 
-    @Secured("ROLE_ADMIN_AEROLINEA")
+//    @Secured("ROLE_ADMIN_AEROLINEA")
     @PostMapping("crearVuelo")
     @ApiOperation(value = "Crea Nuevo Vuelo")
     public ResponseEntity<?> crearVuelo(@RequestBody Vuelo dto) {

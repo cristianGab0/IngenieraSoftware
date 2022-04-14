@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api
 @RestController()
-@RequestMapping("/usuario")
+//@RequestMapping("/usuario")
 public class ControllerUsuarioPasajero {
 //
     @Autowired

@@ -5,6 +5,7 @@
  */
 package com.gt.umg.ing.software.service;
 
+import com.gt.umg.ing.software.dto.response.IRepoEquipaje;
 import com.gt.umg.ing.software.models.entity.VueloPasajero;
 import com.gt.umg.ing.software.models.entity.VueloPasajeroId;
 import com.gt.umg.ing.software.models.repository.VueloPasajeroRepository;
@@ -29,5 +30,9 @@ public class VueloPasajeroService extends CommonService<VueloPasajero, VueloPasa
     
     public void saveAll(List<VueloPasajero> vp){
         this.repository.saveAll(vp);
+    }
+    
+    public Iterable<IRepoEquipaje> getDetalleVueloPasajero(Integer idVuelo){
+     return this.repository.getDetalleVueloPasajero(idVuelo);
     }
 }
