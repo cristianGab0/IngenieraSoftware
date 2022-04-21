@@ -92,3 +92,45 @@
     background-color: #384c60; 
     color: white
   }
+
+  #filaCabina{
+    display: flex;
+    flex-direction: row;
+    border-style: solid;
+    border-width: 1px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #silla{
+    font-size: 4vw;
+  }
+  #asiento{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .fIzq{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 1vw;
+    line-height: 1;
+    border-style: solid;
+    width: 5vw;
+    height: 6vw;
+  }
+  
+  .fDer{
+    position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 1vw;
+    line-height: 1;
+    border-style: solid;
+    width: 5vw;
+    height: 6vw;
+  }

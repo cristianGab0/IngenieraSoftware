@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreacionVueloComponent } from './components/creacion-vuelo/creacion-vuelo.component';
 import { AgregarPasajeroComponent } from './components/agregar-pasajero/agregar-pasajero.component';
+import { CrearTripulacionComponent } from './components/crear-tripulacion/crear-tripulacion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +18,8 @@ import { AgregarPasajeroComponent } from './components/agregar-pasajero/agregar-
     GestorComponentComponent,
     CrearPasajeroComponent,
     CreacionVueloComponent,
-    AgregarPasajeroComponent
+    AgregarPasajeroComponent,
+    CrearTripulacionComponent
   ],
   imports: [
     BrowserModule,

@@ -6,9 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gestor-component.component.css']
 })
 export class GestorComponentComponent implements OnInit {
-  verLogin:boolean=false;
+  verLogin:boolean=true;
   verCrearPasajero=false;
   verCrearVuelo=false;
+  verCrearTripu=false;
   verReserva=false;
   constructor() { }
 
@@ -20,18 +21,28 @@ export class GestorComponentComponent implements OnInit {
     this.verCrearVuelo=false;
     this.verCrearPasajero=true;
     this.verReserva=false;
+    this.verCrearTripu=false;
   }
   OnVerCrearVuelo(){
     this.verLogin=false;
     this.verCrearPasajero=false;
     this.verCrearVuelo=true;
     this.verReserva=false;
+    this.verCrearTripu=false;
   }
   OnVerReserva(){
     this.verReserva=true;
     this.verLogin=false;
     this.verCrearPasajero=false;
     this.verCrearVuelo=false;
+    this.verCrearTripu=false;
+  }
+  OnVerCrearTripu(){
+    this.verReserva=false;
+    this.verLogin=false;
+    this.verCrearPasajero=false;
+    this.verCrearVuelo=false;
+    this.verCrearTripu=true;
   }
 
 }

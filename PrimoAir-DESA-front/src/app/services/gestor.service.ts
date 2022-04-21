@@ -24,7 +24,16 @@ export class GestorService {
   getAviones(Aereolinea:any,data:any){
     return this.ConectionService.getAviones(Aereolinea,data);
   }
+  getTripulantes(data:any){
+    return this.ConectionService.getTripulantes(data);
+  }
   getAereopuerto(Aereolinea:any){
     return this.ConectionService.getAereopuerto(Aereolinea);
+  }
+
+
+  registrarVuelo(vuelo:any){
+    console.log(JSON.stringify(vuelo))
+    return this.ConectionService.registrarVuelo(vuelo);
   }
 }
