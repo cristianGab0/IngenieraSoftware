@@ -1,7 +1,7 @@
 <div>
     <div id="cont">
 
-        <div>
+        <div *ngIf="verReserva">
             <div id="tab">
                 <div id="enc">
                     <span id="encTitle">Reservación Vuelo</span>
@@ -9,45 +9,42 @@
                 <div id="fil">
                     <div id="colu">Seleccione el Aerepuerto de salida</div>
                     <div id="colu">
-                        <select class="ful">
-                            <option>
-                                Aereopuerto 1
-                            </option>
-                            <option>
-                                Aereopuerto 2
+
+                        <select class="ful" id="AirSalida" name="AirSalida" #AirSalida="ngModel" ngModel>
+                            <option *ngFor="let item of Aereopuertos;let indice=index" value="{{indice}}">
+                                {{item.nombre}}
                             </option>
                         </select>
+
                     </div>
                 </div>
                 <div id="fil">
                     <div id="colu">Seleccione el Aerepuerto a donde desea llegar</div>
                     <div id="colu">
-                        <select class="ful">
-                            <option>
-                                Aereopuerto 1
-                            </option>
-                            <option>
-                                Aereopuerto 2
+                        <select class="ful" id="AirSalida" name="AirLlegada" #AirLLegada="ngModel" ngModel>
+                            <option *ngFor="let item of Aereopuertos;let indice=index" value="{{indice}}">
+                                {{item.nombre}}
                             </option>
                         </select>
+
                     </div>
                 </div>
                 <div id="fil">
-                    <div id="colu">Seleccione Fecha en que viajaraa</div>
+                    <div id="colu">Seleccione Fecha en que viajara</div>
                     <div id="colu">
-                        <input size="16" id="FechaLLegada" name="FechaLLegada" type="date" class="form-control"
-                            id="datetime">
+                        <input size="16" id="FechaLLegada" name="FechaLLegada" #FechaLLegada="ngModel" type="date" class="form-control"
+                            id="datetime" ngModel>
 
                     </div>
                 </div>
 
             </div>
             <div id="contSig">
-                <button type="button" id="btnSig">Buscar Vuelos Disponibles</button>
+                <button type="button" (click)="getVuelos(AirLLegada.value,AirSalida.value,FechaLLegada.value)" id="btnSig">Buscar Vuelos Disponibles</button>
             </div>
 
         </div>
-        <div>
+        <div *ngIf="verVuelos">
             <div id="tab">
                 <div id="enc">
                     <span id="encTitle">Seleccione uno de nuestros vuelos disponibles</span>
@@ -60,20 +57,20 @@
                     <div id="colu1">Precio Clase Ejecutiva</div>
                     <div id="colu1">Opciones</div>
                 </div>
-                <div id="dataRow">
-                    <div id="data">12/12/12</div>
-                    <div id="data">11/11/11</div>
-                    <div id="data">2:30 hrs</div>
-                    <div id="data">Q1000.00</div>
-                    <div id="data">Q2000.00</div>
+                <div id="dataRow" *ngFor="let item of Vuelos">
+                    <div id="data">{{item.fechaHoraSalida}}</div>
+                    <div id="data">{{item.fechaHoraLlegada}}</div>
+                    <div id="data">{{item.tiempoTotal}}</div>
+                    <div id="data">Q{{item.precioEconomica}}</div>
+                    <div id="data">Q{{item.precioEjecutiva}}</div>
 
                     <div id="data">
                         <button class="btnPeques" type="button">Ver</button>
-                        <button class="btnPeques" type="button">Seleccionar</button>
+                        <button class="btnPeques" type="button" (click)="setVuelo(item)" >Seleccionar</button>
 
                     </div>
                 </div>
-                <div>
+                <div *ngIf="verClase">
                     <div id="tab">
                         <div id="enc">
                             <span id="encTitle">Seleccione la clase en que viajara</span>
@@ -81,11 +78,11 @@
                         <div id="fil">
                             <div id="colu">Clase en que desea viajar</div>
                             <div id="colu">
-                                <select class="ful">
-                                    <option>
+                                <select class="ful" (change)="setClase(ClaseV.value)" name="ClaseV" #ClaseV="ngModel" ngModel>
+                                    <option value="Economica">
                                         Economica
                                     </option>
-                                    <option>
+                                    <option value="Ejecutiva">
                                         Ejecutiva
 
                                     </option>
@@ -97,7 +94,7 @@
                         </div>
                     </div>
                 </div>
-                <div>
+                <div *ngIf="verAsientos">
                     <div id="tab">
                         <div id="enc">
                             <span id="encTitle">Seleccione el asiento que desee</span>
@@ -106,27 +103,27 @@
                             <div id="filaCabina" *ngFor="let item of array2;let indice1=index">
                                 <div id="asiento" *ngFor="let item1 of item;let indice=index">
                                     <div *ngIf="indice<=2" class="fIzq">
-                                        F{{indice1+1}}A{{indice+1}}
-                                        <span *ngIf="item1==true" style="color:black" id="silla"
+                                        {{item1.nombre}}
+                                        <span *ngIf="item1.estado==true" style="color:black" id="silla"
                                             class="material-icons-outlined">
                                             event_seat
                                         </span>
 
-                                        <span *ngIf="item1==false" style="color:red" id="silla"
+                                        <span *ngIf="item1.estado==false" style="color:red" id="silla"
                                             class="material-icons-outlined">
                                             event_seat
                                         </span>
-                                       
+
                                     </div>
-                                    <span *ngIf="indice==2" >------------</span>
+                                    <span *ngIf="indice==2">------------</span>
                                     <div *ngIf="indice>2" class="fDer">
-                                        F{{indice1+1}}A{{indice+1}}
-                                        <span *ngIf="item1==true" style="color:black" id="silla"
+                                        {{item1.nombre}}
+                                        <span *ngIf="item1.estado==true" style="color:black" id="silla"
                                             class="material-icons-outlined">
                                             event_seat
                                         </span>
 
-                                        <span *ngIf="item1==false" style="color:red" id="silla"
+                                        <span *ngIf="item1.estado==false" style="color:red" id="silla"
                                             class="material-icons-outlined">
                                             event_seat
                                         </span>

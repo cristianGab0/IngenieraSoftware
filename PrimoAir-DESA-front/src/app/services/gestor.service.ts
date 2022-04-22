@@ -27,13 +27,19 @@ export class GestorService {
   getTripulantes(data:any){
     return this.ConectionService.getTripulantes(data);
   }
-  getAereopuerto(Aereolinea:any){
-    return this.ConectionService.getAereopuerto(Aereolinea);
+  getAereopuerto(Aereolinea:any,Tipo:any){
+    return this.ConectionService.getAereopuerto(Aereolinea,Tipo);
   }
 
 
   registrarVuelo(vuelo:any){
     console.log(JSON.stringify(vuelo))
     return this.ConectionService.registrarVuelo(vuelo);
+  }
+  getVuelos(data:any){
+    return this.ConectionService.getVuelos(data);
+  }
+  getSillones(id:any){
+    return this.ConectionService.getSillones(id);
   }
 }

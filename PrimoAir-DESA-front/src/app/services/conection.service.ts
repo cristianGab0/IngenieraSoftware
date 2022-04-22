@@ -16,6 +16,9 @@ export class ConectionService {
   urlavionesHora='https://ms-aeropuerto-primos.herokuapp.com/obtenerAvionesPorFechaHora/';
   urlObtenerTripu='https://ms-aeropuerto-primos.herokuapp.com/obtenerTripulantesPorFechaHora';
   urlCrearVuelo='https://ms-aeropuerto-primos.herokuapp.com/crearVuelo';
+  urlAereopuertosFull='https://ms-aeropuerto-primos.herokuapp.com/obtenerAeropuertos';
+  urlVuelos='https://ms-aeropuerto-primos.herokuapp.com/obtenerVuelosByAeropuertosFechas';
+  urlSillones='https://ms-aeropuerto-primos.herokuapp.com/obtenerSillonesDiponiblesByVuelo/'
   getPaises(){
     let HTTPOptions: Object = {
       headers: new HttpHeaders({
@@ -33,7 +36,7 @@ export class ConectionService {
       responseType: 'json',
     };
     return this.httpClient.get<boolean>(this.urlVerificaPasaporte+pasaporte);
-  }
+  } 
 
   RegistrarUsuario(pasajero:CrearPasajero){
     let HTTPOptions: Object = {
@@ -74,15 +77,20 @@ export class ConectionService {
     };
     return this.httpClient.post<string>(this.urlObtenerTripu,data, HTTPOptions);
   }
-  getAereopuerto(Aereolinea:any){
+  getAereopuerto(Aereolinea:any,tipo:any){
     let HTTPOptions: Object = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
       responseType: 'json',
     };
+    if(tipo==1){
     return this.httpClient.get<string>(this.urlAvionesDisponibles+Aereolinea, this.httpOptions);
+  }else{
+    return this.httpClient.get<string>(this.urlAereopuertosFull, this.httpOptions);
   }
+  }
+  
 
   registrarVuelo(vuelo:any){
     let HTTPOptions: Object = {
@@ -93,6 +101,26 @@ export class ConectionService {
     };
     console.log('Lanzando peticion')
     return this.httpClient.post(this.urlCrearVuelo,vuelo,this.httpOptions);
+  }
+
+  getVuelos(data:any){
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'json',
+    };
+    return this.httpClient.post<string>(this.urlVuelos,data, HTTPOptions);
+  }
+
+  getSillones(id:any){
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'json',
+    };
+    return this.httpClient.get<string>(this.urlSillones+id, HTTPOptions);
   }
 
 

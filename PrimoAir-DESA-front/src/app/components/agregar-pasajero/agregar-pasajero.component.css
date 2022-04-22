@@ -92,7 +92,13 @@
     background-color: #384c60; 
     color: white
   }
-
+  #btnSig {
+    border-radius: 5px;
+    font-size: 1vw;
+    line-height: 1;
+    background-color: #384c60; 
+    color: white
+  }
   #filaCabina{
     display: flex;
     flex-direction: row;

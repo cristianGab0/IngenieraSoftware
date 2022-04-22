@@ -41,7 +41,7 @@ export class CreacionVueloComponent implements OnInit {
  
   async getAereopuerto(){
     console.log(this.Aereoline)
-    await this.GestorService.getAereopuerto(this.Aereo[this.Aereoline].idAerolinea).toPromise().then(res => {
+    await this.GestorService.getAereopuerto(this.Aereo[this.Aereoline].idAerolinea,1).toPromise().then(res => {
       this.onVerCrear();
       this.Aereopuertos=res;
     console.log(res)
