@@ -20,7 +20,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface VueloRepository extends JpaRepository<Vuelo, Integer> {
 
     @Query(value = "select v from Vuelo v where v.fecha_hora_salida >= (?1) order by v.fecha_hora_salida")
-    public Iterable<Vuelo> getVuelosFechaInicial(String fecha);
+    public Iterable<Vuelo> getVuelosFechaInicial(Date fecha);
 
     @Query(value = "select count(v.id_vuelo) from pasajero p inner join vuelo_pasajero vp on p.no_pasaporte = vp.no_pasaporte inner join vuelo v on v.id_vuelo = vp.id_vuelo where p.no_pasaporte =?1 and (CAST (?2 AS TIMESTAMP)  between v.fecha_hora_salida and v.fecha_hora_llegada) and (CAST (?3 AS TIMESTAMP)  between v.fecha_hora_salida and v.fecha_hora_llegada)", nativeQuery = true)
     public int getTieneVuelosUsuario(Long idUsuario, String fechaSalida, String fechaLlegada);

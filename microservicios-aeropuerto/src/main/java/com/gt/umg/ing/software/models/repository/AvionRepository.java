@@ -23,4 +23,8 @@ public interface AvionRepository extends JpaRepository<Avion, AvionId> {
 
     @Query(value = "select distinct ca.modelo as modelo,ca.marca as marca ,a.anio as anio, (select count(s2) from sillon s2 where s2.id_avion = a.id_avion group by s.id_avion) as cantidadPasajeros, ( select count(v2) from vuelo v2 inner join avion a2 on v2.id_avion =a2.id_avion and v2.id_aerolinea = a2.id_aerolinea where v2.id_avion = a.id_avion and v2.id_aerolinea =a.id_aerolinea group by a2.id_avion ,a2.id_aerolinea) as cantidadVuelos from catalogo_avion ca inner join avion a on ca.id_avion = a.id_avion inner join aerolinea a2 on a.id_aerolinea = a2.id_aerolinea inner join sillon s on ca.id_avion =s.id_avion where a2.id_aerolinea =?1", nativeQuery = true)
     public List<IRepoAvionesAerolinea> findAvionesByAerolinea(int idAerolinea);
+    
+    @Query(value="select case when count (s.id_sillon)<156 then 'pequeño' else 'grande' end tamanio from sillon s inner join avion a on s.id_avion = a.id_avion inner join vuelo v on a.id_avion = v.id_avion and v.id_aerolinea = a.id_aerolinea where v.id_vuelo =?1", nativeQuery = true)
+    public String validarTamanioAvion(int idVuelo);
+    
 }

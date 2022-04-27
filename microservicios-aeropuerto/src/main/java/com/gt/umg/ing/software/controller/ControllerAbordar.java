@@ -58,7 +58,12 @@ public class ControllerAbordar {
     @GetMapping("obtenerVuelosAbordar/{idAerolinea}")
     public ResponseEntity<?> getVuelosAbordar(@PathVariable int idAerolinea) {
         Optional<Aerolinea> aerolineaBd = aerolineaService.findById(idAerolinea);
-
+   
+        
+        
+        
+        
+        
         if (aerolineaBd.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No tiene una aerolínea asignada.");
         }
@@ -122,10 +127,9 @@ public class ControllerAbordar {
     public ResponseEntity<?> finalizarAbordaje(@PathVariable Integer idVuelo) {
         List<VueloPasajero> vpBD = (List<VueloPasajero>) vueloPasajeroService.getBoletosSinAbordar(idVuelo);
 
-        vpBD = vpBD.stream().map(v -> {
-            v.setEstadoBoleto("CANCELADO");
-            return v;
-        }).collect(Collectors.toList());
+        vpBD = vpBD.stream().peek(v -> 
+            v.setEstadoBoleto("CANCELADO")
+        ).collect(Collectors.toList());
 
         vueloPasajeroService.saveAll(vpBD);
 
