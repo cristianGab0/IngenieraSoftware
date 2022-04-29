@@ -33,7 +33,7 @@ import org.springframework.stereotype.Service;
 public class VueloService extends CommonService<Vuelo, Integer, VueloRepository> {
 
     public Iterable<Vuelo> getVuelosFechaInicial(Date fecha) {
-        return this.repository.getVuelosFechaInicial(fecha.toGMTString());
+        return this.repository.getVuelosFechaInicial(fecha);
     }
 
     public List<Vuelo> limpiarLista(List<Vuelo> vuelosInicial, List<Vuelo> vuelosFinales) {

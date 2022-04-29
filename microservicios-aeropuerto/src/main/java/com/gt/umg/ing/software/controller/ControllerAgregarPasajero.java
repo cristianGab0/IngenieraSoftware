@@ -9,12 +9,15 @@ import com.gt.umg.ing.software.dto.request.AeropuertoFechasSalidaLLegadaDto;
 import com.gt.umg.ing.software.dto.request.AgregarVueloPasajeroDto;
 import com.gt.umg.ing.software.dto.request.FechasDto;
 import com.gt.umg.ing.software.dto.request.VuelosResumenDto;
+import com.gt.umg.ing.software.dto.response.ISillonesVuelo;
 import com.gt.umg.ing.software.models.entity.Aeropuerto;
 import com.gt.umg.ing.software.models.entity.Vuelo;
 import com.gt.umg.ing.software.models.entity.VueloPasajero;
 import com.gt.umg.ing.software.models.entity.VueloPasajeroId;
 import com.gt.umg.ing.software.service.AeropuertoService;
+import com.gt.umg.ing.software.service.AvionService;
 import com.gt.umg.ing.software.service.SillonService;
+import com.gt.umg.ing.software.service.VueloPasajeroService;
 import com.gt.umg.ing.software.service.VueloService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -55,12 +58,19 @@ public class ControllerAgregarPasajero {
     @Autowired
     private SillonService sillonService;
 
+    @Autowired
+    private VueloPasajeroService vueloPasajeroService;
+
+    @Autowired
+    private AvionService avionService;
+
 //    @Secured("ROLE_CLIENTE")
     @GetMapping("obtenerAeropuertos")
     @ApiOperation(value = "Obtiene los aeropuertos")
     public ResponseEntity<?> obtenerAeropuertos() {
         List<Aeropuerto> aeropuertos = (List<Aeropuerto>) aeropuertoService.findAll();
-
+   
+        
         if (aeropuertos.size() == 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron aeropuertos autorizados para la aerolínea.");
         }
@@ -119,7 +129,14 @@ public class ControllerAgregarPasajero {
 //    @Secured("ROLE_CLIENTE")
     @GetMapping("obtenerSillonesDiponiblesByVuelo/{idVuelo}")
     public ResponseEntity<?> findSillonesDisponiblesByVuelo(@PathVariable Integer idVuelo) {
-        return ResponseEntity.ok().body(sillonService.findSillonesDisponiblesByVuelo(idVuelo));
+        List<ISillonesVuelo> sillones = (List<ISillonesVuelo>) sillonService.findSillonesDisponiblesByVuelo(idVuelo);
+        
+        String tamanio = avionService.validarTamanioAvion(idVuelo);
+        
+        Map<String,Object> respuesta =  new HashMap<>();
+        respuesta.put("tamanio", tamanio);
+        respuesta.put("sillones", sillones);
+        return ResponseEntity.ok().body(respuesta);
     }
 
 //    @Secured("ROLE_CLIENTE")
@@ -136,17 +153,8 @@ public class ControllerAgregarPasajero {
 
 //    @Secured("ROLE_CLIENTE")
     @PostMapping("agregarPasajeroVuelo/{pasaporte}")
-    public ResponseEntity<?> agregarPasajeroVuelo(@RequestBody AgregarVueloPasajeroDto dto, @PathVariable Long pasaporte) {
-        try {
-            Vuelo vuelo = dto.getVuelo();
-            Vuelo vueloBD = vueloService.save(vuelo);
-
-            VueloPasajero vp = dto.getVueloPasajero();
-            vp.setId(new VueloPasajeroId(vueloBD.getIdvuelo(), pasaporte));
-        } catch (Exception e) {
-            return ResponseEntity.ok().body(false);
-        }
-
-        return ResponseEntity.ok().body(true);
+    public ResponseEntity<?> agregarPasajeroVuelo(@RequestBody List<VueloPasajero> dto, @PathVariable Long pasaporte) {
+        vueloPasajeroService.saveAll(dto);
+        return ResponseEntity.ok().body(HttpStatus.CREATED);
     }
 }

@@ -36,4 +36,9 @@ public class AvionService extends CommonService<Avion, AvionId, AvionRepository>
     public List<IRepoAvionesAerolinea> findAvionesByAerolinea(int idAerolinea){
         return this.repository.findAvionesByAerolinea(idAerolinea);
     }
+    
+    @Transactional(readOnly = true)
+    public String validarTamanioAvion(int idVuelo){
+        return this.repository.validarTamanioAvion(idVuelo);
+    }
 }
