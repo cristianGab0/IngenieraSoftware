@@ -32,15 +32,16 @@
                 <div id="fil">
                     <div id="colu">Seleccione Fecha en que viajara</div>
                     <div id="colu">
-                        <input size="16" id="FechaLLegada" name="FechaLLegada" #FechaLLegada="ngModel" type="date" class="form-control"
-                            id="datetime" ngModel>
+                        <input size="16" id="FechaLLegada" name="FechaLLegada" #FechaLLegada="ngModel" type="date"
+                            class="form-control" id="datetime" ngModel>
 
                     </div>
                 </div>
 
             </div>
             <div id="contSig">
-                <button type="button" (click)="getVuelos(AirLLegada.value,AirSalida.value,FechaLLegada.value)" id="btnSig">Buscar Vuelos Disponibles</button>
+                <button type="button" (click)="getVuelos(AirLLegada.value,AirSalida.value,FechaLLegada.value)"
+                    id="btnSig">Buscar Vuelos Disponibles</button>
             </div>
 
         </div>
@@ -65,26 +66,40 @@
                     <div id="data">Q{{item.precioEjecutiva}}</div>
 
                     <div id="data">
-                        <button class="btnPeques" type="button">Ver</button>
-                        <button class="btnPeques" type="button" (click)="setVuelo(item)" >Seleccionar</button>
+                        <button class="btnPeques" type="button" (click)="verVuelo(item)">Ver</button>
+                        <button class="btnPeques" type="button" (click)="setVuelo(item)">Seleccionar</button>
 
                     </div>
                 </div>
                 <div *ngIf="verClase">
                     <div id="tab">
                         <div id="enc">
-                            <span id="encTitle">Seleccione la clase en que viajara</span>
+                            <span id="encTitle">Seleccione la información solicitada a continuación</span>
                         </div>
                         <div id="fil">
                             <div id="colu">Clase en que desea viajar</div>
                             <div id="colu">
-                                <select class="ful" (change)="setClase(ClaseV.value)" name="ClaseV" #ClaseV="ngModel" ngModel>
+                                <select class="ful" (change)="setClase(ClaseV.value)" name="ClaseV" #ClaseV="ngModel"
+                                    ngModel>
                                     <option value="Economica">
                                         Economica
                                     </option>
                                     <option value="Ejecutiva">
                                         Ejecutiva
 
+                                    </option>
+                                </select>
+
+                            </div>
+
+
+                        </div>
+                        <div id="fil">
+                            <div id="colu">Cantidad de maletas que llevara</div>
+                            <div id="colu">
+                                <select class="ful" name="ClaseV" #ClaseV="ngModel" ngModel>
+                                    <option value="Economica" *ngFor="let item of [1,2,3,4,5]">
+                                        {{item}}
                                     </option>
                                 </select>
 
@@ -99,39 +114,54 @@
                         <div id="enc">
                             <span id="encTitle">Seleccione el asiento que desee</span>
                         </div>
-                        <div id="cabina">
-                            <div id="filaCabina" *ngFor="let item of array2;let indice1=index">
+                        <div id="cabina" *ngFor="let cabinas of AsientosV;let indice2=index">
+                            <div id="EncV">
+                                <div id="AlertaVuelos" *ngIf="indice2==0">Su vuelo incluye {{Asientos.length-1}}
+                                    escalas. Elija un asiento de cada vuelo a continuacion</div>
+                                <div id="EncVuelo"> Vuelo {{indice2+1}}</div>
+                            </div>
+                            <div id="filaCabina" *ngFor="let item of cabinas;let indice1=index">
                                 <div id="asiento" *ngFor="let item1 of item;let indice=index">
-                                    <div *ngIf="indice<=2" class="fIzq">
-                                        {{item1.nombre}}
-                                        <span *ngIf="item1.estado==true" style="color:black" id="silla"
-                                            class="material-icons-outlined">
-                                            event_seat
-                                        </span>
-
-                                        <span *ngIf="item1.estado==false" style="color:red" id="silla"
-                                            class="material-icons-outlined">
-                                            event_seat
-                                        </span>
+                                    <div *ngIf="indice<item.length/2" class="fIzq" >
+                                        <div id="ord" *ngIf="item1.ocupado==null" (click)="selectAsientos(indice2,item1)" >
+                                            {{item1.nombre}}
+                                            <span *ngIf="item1!=AsientoSeleccionado[indice2]" style="color:black" id="silla" class="material-icons-outlined">
+                                                event_seat
+                                            </span>
+                                            <span *ngIf="item1==AsientoSeleccionado[indice2]" style="color:green" id="silla" class="material-icons-outlined">
+                                                event_seat
+                                            </span>
+                                        </div>
+                                        <div id="ord" *ngIf="item1.ocupado==true" >
+                                            {{item1.nombre}}
+                                            <span style="color:red" id="silla" class="material-icons-outlined">
+                                                event_seat
+                                            </span>
+                                        </div>
 
                                     </div>
-                                    <span *ngIf="indice==2">------------</span>
-                                    <div *ngIf="indice>2" class="fDer">
-                                        {{item1.nombre}}
-                                        <span *ngIf="item1.estado==true" style="color:black" id="silla"
-                                            class="material-icons-outlined">
-                                            event_seat
-                                        </span>
-
-                                        <span *ngIf="item1.estado==false" style="color:red" id="silla"
-                                            class="material-icons-outlined">
-                                            event_seat
-                                        </span>
+                                    <span *ngIf="indice==item.length/2">------------</span>
+                                    <div *ngIf="indice>=item.length/2" class="fDer">
+                                        <div id="ord"  *ngIf="item1.ocupado==null" (click)="selectAsientos(indice2,item1)" >
+                                            {{item1.nombre}}
+                                            <span *ngIf="item1!=AsientoSeleccionado[indice2]" style="color:black" id="silla" class="material-icons-outlined">
+                                                event_seat
+                                            </span>
+                                            <span *ngIf="item1==AsientoSeleccionado[indice2]" style="color:green" id="silla" class="material-icons-outlined">
+                                                event_seat
+                                            </span>
+                                        </div>
+                                        <div id="ord" *ngIf="item1.ocupado==true"  >
+                                            {{item1.nombre}}
+                                            <span style="color:red" id="silla" class="material-icons-outlined">
+                                                event_seat
+                                            </span>
+                                        </div>
                                     </div>
 
                                 </div>
 
-                            </div>>
+                            </div>
 
                         </div>
                     </div>
@@ -143,10 +173,3 @@
         </div>
 
     </div>
-    El usuario selecciona el vuelo (FA05)
-    El usuario selecciona la clase del vuelo (RN02)
-    El usuario selecciona el asiento (RN02)
-    El usuario ingresa la cantidad de maletas (RN02)
-    El sistema valida si el usuario tiene vuelos en la misma fecha y hora del vuelo seleccionado (FA06)
-    El sistema genera el pase de abordar (RN06)
-    Fin de caso de uso.

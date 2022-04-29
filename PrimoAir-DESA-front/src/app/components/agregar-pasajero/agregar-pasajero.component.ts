@@ -10,14 +10,16 @@ import Swal from 'sweetalert2'
 
 export class AgregarPasajeroComponent implements OnInit {
 
-  array : any = []
-  array2: any = []
+  array: any = []
+  array2: any = [];
+  AsientoSeleccionado: any[] = [];
   Aereopuertos: any;
   Aereoline: any
   verReserva: boolean = false;
   verVuelos: boolean = false;
   Vuelos: any;
   Asientos: any;
+  AsientosV: any = [];
   ClaseVuelo: any;
   verClase: boolean = false;
   verAsientos: boolean = false
@@ -95,29 +97,46 @@ export class AgregarPasajeroComponent implements OnInit {
     this.Asientos = []
     for (let a = 0; a < vuelo.idsVuelos.length; a++) {
       console.log('ids' + vuelo.idsVuelos[a])
-      this.getSillones(vuelo.idsVuelos[a],a)
-      console.log('Valor actual'+this.Asientos[a])
+      this.getSillones(vuelo.idsVuelos[a], a)
+      console.log('Valor actual' + this.Asientos[a])
     }
     setTimeout(() => {
-      let cont=0;
+      let cont = 0;
+      let tamAvion;
       for (let i = 0; i < this.Asientos.length; i++) {
-        console.log('Log',this.Asientos[i])
-        for(let z=0;z<this.Asientos[i].length;z++){
-          if(cont==4){
-            cont=0;
-            this.array2.push(this.array)
-            this.array=[]
+        console.log('Log', this.Asientos[i].sillones)
+        
+        for (let z = 0; z < this.Asientos[i].sillones.length; z++) {
+          if (this.Asientos[i].tamanio == "pequeño") {
+            tamAvion = 4;
+          } else {
+            tamAvion = 6
           }
-          if(cont<4){
-            this.Asientos[i][z].estado=true;
-            this.array.push(this.Asientos[i][z])
+          if (cont < tamAvion) {
+            this.array.push(this.Asientos[i].sillones[z])
           }
           cont++;
+          if (cont == tamAvion) {
+            cont = 0;
+            this.array2.push(this.array)
+            this.array = []
+          }
         }
+        this.AsientosV.push(this.array2);
+        console.log('Log', this.AsientosV[i])
+        this.array2 = []
       }
-    }, 2000)
+    }, 1000)
 
-    this.verClase = true;
+  }
+  verVuelo(vuelo: any){
+    
+    Swal.fire({
+      title: 'No hay vuelos disponibles en esta fecha',
+      icon: 'warning',
+      showCancelButton: false,
+      confirmButtonColor: '#3085d6'
+    })
   }
 
   setClase(clase: any) {
@@ -125,12 +144,18 @@ export class AgregarPasajeroComponent implements OnInit {
     this.verAsientos = true;
   }
 
-  async getSillones(id: any,pos:number) {
+  async getSillones(id: any, pos: number) {
     await this.GestorService.getSillones(id).toPromise().then(res => {
-      this.Asientos[pos]=res;
-     
+      this.Asientos[pos] = res;
+
+      this.verClase = true;
     }).catch((err: any) => {
     });
+  }
+
+  selectAsientos(avion: number, asiento: any) {
+    console.log(asiento)
+    this.AsientoSeleccionado[avion] = asiento;
   }
 
 

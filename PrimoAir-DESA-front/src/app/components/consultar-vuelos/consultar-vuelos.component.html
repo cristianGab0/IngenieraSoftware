@@ -1,0 +1,102 @@
+<div>
+    <div id="cont">
+        <div>
+            <div id="tab">
+
+                <div id="enc">
+                    <span id="encTitle">Consultar Vuelos</span>
+                </div>
+                <div id="fil">
+                    <div id="colu">Fecha Desde: </div>
+                    <div id="colu">
+                        <input size="16" id="FechaSalida" #FechaSalida="ngModel" name="FechaSalida" type="date" class="form-control"
+                            id="datetime" ngModel>
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Hora Desde: </div>
+                    <div id="colu">
+                        <input type="time" #HoraSalida="ngModel" id="HoraSalida" name="HoraSalida" ngModel>
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Fecha Hasta: </div>
+                    <div id="colu">
+                        <input size="16" #FechaLLegada="ngModel" id="FechaLLegada" name="FechaLLegada" type="date" class="form-control" ngModel
+                            id="datetime">
+                       
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Hora Hasta: </div>
+                    <div id="colu">
+                        <input type="time" id="FechaLLegada" name="HoraLLegada" #HoraLLegada="ngModel" ngModel>
+                    </div>
+                </div>
+               
+            </div>
+            <div id="contSig">
+                <button type="button" (click)="onConsultarVuelos(FechaLLegada.value,HoraLLegada.value,FechaSalida.value,HoraSalida.value)" id="btnSig">BUSCAR</button>
+                <button type="button" (click)="onReset()" id="btnSig">Limpiar</button>
+            </div>
+
+        </div>
+        <div *ngIf="verDatos">
+            <div id="tab">
+
+                <div id="enc">
+                    <span id="encTitle">Reporte vuelo</span>
+                </div>
+
+                <div id="fil">
+                    <div id="colu">Numero de Vuelo</div>
+                    <div id="colu">
+                       {{Datos.noVuelo}}
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Modelo Avion</div>
+                    <div id="colu">
+                       {{Datos.avion}}
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Aereolinea</div>
+                    <div id="colu">
+                        {{Datos.aerolinea}}
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Origen</div>
+                    <div id="colu">
+                        {{Datos.origen}}
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Destino</div>
+                    <div id="colu">
+                        {{Datos.destino}}
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Fecha y hora de salida</div>
+                    <div id="colu">
+                        {{Datos.salida}}
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Fecha y hora de llegada</div>
+                    <div id="colu">
+                        {{Datos.llegada}}
+                    </div>
+                </div>
+
+
+            </div>
+            <div id="contSig">
+                <button type="button" (click)="null" id="btnSig">Imprimir</button>
+            </div>
+
+        </div>
+    </div>
+</div>

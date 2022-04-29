@@ -38,3 +38,19 @@
     display: flex;
     flex-direction: row;
   }
+  #contSig{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+  }
+  #btnSig {
+    border-radius: 5px;
+    font-size: 1.5vw;
+    line-height: 1;
+    margin-top: 1vw;
+    background-color: #384c60; 
+    color: white
+  }
+  .ful{
+    width: 100%;
+}

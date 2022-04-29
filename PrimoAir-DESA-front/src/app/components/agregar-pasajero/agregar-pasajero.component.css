@@ -102,8 +102,6 @@
   #filaCabina{
     display: flex;
     flex-direction: row;
-    border-style: solid;
-    border-width: 1px;
     justify-content: center;
     align-items: center;
   }
@@ -139,4 +137,33 @@
     border-style: solid;
     width: 5vw;
     height: 6vw;
+  }
+
+  #AlertaVuelos {
+    color: red;
+    width: 100%;
+    text-align: center;
+  
+  }
+  
+  #EncV {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #EncVuelo {width: 15vw;
+    text-align: center;
+    border-style: solid;
+    border-radius: 6px;
+    border-width: 1px;
+    color: blue;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+  }
+  
+  #ord{
+    text-align: center;
+    cursor: pointer;
   }

@@ -6,40 +6,55 @@ import { CrearPasajero } from '../interfaces/crear-pasajero';
 })
 export class GestorService {
 
-  constructor(private ConectionService:ConectionService) { }
-  getPaises(){
+  constructor(private ConectionService: ConectionService) { }
+  getPaises() {
     return this.ConectionService.getPaises();
   }
-  VerificarPasaporte(pasaporte:number){
+  VerificarPasaporte(pasaporte: number) {
     return this.ConectionService.VerificarPasaporte(pasaporte);
   }
 
-  RegistrarUsuario(pasajero:CrearPasajero){
+  RegistrarUsuario(pasajero: CrearPasajero) {
     return this.ConectionService.RegistrarUsuario(pasajero);
   }
-  getAereolineas(){
+  getAereolineas() {
     return this.ConectionService.getAereolineas();
   }
 
-  getAviones(Aereolinea:any,data:any){
-    return this.ConectionService.getAviones(Aereolinea,data);
+  getAviones(Aereolinea: any, data: any) {
+    return this.ConectionService.getAviones(Aereolinea, data);
   }
-  getTripulantes(data:any){
+  getTripulantes(data: any) {
     return this.ConectionService.getTripulantes(data);
   }
-  getAereopuerto(Aereolinea:any,Tipo:any){
-    return this.ConectionService.getAereopuerto(Aereolinea,Tipo);
+  getAereopuerto(Aereolinea: any, Tipo: any) {
+    return this.ConectionService.getAereopuerto(Aereolinea, Tipo);
   }
 
 
-  registrarVuelo(vuelo:any){
+  registrarVuelo(vuelo: any) {
     console.log(JSON.stringify(vuelo))
     return this.ConectionService.registrarVuelo(vuelo);
   }
-  getVuelos(data:any){
+  getVuelos(data: any) {
     return this.ConectionService.getVuelos(data);
   }
-  getSillones(id:any){
+  getSillones(id: any) {
     return this.ConectionService.getSillones(id);
   }
+
+  getDetalleVuelo(id: any) {
+    return this.ConectionService.getDetalleVuelo(id);
+  }
+  getReporteVuelo(id: any) {
+    return this.ConectionService.getReporteVuelo(id);
+  }
+  
+  getConsultarVuelos(data:any){
+    return this.ConectionService.getConsultarVuelos(data);
+  }
+  getAereolineasAere(id:any){
+    return this.ConectionService.getAereolineasAere(id);
+  }
+
 }

@@ -102,9 +102,59 @@
                     </div>
                 </div>
                 <div id="fil">
-                    <div id="colu">Seleccione el Equipo de tripulantes del vuelo</div>
+                    <div id="colu">Seleccione el Piloto</div>
                     <div id="colu">
                         <select id="TriDisponible" name="TriDisponible" #TriDisponible="ngModel" ngModel>
+                            <option *ngFor="let item of Tripulantes;let indice=index" value="{{indice}}">
+                                {{item.nombre}}--#ID{{item.idTripulante}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Seleccione el Co Piloto</div>
+                    <div id="colu">
+                        <select id="TriDisponible" name="TriDisponible1" #TriDisponible1="ngModel" ngModel>
+                            <option *ngFor="let item of Tripulantes;let indice=index" value="{{indice}}">
+                                {{item.nombre}}--#ID{{item.idTripulante}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Seleccione el Ingeniero de vuelo</div>
+                    <div id="colu">
+                        <select id="TriDisponible" name="TriDisponible2" #TriDisponible2="ngModel" ngModel>
+                            <option *ngFor="let item of Tripulantes;let indice=index" value="{{indice}}">
+                                {{item.nombre}}--#ID{{item.idTripulante}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Seleccione el tripulante de cabina 1</div>
+                    <div id="colu">
+                        <select id="TriDisponible" name="TriDisponible3" #TriDisponible3="ngModel" ngModel>
+                            <option *ngFor="let item of Tripulantes;let indice=index" value="{{indice}}">
+                                {{item.nombre}}--#ID{{item.idTripulante}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Seleccione el tripulante de cabina 2</div>
+                    <div id="colu">
+                        <select id="TriDisponible" name="TriDisponible4" #TriDisponible4="ngModel" ngModel>
+                            <option *ngFor="let item of Tripulantes;let indice=index" value="{{indice}}">
+                                {{item.nombre}}--#ID{{item.idTripulante}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Seleccione el tripulante de cabina 3</div>
+                    <div id="colu">
+                        <select id="TriDisponible" name="TriDisponible5" #TriDisponible5="ngModel" ngModel>
                             <option *ngFor="let item of Tripulantes;let indice=index" value="{{indice}}">
                                 {{item.nombre}}--#ID{{item.idTripulante}}
                             </option>
@@ -114,7 +164,7 @@
 
             </div>
             <div id="contSig">
-                <button type="button" id="btnSig" (click)="onSaveAir(AvDisponible.value,cEco.value,cEje.value,TriDisponible.value)" >Guardar Vuelo</button>
+                <button type="button" id="btnSig" (click)="onSaveAir(AvDisponible.value,cEco.value,cEje.value,[TriDisponible.value,TriDisponible1.value,TriDisponible2.value,TriDisponible3.value,TriDisponible4.value,TriDisponible5.value])" >Guardar Vuelo</button>
             </div>
 
         </div>

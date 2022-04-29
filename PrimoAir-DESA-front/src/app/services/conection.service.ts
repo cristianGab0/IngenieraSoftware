@@ -18,7 +18,12 @@ export class ConectionService {
   urlCrearVuelo='https://ms-aeropuerto-primos.herokuapp.com/crearVuelo';
   urlAereopuertosFull='https://ms-aeropuerto-primos.herokuapp.com/obtenerAeropuertos';
   urlVuelos='https://ms-aeropuerto-primos.herokuapp.com/obtenerVuelosByAeropuertosFechas';
-  urlSillones='https://ms-aeropuerto-primos.herokuapp.com/obtenerSillonesDiponiblesByVuelo/'
+  urlSillones='https://ms-aeropuerto-primos.herokuapp.com/obtenerSillonesDiponiblesByVuelo/';
+  urlDetalleVuelo='https://ms-aeropuerto-primos.herokuapp.com/obtenerDetalleVuelos';
+  urlReporteVuelo='https://ms-aeropuerto-primos.herokuapp.com/reporte/detalleVuelo/';
+  urlConsultarVuelos='https://ms-aeropuerto-primos.herokuapp.com/reporte/vuelosPorFechaHora';
+  urlAerolineasAero='https://ms-aeropuerto-primos.herokuapp.com/reporte/obtenerAerolineaByAeropuertoAutorizado/';
+  
   getPaises(){
     let HTTPOptions: Object = {
       headers: new HttpHeaders({
@@ -121,6 +126,43 @@ export class ConectionService {
       responseType: 'json',
     };
     return this.httpClient.get<string>(this.urlSillones+id, HTTPOptions);
+  }
+  getDetalleVuelo(id:any){
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'json',
+    };
+    return this.httpClient.get<string>(this.urlDetalleVuelo+id, HTTPOptions);
+  }
+  getReporteVuelo(id:any){
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'json',
+    };
+    return this.httpClient.get<string>(this.urlReporteVuelo+id, HTTPOptions);
+  }
+  getConsultarVuelos(data:any){
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'json',
+    };
+    return this.httpClient.post<string>(this.urlReporteVuelo,data, HTTPOptions);
+  }
+
+  getAereolineasAere(id:any){
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'json',
+    };
+    return this.httpClient.get<string>(this.urlAerolineasAero+id, HTTPOptions);
   }
 
 
