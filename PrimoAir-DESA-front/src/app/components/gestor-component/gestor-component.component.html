@@ -51,6 +51,9 @@
                             <div (click)="OnVerConsultarVuelos()" class="dropdown-item" >Consultar Vuelos</div>
                             <div (click)="OnVerConsultarAerolineas()" class="dropdown-item" >Consultar Aerolíneas</div>
                             <div (click)="OnVerConsultarAviones()" class="dropdown-item" >Consultar Aviones</div>
+                            <div (click)="OnVerConsultarPasajerosVuelo()" class="dropdown-item" >Consultar Pasajeros Por Vuelo</div>
+                            <div (click)="onVerDestinos()" class="dropdown-item" >Consultar Destinos</div>
+                            
                       
                         </div>
                        
@@ -90,3 +93,5 @@
 <consultar-vuelos *ngIf="verConsultarVuelos"></consultar-vuelos>
 <consultar-aerolineas *ngIf="verConsultarAerolineas"></consultar-aerolineas>
 <consultar-aviones *ngIf="verConsultarAviones"></consultar-aviones>
+<consultar-pasajeros-vuelo *ngIf="verPasajerosVuelo"></consultar-pasajeros-vuelo>
+<consultar-destinos-autorizados *ngIf="verDestinos"></consultar-destinos-autorizados>

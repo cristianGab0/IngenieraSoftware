@@ -61,4 +61,12 @@ export class GestorService {
 
   }
 
+  getPasajeroVuelo(id:any){
+    return this.ConectionService.getPasajeroVuelo(id);
+
+  }
+  getDestinosAutorizados(id:any){
+    return this.ConectionService.getDestinosAutorizados(id);
+  }
+
 }

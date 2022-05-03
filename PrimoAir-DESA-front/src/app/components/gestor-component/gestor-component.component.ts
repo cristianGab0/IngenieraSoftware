@@ -15,6 +15,8 @@ export class GestorComponentComponent implements OnInit {
   verConsultarVuelos=false;
   verConsultarAerolineas=false;
   verConsultarAviones=false;
+  verPasajerosVuelo =false;
+  verDestinos=false;
   constructor() { }
 
   ngOnInit(): void {
@@ -30,6 +32,8 @@ export class GestorComponentComponent implements OnInit {
     this.verConsultarVuelos=false;
     this.verConsultarAerolineas=false;
     this.verConsultarAviones=false;
+    this.verPasajerosVuelo=false;
+    this.verDestinos=false;
   }
   OnVerCrearVuelo(){
     this.verLogin=false;
@@ -41,6 +45,8 @@ export class GestorComponentComponent implements OnInit {
     this.verConsultarVuelos=false;
     this.verConsultarAerolineas=false;
     this.verConsultarAviones=false;
+    this.verPasajerosVuelo=false;
+    this.verDestinos=false;
   }
   OnVerReserva(){
     this.verReserva=true;
@@ -52,6 +58,8 @@ export class GestorComponentComponent implements OnInit {
     this.verConsultarVuelos=false;
     this.verConsultarAerolineas=false;
     this.verConsultarAviones=false;
+    this.verPasajerosVuelo=false;
+    this.verDestinos=false;
   }
   OnVerCrearTripu(){
     this.verReserva=false;
@@ -63,6 +71,8 @@ export class GestorComponentComponent implements OnInit {
     this.verConsultarVuelos=false;
     this.verConsultarAerolineas=false;
     this.verConsultarAviones=false;
+    this.verPasajerosVuelo=false;
+    this.verDestinos=false;
   }
   OnVerReporteVuelo(){
     this.verReserva=false;
@@ -74,6 +84,8 @@ export class GestorComponentComponent implements OnInit {
     this.verConsultarVuelos=false;
     this.verConsultarAerolineas=false;
     this.verConsultarAviones=false;
+    this.verPasajerosVuelo=false;
+    this.verDestinos=false;
   }
   OnVerConsultarVuelos(){
     this.verReserva=false;
@@ -85,6 +97,8 @@ export class GestorComponentComponent implements OnInit {
     this.verConsultarVuelos=true;
     this.verConsultarAerolineas=false;
     this.verConsultarAviones=false;
+    this.verPasajerosVuelo=false;
+    this.verDestinos=false;
   }
   OnVerConsultarAerolineas(){
     this.verReserva=false;
@@ -96,6 +110,8 @@ export class GestorComponentComponent implements OnInit {
     this.verConsultarVuelos=false;
     this.verConsultarAerolineas=true;
     this.verConsultarAviones=false;
+    this.verPasajerosVuelo=false;
+    this.verDestinos=false;
   }
   OnVerConsultarAviones(){
     this.verReserva=false;
@@ -107,5 +123,35 @@ export class GestorComponentComponent implements OnInit {
     this.verConsultarVuelos=false;
     this.verConsultarAerolineas=false;
     this.verConsultarAviones=true;
+    this.verPasajerosVuelo=false;
+    this.verDestinos=false;
+  }
+  OnVerConsultarPasajerosVuelo(){
+    this.verReserva=false;
+    this.verLogin=false;
+    this.verCrearPasajero=false;
+    this.verCrearVuelo=false;
+    this.verCrearTripu=false;
+    this.verReporteVuelo=false;
+    this.verConsultarVuelos=false;
+    this.verConsultarAerolineas=false;
+    this.verConsultarAviones=false;
+    this.verPasajerosVuelo=true;
+    this.verDestinos=false;
+
+  }
+  onVerDestinos(){
+    this.verReserva=false;
+    this.verLogin=false;
+    this.verCrearPasajero=false;
+    this.verCrearVuelo=false;
+    this.verCrearTripu=false;
+    this.verReporteVuelo=false;
+    this.verConsultarVuelos=false;
+    this.verConsultarAerolineas=false;
+    this.verConsultarAviones=false;
+    this.verPasajerosVuelo=false;
+    this.verDestinos=true;
+
   }
 }

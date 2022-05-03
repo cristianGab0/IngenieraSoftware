@@ -14,6 +14,8 @@ import { ReporteVueloComponent } from './components/reporte-vuelo/reporte-vuelo.
 import { ConsultarVuelosComponent } from './components/consultar-vuelos/consultar-vuelos.component';
 import { ConsultarAerolineasComponent } from './components/consultar-aerolineas/consultar-aerolineas.component';
 import { ConsultarAvionesComponent } from './components/consultar-aviones/consultar-aviones.component';
+import { ConsultarPasajerosVueloComponent } from './components/consultar-pasajeros-vuelo/consultar-pasajeros-vuelo.component';
+import { ConsultarDestinosAutorizadosComponent } from './components/consultar-destinos-autorizados/consultar-destinos-autorizados.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,9 @@ import { ConsultarAvionesComponent } from './components/consultar-aviones/consul
     ReporteVueloComponent,
     ConsultarVuelosComponent,
     ConsultarAerolineasComponent,
-    ConsultarAvionesComponent
+    ConsultarAvionesComponent,
+    ConsultarPasajerosVueloComponent,
+    ConsultarDestinosAutorizadosComponent
   ],
   imports: [
     BrowserModule,

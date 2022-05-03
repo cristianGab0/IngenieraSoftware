@@ -85,7 +85,8 @@ export class ConsultarAvionesComponent implements OnInit {
             headerRows: 1,
             widths: [ 'auto','auto','auto','auto','auto' ],
     
-            body: datosimp
+            body: datosimp,
+            style:'header'
           }
         },
         

@@ -5,12 +5,11 @@ import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 @Component({
-  selector: 'consultar-aerolineas',
-  templateUrl: './consultar-aerolineas.component.html',
-  styleUrls: ['./consultar-aerolineas.component.css']
+  selector: 'consultar-destinos-autorizados',
+  templateUrl: './consultar-destinos-autorizados.component.html',
+  styleUrls: ['./consultar-destinos-autorizados.component.css']
 })
-export class ConsultarAerolineasComponent implements OnInit {
-
+export class ConsultarDestinosAutorizadosComponent implements OnInit {
   constructor(private GestorService: GestorService) { }
   verDatos=false;
   cargados=false;
@@ -18,7 +17,7 @@ export class ConsultarAerolineasComponent implements OnInit {
   Datos:any;
   n:any;
   ngOnInit(): void {
-    this.getAereopuerto();
+    this.getAereolineas();
   }
 
 
@@ -26,8 +25,8 @@ export class ConsultarAerolineasComponent implements OnInit {
     this.verDatos=false;
     this.n='';
   }
-  async getAereopuerto() {
-    await this.GestorService.getAereopuerto('', 2).toPromise().then(res => {
+  async getAereolineas() {
+    await this.GestorService.getAereolineas().toPromise().then(res => {
       this.cargados = true;
       this.Datos1 = res;
       console.log(res)
@@ -37,22 +36,23 @@ export class ConsultarAerolineasComponent implements OnInit {
 
   }
 
-  async onConsultarAereolineas(id:any){
+  async onConsultarDestinos(id:any){
   
+    console.log(id)
     for (let i = 0; i < this.Datos1.length; i++) {
       if(i==id){
-        id=this.Datos1[i].idAeropuerto;
+        id=this.Datos1[i].idAerolinea;
       console.log(this.Datos1[i].nombre);
       break;
       }
     }
 
-    await this.GestorService.getAereolineasAere(id).toPromise().then(res => {
+    await this.GestorService.getDestinosAutorizados(id).toPromise().then(res => {
       this.Datos=res;
       this.verDatos = true;
     }).catch((err: any) => {
       Swal.fire({
-        text: err,
+        text: err.error.error,
         icon: 'warning',
         showCancelButton: false,
         confirmButtonColor: '#3085d6'
@@ -61,14 +61,12 @@ export class ConsultarAerolineasComponent implements OnInit {
     
   }
 
-
-
   createPDF(){
  
     let datosimp=[];
-    datosimp.push([ 'Nombre Aerolinea','Cantidad de aviones'])
+    datosimp.push([ 'Nombre Aereopuerto','Pais del aereopuerto','Ciudad del aereopuerto'])
     for(let a=0;a<this.Datos.length;a++){
-      datosimp.push([ this.Datos[a].nombreAerolinea, this.Datos[a].cantidadAviones])
+      datosimp.push([ this.Datos[a].nombre, this.Datos[a].pais, this.Datos[a].ciudad])
     }
     const pdfDefinition: any = {
       content: [
@@ -83,7 +81,7 @@ export class ConsultarAerolineasComponent implements OnInit {
             // headers are automatically repeated if the table spans over multiple pages
             // you can declare how many rows should be treated as headers
             headerRows: 1,
-            widths: [ 'auto','auto' ],
+            widths: [ 'auto','auto','auto' ],
     
             body: datosimp,
             style:'header'
@@ -102,5 +100,7 @@ export class ConsultarAerolineasComponent implements OnInit {
     const pdf = pdfMake.createPdf(pdfDefinition);
     pdf.download();
   }
+
+
 
 }

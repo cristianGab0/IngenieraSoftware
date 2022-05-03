@@ -24,6 +24,8 @@ export class ConectionService {
   urlConsultarVuelos='https://ms-aeropuerto-primos.herokuapp.com/reporte/vuelosPorFechaHora';
   urlAerolineasAero='https://ms-aeropuerto-primos.herokuapp.com/reporte/obtenerAerolineaByAeropuertoAutorizado/';
   urlDetalleAvion='https://ms-aeropuerto-primos.herokuapp.com/reporte/obtenerDetalleAvionesPorAerolinea/';
+  urlPasajerosVuelo='https://ms-aeropuerto-primos.herokuapp.com/reporte/obtenerPasajerosPorVuelo/';
+  urlDestinosAutorizados='https://ms-aeropuerto-primos.herokuapp.com/reporte/obtenerAeropuertosAutorizadosPorAerolinea/'
   
   getPaises(){
     let HTTPOptions: Object = {
@@ -174,6 +176,24 @@ export class ConectionService {
       responseType: 'json',
     };
     return this.httpClient.get<string>(this.urlDetalleAvion+id, HTTPOptions);
+  }
+  getPasajeroVuelo(id:any){
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'json',
+    };
+    return this.httpClient.get<string>(this.urlPasajerosVuelo+id, HTTPOptions);
+  }
+  getDestinosAutorizados(id:any){
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'json',
+    };
+    return this.httpClient.get<string>(this.urlDestinosAutorizados+id, HTTPOptions);
   }
 
 

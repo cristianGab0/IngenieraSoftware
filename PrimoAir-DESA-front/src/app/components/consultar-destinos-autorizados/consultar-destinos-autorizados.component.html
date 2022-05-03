@@ -1,0 +1,66 @@
+<div *ngIf="cargados">
+    <div id="cont">
+        <div>
+            <div id="tab">
+
+                <div id="enc">
+                    <span id="encTitle">Consultar Aviones</span>
+                </div>
+                <div id="fil">
+                    <div id="colu">Seleccione Aereolinea</div>
+                    <div id="colu">
+                        <select id="AirSalida" #Aero="ngModel"   name="Aereo" ngModel>
+                            <option *ngFor="let item of Datos1;let indice=index" value={{indice}}>
+                                {{item.nombre}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+               
+               
+            </div>
+            <div id="contSig">
+                <button type="button" (click)="onConsultarDestinos(Aero.value)" id="btnSig">BUSCAR</button>
+                <button type="button" (click)="onReset()" id="btnSig">Limpiar</button>
+            </div>
+
+        </div>
+        <div *ngIf="verDatos">
+            <div id="tab" *ngFor="let item of Datos;let indice= index">
+
+                <div id="enc">
+                    <span id="encTitle">Destino  #ID{{item.idAeropuerto}}</span>
+                </div>
+
+                <div id="fil">
+                    <div id="colu">Nombre Aereopuerto
+                    </div>
+                    <div id="colu">
+                       {{item.nombre}}
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Pais del Aereopuerto
+                    </div>
+                    <div id="colu">
+                       {{item.pais}}
+                    </div>
+                </div>
+                <div id="fil">
+                    <div id="colu">Ciudad del aereopuerto</div>
+                    <div id="colu">
+                        {{item.ciudad}}
+                    </div>
+                </div>
+
+                
+
+
+            </div>
+            <div id="contSig">
+                <button type="button" (click)="createPDF()" id="btnSig">Imprimir</button>
+            </div>
+
+        </div>
+    </div>
+</div>
