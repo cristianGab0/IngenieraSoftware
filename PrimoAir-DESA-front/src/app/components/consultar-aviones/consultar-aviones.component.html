@@ -4,10 +4,10 @@
             <div id="tab">
 
                 <div id="enc">
-                    <span id="encTitle">Consultar Aereolineas</span>
+                    <span id="encTitle">Consultar Aviones</span>
                 </div>
                 <div id="fil">
-                    <div id="colu">Seleccione Aereopuerto</div>
+                    <div id="colu">Seleccione Aereolinea</div>
                     <div id="colu">
                         <select id="AirSalida" #Aero="ngModel"   name="Aereo" ngModel>
                             <option *ngFor="let item of Datos1;let indice=index" value={{indice}}>
@@ -20,7 +20,7 @@
                
             </div>
             <div id="contSig">
-                <button type="button" (click)="onConsultarAereolineas(Aero.value)" id="btnSig">BUSCAR</button>
+                <button type="button" (click)="onConsultarAviones(Aero.value)" id="btnSig">BUSCAR</button>
                 <button type="button" (click)="onReset()" id="btnSig">Limpiar</button>
             </div>
 
@@ -29,24 +29,36 @@
             <div id="tab" *ngFor="let item of Datos;let indice= index">
 
                 <div id="enc">
-                    <span id="encTitle">Aerolinea {{indice+1}}</span>
+                    <span id="encTitle">Modelo del Avion  {{indice+1}}</span>
                 </div>
 
                 <div id="fil">
-                    <div id="colu">Nombre aerolínea
+                    <div id="colu">Marca
                     </div>
                     <div id="colu">
-                       {{item.nombreAerolinea}}
+                       {{item.modelo}}
                     </div>
                 </div>
                 <div id="fil">
-                    <div id="colu">Cantidad de aviones
+                    <div id="colu">Año
                     </div>
                     <div id="colu">
-                       {{item.cantidadAviones}}
+                       {{item.anio}}
                     </div>
                 </div>
-              
+                <div id="fil">
+                    <div id="colu">Cantidad de pasajeros</div>
+                    <div id="colu">
+                        {{item.cantidadPasajeros}}
+                    </div>
+                </div>
+
+                <div id="fil">
+                    <div id="colu">Cantidad de vuelos</div>
+                    <div id="colu">
+                        {{item.cantidadVuelos==null?'Sin Datos':item.cantidadVuelos}}
+                    </div>
+                </div>
                 
 
 

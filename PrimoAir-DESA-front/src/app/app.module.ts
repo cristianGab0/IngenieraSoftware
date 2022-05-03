@@ -13,6 +13,7 @@ import { AgregarPasajeroComponent } from './components/agregar-pasajero/agregar-
 import { ReporteVueloComponent } from './components/reporte-vuelo/reporte-vuelo.component';
 import { ConsultarVuelosComponent } from './components/consultar-vuelos/consultar-vuelos.component';
 import { ConsultarAerolineasComponent } from './components/consultar-aerolineas/consultar-aerolineas.component';
+import { ConsultarAvionesComponent } from './components/consultar-aviones/consultar-aviones.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { ConsultarAerolineasComponent } from './components/consultar-aerolineas/
     AgregarPasajeroComponent,
     ReporteVueloComponent,
     ConsultarVuelosComponent,
-    ConsultarAerolineasComponent
+    ConsultarAerolineasComponent,
+    ConsultarAvionesComponent
   ],
   imports: [
     BrowserModule,

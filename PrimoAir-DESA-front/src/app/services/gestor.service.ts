@@ -56,5 +56,9 @@ export class GestorService {
   getAereolineasAere(id:any){
     return this.ConectionService.getAereolineasAere(id);
   }
+  getDetalleAvion(id:any){
+    return this.ConectionService.getDetalleAvion(id);
+
+  }
 
 }

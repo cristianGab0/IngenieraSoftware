@@ -1,0 +1,56 @@
+#cont{
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+  #tab{
+    border-width: 1px;
+    margin: 0.2vw;
+  }
+  #enc{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5vw;
+    border-style: solid;
+    border-width: 1px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #384c60;
+    color: #a88d5b;
+  }
+  #encTitle{
+    color: white;
+  }
+  #fil{
+    display: flex;
+    flex-direction: row;
+    justify-content:left;
+    align-items: center;
+  }
+  #colu{
+    padding-left: 1vw;
+    padding-right: 1vw;
+    width: 50%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: gainsboro;
+    display: flex;
+    flex-direction: row;
+  }
+  #contSig{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+  }
+  #btnSig {
+    border-radius: 5px;
+    font-size: 1.5vw;
+    line-height: 1;
+    margin-top: 1vw;
+    background-color: #384c60; 
+    color: white
+  }
+  .ful{
+    width: 100%;
+}
