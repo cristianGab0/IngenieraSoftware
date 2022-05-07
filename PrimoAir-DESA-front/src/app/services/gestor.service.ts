@@ -5,7 +5,8 @@ import { CrearPasajero } from '../interfaces/crear-pasajero';
   providedIn: 'root'
 })
 export class GestorService {
-
+  pasaporte:any='';
+  roles:any;
   constructor(private ConectionService: ConectionService) { }
   getPaises() {
     return this.ConectionService.getPaises();
@@ -67,6 +68,25 @@ export class GestorService {
   }
   getDestinosAutorizados(id:any){
     return this.ConectionService.getDestinosAutorizados(id);
+  }
+  getDetalleEquipaje(id:any){
+    return this.ConectionService.getDetalleEquipaje(id);
+  }
+  getRol(data:any){
+    return this.ConectionService.getRol(data);
+  }
+  setPasajeroVuelo(pasaporte:any,data:any){
+    return this.ConectionService.setPasajeroVuelo(pasaporte,data);
+  }
+
+  rolPermitied(rol:any){
+    for(let a=0;a<this.roles.length;a++){
+      console.log(this.roles[a].nombre,rol)
+      if(this.roles[a].nombre==rol){
+        return true
+      }
+    }
+    return false;
   }
 
 }

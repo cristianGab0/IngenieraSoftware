@@ -167,3 +167,9 @@
     text-align: center;
     cursor: pointer;
   }
+  #contSig{
+    padding-top: 0.5vw;
+    padding-bottom: 1vw;
+    align-items: center;
+    text-align: center;
+  }

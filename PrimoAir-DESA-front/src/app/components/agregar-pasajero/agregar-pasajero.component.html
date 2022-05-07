@@ -97,8 +97,8 @@
                         <div id="fil">
                             <div id="colu">Cantidad de maletas que llevara</div>
                             <div id="colu">
-                                <select class="ful" name="ClaseV" #ClaseV="ngModel" ngModel>
-                                    <option value="Economica" *ngFor="let item of [1,2,3,4,5]">
+                                <select (change)="setMaletas(Maletas.value)"  class="ful" name="Maletas" #Maletas="ngModel" ngModel>
+                                    <option  value="item" *ngFor="let item of [1,2,3,4,5]" value="{{item}}">
                                         {{item}}
                                     </option>
                                 </select>
@@ -164,6 +164,9 @@
                             </div>
 
                         </div>
+                    </div>
+                    <div id="contSig">
+                        <button type="button" id="btnSig" (click)="SaveData()" >Guardar Vuelo</button>
                     </div>
                 </div>
 

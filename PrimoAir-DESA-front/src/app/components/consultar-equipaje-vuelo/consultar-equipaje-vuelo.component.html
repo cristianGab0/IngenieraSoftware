@@ -4,23 +4,22 @@
             <div id="tab">
 
                 <div id="enc">
-                    <span id="encTitle">Consultar Aviones</span>
+                    <span id="encTitle">Consultar Equipaje</span>
                 </div>
+              
                 <div id="fil">
-                    <div id="colu">Seleccione Aereolinea</div>
+                    <div id="colu">Ingrese su numero de vuelo</div>
                     <div id="colu">
-                        <select id="AirSalida" #Aero="ngModel"   name="Aereo" ngModel>
-                            <option *ngFor="let item of Datos1;let indice=index" value={{indice}}>
-                                {{item.nombre}}
-                            </option>
-                        </select>
+                        <input size="16" id="ful" name="numVuelo" [(ngModel)]="n" #numVuelo="ngModel" type="number"
+                            class="form-control" id="datetime" ngModel>
+
                     </div>
                 </div>
                
                
             </div>
             <div id="contSig">
-                <button type="button" (click)="onConsultarAviones(Aero.value)" id="btnSig">BUSCAR</button>
+                <button type="button" (click)="onConsultarEquipaje(numVuelo.value)" id="btnSig">BUSCAR</button>
                 <button type="button" (click)="onReset()" id="btnSig">Limpiar</button>
             </div>
 
@@ -29,39 +28,29 @@
             <div id="tab" *ngFor="let item of Datos;let indice= index">
 
                 <div id="enc">
-                    <span id="encTitle">Modelo del Avion  {{indice+1}}</span>
+                    <span id="encTitle">Datos del Pasajero {{indice+1}}</span>
                 </div>
 
                 <div id="fil">
-                    <div id="colu">Marca
+                    <div id="colu">Nombre del Pasajero
                     </div>
                     <div id="colu">
-                       {{item.modelo}}
+                       {{item.data}}
                     </div>
                 </div>
                 <div id="fil">
-                    <div id="colu">Año
+                    <div id="colu">Maleta
                     </div>
                     <div id="colu">
-                       {{item.anio}}
+                       {{item.data}}
                     </div>
                 </div>
                 <div id="fil">
-                    <div id="colu">Cantidad de pasajeros</div>
+                    <div id="colu">Peso</div>
                     <div id="colu">
-                        {{item.cantidadPasajeros}}
+                        {{item.data}}
                     </div>
                 </div>
-
-                <div id="fil">
-                    <div id="colu">Cantidad de vuelos</div>
-                    <div id="colu">
-                        {{item.cantidadVuelos==null?'Sin Vuelos':item.cantidadVuelos}}
-                    </div>
-                </div>
-                
-
-
             </div>
             <div id="contSig">
                 <button type="button" (click)="createPDF()" id="btnSig">Imprimir</button>

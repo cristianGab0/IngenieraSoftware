@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Output,EventEmitter } from '@angular/core';
 import { GestorService } from 'src/app/services/gestor.service';
 
 import Swal from 'sweetalert2'
@@ -10,6 +10,7 @@ import Swal from 'sweetalert2'
 
 export class AgregarPasajeroComponent implements OnInit {
 
+  @Output() Registro = new EventEmitter<boolean>();
   array: any = []
   array2: any = [];
   AsientoSeleccionado: any[] = [];
@@ -27,6 +28,21 @@ export class AgregarPasajeroComponent implements OnInit {
     aeropuertoLlegada: '',
     aeropuertoSalida: '',
     fechaHoraSalida: ''
+  }
+  id={
+    idVuelo:'',
+    noPasaporte:0
+  }
+  envio={
+    claseVuelo:'',
+    equipaje:'',
+    estadoBoleto:'Pendiente Abordaje',
+    sillon:'',
+    id:this.id,
+    pagoExtra:null,
+    pasajero:null,
+    pesoEquipaje:null
+
   }
   constructor(private GestorService: GestorService) { }
   ngOnInit(): void {
@@ -104,7 +120,6 @@ export class AgregarPasajeroComponent implements OnInit {
       let cont = 0;
       let tamAvion;
       for (let i = 0; i < this.Asientos.length; i++) {
-        console.log('Log', this.Asientos[i].sillones)
         
         for (let z = 0; z < this.Asientos[i].sillones.length; z++) {
           if (this.Asientos[i].tamanio == "pequeño") {
@@ -122,11 +137,12 @@ export class AgregarPasajeroComponent implements OnInit {
             this.array = []
           }
         }
+        this.array2.idAvion=this.Asientos[i].idAvion
         this.AsientosV.push(this.array2);
         console.log('Log', this.AsientosV[i])
         this.array2 = []
       }
-    }, 1000)
+    }, 500)
 
   }
   verVuelo(vuelo: any){
@@ -141,12 +157,20 @@ export class AgregarPasajeroComponent implements OnInit {
 
   setClase(clase: any) {
     console.log(clase)
+    this.envio.claseVuelo=clase;
+    this.verAsientos = true;
+  }
+  setMaletas(Maletas: any) {
+    console.log(Maletas)
+    this.envio.equipaje=Maletas;
     this.verAsientos = true;
   }
 
   async getSillones(id: any, pos: number) {
     await this.GestorService.getSillones(id).toPromise().then(res => {
       this.Asientos[pos] = res;
+      this.Asientos[pos].idAvion=id;
+      console.log('Asientos con id ',this.Asientos)
 
       this.verClase = true;
     }).catch((err: any) => {
@@ -154,9 +178,36 @@ export class AgregarPasajeroComponent implements OnInit {
   }
 
   selectAsientos(avion: number, asiento: any) {
-    console.log(asiento)
+    console.log(asiento,this.AsientosV[avion].idAvion)
     this.AsientoSeleccionado[avion] = asiento;
+    this.envio.id.idVuelo=this.AsientosV[avion].idAvion;
+    this.envio.id.noPasaporte=Number( this.GestorService.pasaporte);
+    this.envio.sillon=asiento.idSillon;
+
+    console.log(this.envio)
   }
+  async SaveData(){
+    await this.GestorService.setPasajeroVuelo(this.GestorService.pasaporte,this.envio).toPromise().then(res => {
+      console.log(res)
+      Swal.fire({
+        title: 'Reserva Completa con Exito',
+        icon: 'success',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6'
+      })
+      this.Registro.emit(true);
+    }).catch((err: any) => {
+      Swal.fire({
+        title: 'No se a podido asignar al vuelo',
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6'
+      })
+    });
+
+  }
+
+
 
 
 

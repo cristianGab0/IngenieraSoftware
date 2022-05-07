@@ -104,61 +104,90 @@
                 <div id="fil">
                     <div id="colu">Seleccione el Piloto</div>
                     <div id="colu">
-                        <select id="TriDisponible" name="TriDisponible" #TriDisponible="ngModel" ngModel>
-                            <option *ngFor="let item of Tripulantes;let indice=index" value="{{indice}}">
-                                {{item.nombre}}--#ID{{item.idTripulante}}
-                            </option>
-                        </select>
+                        <mat-select id="TriDisponible" name="TriDisponible" #TriDisponible="ngModel" ngModel>
+                            <span *ngFor="let item of Tripulantes;let indice=index">
+                                <mat-option  value="{{indice}}" *ngIf="item.puesto=='Capitan'">
+                                
+                                {{item.nombre}}
+
+                                
+                            </mat-option>
+                        </span>
+                        </mat-select>
                     </div>
                 </div>
                 <div id="fil">
                     <div id="colu">Seleccione el Co Piloto</div>
                     <div id="colu">
-                        <select id="TriDisponible" name="TriDisponible1" #TriDisponible1="ngModel" ngModel>
-                            <option *ngFor="let item of Tripulantes;let indice=index" value="{{indice}}">
-                                {{item.nombre}}--#ID{{item.idTripulante}}
-                            </option>
-                        </select>
+                        <mat-select id="TriDisponible" name="TriDisponible1" #TriDisponible1="ngModel" ngModel>
+                            <span *ngFor="let item of Tripulantes;let indice=index">
+                                <mat-option  value="{{indice}}" *ngIf="item.puesto=='Copiloto'">
+                                
+                                {{item.nombre}}
+                                
+                            </mat-option>
+                        </span>
+                        </mat-select>
                     </div>
                 </div>
                 <div id="fil">
                     <div id="colu">Seleccione el Ingeniero de vuelo</div>
                     <div id="colu">
-                        <select id="TriDisponible" name="TriDisponible2" #TriDisponible2="ngModel" ngModel>
-                            <option *ngFor="let item of Tripulantes;let indice=index" value="{{indice}}">
-                                {{item.nombre}}--#ID{{item.idTripulante}}
-                            </option>
-                        </select>
+                        <mat-select id="TriDisponible" name="TriDisponible2" #TriDisponible2="ngModel" ngModel>
+                            <span *ngFor="let item of Tripulantes;let indice=index">
+                                <mat-option  value="{{indice}}" *ngIf="item.puesto=='Ingeniero de vuelo'">
+                                
+                                {{item.nombre}}
+
+                                
+                            </mat-option>
+                        </span>
+                        </mat-select>
                     </div>
                 </div>
                 <div id="fil">
                     <div id="colu">Seleccione el tripulante de cabina 1</div>
                     <div id="colu">
-                        <select id="TriDisponible" name="TriDisponible3" #TriDisponible3="ngModel" ngModel>
-                            <option *ngFor="let item of Tripulantes;let indice=index" value="{{indice}}">
-                                {{item.nombre}}--#ID{{item.idTripulante}}
-                            </option>
-                        </select>
+                        <mat-select id="TriDisponible" name="TriDisponible3" #TriDisponible3="ngModel" ngModel>
+                            <span *ngFor="let item of Tripulantes;let indice=index">
+                                <mat-option  value="{{indice}}" *ngIf="item.puesto=='Tripulante de cabina'">
+                                
+                                {{item.nombre}}
+
+                                
+                            </mat-option>
+                        </span>
+                        </mat-select>
                     </div>
                 </div>
                 <div id="fil">
                     <div id="colu">Seleccione el tripulante de cabina 2</div>
                     <div id="colu">
-                        <select id="TriDisponible" name="TriDisponible4" #TriDisponible4="ngModel" ngModel>
-                            <option *ngFor="let item of Tripulantes;let indice=index" value="{{indice}}">
-                                {{item.nombre}}--#ID{{item.idTripulante}}
-                            </option>
-                        </select>
+                        <mat-select id="TriDisponible" name="TriDisponible4" #TriDisponible4="ngModel" ngModel>
+                            <span *ngFor="let item of Tripulantes;let indice=index">
+                                <mat-option  value="{{indice}}" *ngIf="item.puesto=='Tripulante de cabina'">
+                                
+                                {{item.nombre}}
+
+                                
+                            </mat-option>
+                        </span>
+                        </mat-select>
                     </div>
                 </div>
                 <div id="fil">
                     <div id="colu">Seleccione el tripulante de cabina 3</div>
                     <div id="colu">
-                        <select id="TriDisponible" name="TriDisponible5" #TriDisponible5="ngModel" ngModel>
-                            <option *ngFor="let item of Tripulantes;let indice=index" value="{{indice}}">
-                                {{item.nombre}}--#ID{{item.idTripulante}}
-                            </option>
-                        </select>
+                        <mat-select id="TriDisponible" name="TriDisponible5" #TriDisponible5="ngModel" ngModel>
+                            <span *ngFor="let item of Tripulantes;let indice=index">
+                                <mat-option  value="{{indice}}" *ngIf="item.puesto=='Tripulante de cabina'">
+                                
+                                {{item.nombre}}
+
+                                
+                            </mat-option>
+                        </span>
+                        </mat-select>
                     </div>
                 </div>
 

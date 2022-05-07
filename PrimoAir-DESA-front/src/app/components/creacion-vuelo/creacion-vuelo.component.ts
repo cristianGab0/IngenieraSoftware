@@ -145,7 +145,6 @@ export class CreacionVueloComponent implements OnInit {
     this.CrearVueloData.avion.id.idAvion = Avion.idAvion;
     this.CrearVueloData.precioEconomica = Eco;
     this.CrearVueloData.precioEjecutiva = Eje;
-    this.CrearVueloData.idvuelo = 0;
     this.CrearVueloData.tripulantes = []
     this.CrearVueloData.tripulantes=Tripu;
 

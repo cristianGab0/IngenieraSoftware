@@ -25,8 +25,10 @@ export class ConectionService {
   urlAerolineasAero='https://ms-aeropuerto-primos.herokuapp.com/reporte/obtenerAerolineaByAeropuertoAutorizado/';
   urlDetalleAvion='https://ms-aeropuerto-primos.herokuapp.com/reporte/obtenerDetalleAvionesPorAerolinea/';
   urlPasajerosVuelo='https://ms-aeropuerto-primos.herokuapp.com/reporte/obtenerPasajerosPorVuelo/';
-  urlDestinosAutorizados='https://ms-aeropuerto-primos.herokuapp.com/reporte/obtenerAeropuertosAutorizadosPorAerolinea/'
-  
+  urlDestinosAutorizados='https://ms-aeropuerto-primos.herokuapp.com/reporte/obtenerAeropuertosAutorizadosPorAerolinea/';
+  urlEquipaje='https://ms-aeropuerto-primos.herokuapp.com/reporte/obtenerDetalleEquipajeVuelo/';
+  urlLogin='https://ms-aeropuerto-primos.herokuapp.com/rolesByLogin';
+  urlAsignarPasajero='https://ms-aeropuerto-primos.herokuapp.com/agregarPasajeroVuelo/';
   getPaises(){
     let HTTPOptions: Object = {
       headers: new HttpHeaders({
@@ -195,6 +197,37 @@ export class ConectionService {
     };
     return this.httpClient.get<string>(this.urlDestinosAutorizados+id, HTTPOptions);
   }
+  getDetalleEquipaje(id:any){
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'json',
+    };
+    return this.httpClient.get<string>(this.urlEquipaje+id, HTTPOptions);
+  }
 
+  getRol(data:any){
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'json',
+    };
+    return this.httpClient.post<string>(this.urlLogin,data,HTTPOptions);
+  }
+
+  setPasajeroVuelo(pasaporte:any,data:any){
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'json',
+    };
+    return this.httpClient.post<string>(this.urlAsignarPasajero,[data], HTTPOptions);
+  }
+
+
+  
 
 }

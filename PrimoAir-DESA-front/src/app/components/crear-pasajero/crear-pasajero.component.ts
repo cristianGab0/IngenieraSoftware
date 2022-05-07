@@ -82,7 +82,6 @@ export class CrearPasajeroComponent implements OnInit {
       console.log('SERVICIO CREAR USUARIO RESPONDIO'+res)
       this.onLimpiar()
       Swal.fire({
-        position: 'top-end',
         icon: 'success',
         title: 'Se ha creado con éxito el Usuario',
         showConfirmButton: false,

@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
 
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" *ngIf="ROLE_ADMIN_AEROLINEA">
                 <div class="dropdown">
 
                     <div ngbDropdown class="dropdown">
@@ -24,7 +24,7 @@
 
                 </div>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" *ngIf="GestorService.pasaporte==''">
                 <div class="dropdown">
                     <div ngbDropdown class="dropdown">
                         <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton1"
@@ -39,7 +39,7 @@
                 </div>
 
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" *ngIf="GestorService.pasaporte!=''">
                 <div class="dropdown">
                     <div ngbDropdown class="dropdown">
                         <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton1"
@@ -53,6 +53,7 @@
                             <div (click)="OnVerConsultarAviones()" class="dropdown-item" >Consultar Aviones</div>
                             <div (click)="OnVerConsultarPasajerosVuelo()" class="dropdown-item" >Consultar Pasajeros Por Vuelo</div>
                             <div (click)="onVerDestinos()" class="dropdown-item" >Consultar Destinos</div>
+                            <div (click)="onVerEquipajeVuelo()" class="dropdown-item" >Consultar Equipaje Por Vuelo</div>
                             
                       
                         </div>
@@ -61,7 +62,7 @@
                 </div>
 
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" *ngIf="ROLE_CLIENTE||ROLE_ADMIN_ABORDAJE">
                 <div class="dropdown">
                     <div ngbDropdown class="dropdown">
                         <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton1"
@@ -69,7 +70,8 @@
                             Vuelos
                         </button>
                         <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <div (click)="OnVerReserva()" class="dropdown-item" >Reservar Vuelo</div>
+                            <div (click)="OnVerReserva()" class="dropdown-item" *ngIf="ROLE_CLIENTE">Reservar Vuelo</div>
+                            <div (click)="null" class="dropdown-item" *ngIf="ROLE_ADMIN_ABORDAJE">Abordaje</div>
                       
                         </div>
                     </div>
@@ -82,16 +84,17 @@
 </nav>
 
 
-<login *ngIf="verLogin" (Registro)="OnVerCrearPasajero()"></login>
+<login *ngIf="verLogin" (Registro)="OnVerCrearPasajero()"  (Validar)="VerificarRoles()" ></login>
 
 <crear-pasajero *ngIf="verCrearPasajero"></crear-pasajero>
 
 <creacion-vuelo *ngIf="verCrearVuelo"></creacion-vuelo>
 
-<agregar-pasajero *ngIf="verReserva"></agregar-pasajero>
+<agregar-pasajero *ngIf="verReserva" (Registro)="ocultarAgregarPasajero()"></agregar-pasajero>
 <app-reporte-vuelo *ngIf="verReporteVuelo"></app-reporte-vuelo>
 <consultar-vuelos *ngIf="verConsultarVuelos"></consultar-vuelos>
 <consultar-aerolineas *ngIf="verConsultarAerolineas"></consultar-aerolineas>
 <consultar-aviones *ngIf="verConsultarAviones"></consultar-aviones>
 <consultar-pasajeros-vuelo *ngIf="verPasajerosVuelo"></consultar-pasajeros-vuelo>
 <consultar-destinos-autorizados *ngIf="verDestinos"></consultar-destinos-autorizados>
+<consultar-equipaje-vuelo *ngIf="verEquipaje"></consultar-equipaje-vuelo>

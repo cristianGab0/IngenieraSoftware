@@ -16,6 +16,9 @@ import { ConsultarAerolineasComponent } from './components/consultar-aerolineas/
 import { ConsultarAvionesComponent } from './components/consultar-aviones/consultar-aviones.component';
 import { ConsultarPasajerosVueloComponent } from './components/consultar-pasajeros-vuelo/consultar-pasajeros-vuelo.component';
 import { ConsultarDestinosAutorizadosComponent } from './components/consultar-destinos-autorizados/consultar-destinos-autorizados.component';
+import { ConsultarEquipajeVueloComponent } from './components/consultar-equipaje-vuelo/consultar-equipaje-vuelo.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSelectModule} from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,14 +32,17 @@ import { ConsultarDestinosAutorizadosComponent } from './components/consultar-de
     ConsultarAerolineasComponent,
     ConsultarAvionesComponent,
     ConsultarPasajerosVueloComponent,
-    ConsultarDestinosAutorizadosComponent
+    ConsultarDestinosAutorizadosComponent,
+    ConsultarEquipajeVueloComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
