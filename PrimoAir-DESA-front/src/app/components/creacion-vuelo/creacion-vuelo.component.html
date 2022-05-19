@@ -65,12 +65,12 @@
                     <div id="colu">
                         <input size="16" #FechaLLegada="ngModel" id="FechaLLegada" name="FechaLLegada" type="date" class="form-control" ngModel
                             id="datetime">
-                        <input type="time" id="FechaLLegada" name="FechaLLegada" #FechaLLegada="ngModel" ngModel>
+                        <input type="time" id="FechaLLegada" name="HoraLlegada" #HoraLlegada="ngModel" ngModel>
                     </div>
                 </div>
             </div>
             <div id="contSig">
-                <button type="button" (click)="getAviones(AirLlegada.value,AirSalida.value,HoraSalida.value,HoraSalida.value,FechaLLegada.value,FechaSalida.value)" id="btnSig">Siguiente</button>
+                <button type="button" (click)="getAviones(AirLlegada.value,AirSalida.value,HoraLlegada.value,HoraSalida.value,FechaLLegada.value,FechaSalida.value)" id="btnSig">Siguiente</button>
             </div>
         </div>
 

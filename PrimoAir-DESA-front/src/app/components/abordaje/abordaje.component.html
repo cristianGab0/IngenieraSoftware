@@ -1,0 +1,67 @@
+<div>
+    <div id="cont">
+        <div *ngIf="verVuelos">
+            <div id="tab">
+                <div id="enc">
+                    <span id="encTitle">Seleccione uno de nuestros vuelos disponibles</span>
+                </div>
+                <div id="enc1">
+                    <div id="colu1">Número de Vuelo</div>
+                    <div id="colu1">Origen</div>
+                    <div id="colu1">Destino</div>
+                    <div id="colu1">Fecha y hora de salida</div>
+                </div>
+                <div id="dataRow" *ngFor="let item of Vuelos;let indice=index">
+                    <div id="data">{{item.idVuelo}}</div>
+                    <div id="data">{{item.aeropuertoSalida}}</div>
+                    <div id="data">{{item.aeropuertoLlegada}}</div>
+                    <div id="data">Q{{item.fechaHoraSalida}}</div>
+
+                    <div id="data">
+                        <button class="btnPeques" type="button" (click)="selector(indice)">Seleccionar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div *ngIf="verOpciones">
+            <div id="tab" style="padding-top:1vw">
+                <div id="encWhite">
+                    <button class="btnSelect" type="button" (click)="nuevo()">Nuevo vuelo</button>
+                    <button class="btnSelect" type="button" (click)="finalizarAbordaje()">Finalizar Abordaje</button>
+                    <button class="btnSelect" type="button" (click)="enableBusqueda()">Buscar</button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div *ngIf="verBusqueda">
+            <div id="tab" style="padding-top:1vw">
+                <div id="enc">
+                    <span id="encTitle">Busqueda</span>
+                </div>
+                <div id="fil" style="padding-top:0.3vw">
+                    <div id="colu" style="justify-content:right">Numero de Pasaporte</div>
+                    <div id="colu">
+                        <input type="text" id="Pasaporte" name="Pasaporte" #Pasaporte="ngModel" ngModel>
+                    </div>
+                </div>
+                <div id="fil" style="padding-top:0.3vw">
+                    <button class="btnSave" type="button" (click)="validarVuelos(Pasaporte.value)">Verificar</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="verAbordar">
+            <div id="tab" style="padding-top:1vw">
+                <div id="fil" style="padding-top:0.3vw">
+                    <button class="btnSave" type="button" (click)="AbordarVuelo()">Abordar</button>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </div>
+</div>

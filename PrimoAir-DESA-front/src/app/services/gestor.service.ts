@@ -80,13 +80,30 @@ export class GestorService {
   }
 
   rolPermitied(rol:any){
+    
     for(let a=0;a<this.roles.length;a++){
       console.log(this.roles[a].nombre,rol)
       if(this.roles[a].nombre==rol){
         return true
       }
     }
+
     return false;
+  }
+
+
+  getVuelosAbordaje(){
+    return this.ConectionService.getVuelosAbordaje();
+  }
+  getVueloValidoAbordar(data:any){
+    return this.ConectionService.getVueloValidoAbordar(data);
+  }
+
+  setAbordarVuelo(data:any){
+    return this.ConectionService.setAbordarVuelo(data);
+  }
+  setFinalizarAbordaje(data:any){
+    return this.ConectionService.setFinalizarAbordaje(data);
   }
 
 }

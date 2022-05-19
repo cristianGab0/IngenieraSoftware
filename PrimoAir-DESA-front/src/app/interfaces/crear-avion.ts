@@ -47,12 +47,13 @@ export module CrearVuelo {
     }
 
     export interface CrearVueloData {
+        usuarioAgrego?: string;
         aeropuertoLlegada?: number;
         aeropuertoSalida?: number;
         avion?: Avion;
         estado?: string;
-        fecha_hora_llegada?: Date;
-        fecha_hora_salida?: Date;
+        fecha_hora_llegada?: string;
+        fecha_hora_salida?: string;
         idvuelo?: number;
         precioEconomica?: number;
         precioEjecutiva?: number;

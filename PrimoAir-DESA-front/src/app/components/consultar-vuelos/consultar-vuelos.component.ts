@@ -25,8 +25,8 @@ export class ConsultarVuelosComponent implements OnInit {
   }
 
   async onConsultarVuelos(fechallegada:any,horallegada:any,fechaSalida:any,horaSalida:any){
-    this.Fechas.fechaHoraLlegada= new Date(fechallegada+'T'+horallegada)
-    this.Fechas.fechaHoraSalida= new Date(fechaSalida+'T'+horaSalida)
+    this.Fechas.fechaHoraLlegada= fechallegada+'T'+horallegada
+    this.Fechas.fechaHoraSalida= fechaSalida+'T'+horaSalida
 
     console.log(JSON.stringify(new Date(fechallegada+'T'+horallegada)))
 

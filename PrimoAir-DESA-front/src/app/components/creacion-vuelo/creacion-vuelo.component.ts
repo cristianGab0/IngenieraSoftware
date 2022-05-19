@@ -56,8 +56,9 @@ export class CreacionVueloComponent implements OnInit {
 
 
   async getAviones(AirLlegada: any, AirSalida: any, HoraLlegada: any, HoraSalida: any, FechaLlegada: any, FechaSalida: any) {
-    this.fecha.fechaHoraLlegada = new Date(FechaLlegada + 'T' + HoraLlegada);
-    this.fecha.fechaHoraSalida = new Date(FechaSalida + 'T' + HoraSalida);
+    this.fecha.fechaHoraLlegada =FechaLlegada + 'T' + HoraLlegada;
+    this.fecha.fechaHoraSalida = FechaSalida + 'T' + HoraSalida;
+    console.log(''+this.fecha.fechaHoraLlegada,'  ',this.fecha.fechaHoraSalida)
     console.log('Validando Aviones')
     for (let i = 0; i < this.Aereopuertos.length; i++) {
       if (i == AirLlegada) {
@@ -74,8 +75,8 @@ export class CreacionVueloComponent implements OnInit {
 
     this.CrearVueloData.aeropuertoSalida = AirSalida.idAeropuerto;
     this.CrearVueloData.aeropuertoLlegada = AirLlegada.idAeropuerto;
-    this.CrearVueloData.fecha_hora_llegada = new Date(FechaLlegada + 'T' + HoraLlegada);
-    this.CrearVueloData.fecha_hora_salida = new Date(FechaSalida + 'T' + HoraSalida);
+    this.CrearVueloData.fecha_hora_llegada = this.fecha.fechaHoraLlegada;
+    this.CrearVueloData.fecha_hora_salida = this.fecha.fechaHoraSalida;
     console.log('--------' + JSON.stringify(this.CrearVueloData))
 
 
@@ -147,6 +148,7 @@ export class CreacionVueloComponent implements OnInit {
     this.CrearVueloData.precioEjecutiva = Eje;
     this.CrearVueloData.tripulantes = []
     this.CrearVueloData.tripulantes=Tripu;
+    this.CrearVueloData.usuarioAgrego=this.GestorService.pasaporte;
 
     console.log('JSON ENVIAR ' + JSON.stringify(this.CrearVueloData))
     this.registrarVuelo();

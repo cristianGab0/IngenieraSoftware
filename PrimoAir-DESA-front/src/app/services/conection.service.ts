@@ -29,6 +29,10 @@ export class ConectionService {
   urlEquipaje='https://ms-aeropuerto-primos.herokuapp.com/reporte/obtenerDetalleEquipajeVuelo/';
   urlLogin='https://ms-aeropuerto-primos.herokuapp.com/rolesByLogin';
   urlAsignarPasajero='https://ms-aeropuerto-primos.herokuapp.com/agregarPasajeroVuelo/';
+  urlObtenerVuelosAbordar='https://ms-aeropuerto-primos.herokuapp.com/obtenerVuelosAbordar/';
+  urlVerificarVueloAbordar='https://ms-aeropuerto-primos.herokuapp.com/validarPasaporteVuelo/';
+  urlAbordar='https://ms-aeropuerto-primos.herokuapp.com/abordarPasajero/';
+  urlFinalizarAbordaje='https://ms-aeropuerto-primos.herokuapp.com/finalizarAbordaje/'
   getPaises(){
     let HTTPOptions: Object = {
       headers: new HttpHeaders({
@@ -225,6 +229,33 @@ export class ConectionService {
       responseType: 'json',
     };
     return this.httpClient.post<string>(this.urlAsignarPasajero,[data], HTTPOptions);
+  }
+
+  getVuelosAbordaje(){
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'json',
+    };
+    return this.httpClient.get<string>(this.urlObtenerVuelosAbordar, HTTPOptions);
+  }
+  getVueloValidoAbordar(data:any){
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'json',
+    };
+    return this.httpClient.get<string>(this.urlVerificarVueloAbordar+data[0]+'/'+data[1], HTTPOptions);
+  }
+  setAbordarVuelo(data:any){
+
+    return this.httpClient.put<string>(this.urlAbordar+data[0]+'/'+data[1],{});
+  }
+  setFinalizarAbordaje(data:any){
+
+    return this.httpClient.put<string>(this.urlFinalizarAbordaje+data,{});
   }
 
 

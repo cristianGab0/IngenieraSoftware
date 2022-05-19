@@ -18,6 +18,7 @@ export class GestorComponentComponent implements OnInit {
   verPasajerosVuelo =false;
   verDestinos=false;
   verEquipaje=false;
+  verAbordaje=false;
   ROLE_ADMIN_AEROLINEA=false;
   ROLE_CLIENTE=false;
   ROLE_ADMIN_ABORDAJE=false;
@@ -44,6 +45,7 @@ export class GestorComponentComponent implements OnInit {
     this.verPasajerosVuelo=false;
     this.verDestinos=false;
     this.verEquipaje=false;
+    this.verAbordaje=false;
   }
   OnVerCrearVuelo(){
     this.verLogin=false;
@@ -58,6 +60,7 @@ export class GestorComponentComponent implements OnInit {
     this.verPasajerosVuelo=false;
     this.verDestinos=false;
     this.verEquipaje=false;
+    this.verAbordaje=false;
   }
   OnVerReserva(){
     this.verReserva=true;
@@ -72,6 +75,7 @@ export class GestorComponentComponent implements OnInit {
     this.verPasajerosVuelo=false;
     this.verDestinos=false;
     this.verEquipaje=false;
+    this.verAbordaje=false;
   }
   OnVerCrearTripu(){
     this.verReserva=false;
@@ -86,6 +90,7 @@ export class GestorComponentComponent implements OnInit {
     this.verPasajerosVuelo=false;
     this.verDestinos=false;
     this.verEquipaje=false;
+    this.verAbordaje=false;
   }
   OnVerReporteVuelo(){
     this.verReserva=false;
@@ -100,6 +105,7 @@ export class GestorComponentComponent implements OnInit {
     this.verPasajerosVuelo=false;
     this.verDestinos=false;
     this.verEquipaje=false;
+    this.verAbordaje=false;
   }
   OnVerConsultarVuelos(){
     this.verReserva=false;
@@ -114,6 +120,7 @@ export class GestorComponentComponent implements OnInit {
     this.verPasajerosVuelo=false;
     this.verDestinos=false;
     this.verEquipaje=false;
+    this.verAbordaje=false;
   }
   OnVerConsultarAerolineas(){
     this.verReserva=false;
@@ -128,6 +135,7 @@ export class GestorComponentComponent implements OnInit {
     this.verPasajerosVuelo=false;
     this.verDestinos=false;
     this.verEquipaje=false;
+    this.verAbordaje=false;
   }
   OnVerConsultarAviones(){
     this.verReserva=false;
@@ -142,6 +150,7 @@ export class GestorComponentComponent implements OnInit {
     this.verPasajerosVuelo=false;
     this.verDestinos=false;
     this.verEquipaje=false;
+    this.verAbordaje=false;
   }
   OnVerConsultarPasajerosVuelo(){
     this.verReserva=false;
@@ -156,6 +165,7 @@ export class GestorComponentComponent implements OnInit {
     this.verPasajerosVuelo=true;
     this.verDestinos=false;
     this.verEquipaje=false;
+    this.verAbordaje=false;
 
   }
   onVerDestinos(){
@@ -171,6 +181,7 @@ export class GestorComponentComponent implements OnInit {
     this.verPasajerosVuelo=false;
     this.verDestinos=true;
     this.verEquipaje=false;
+    this.verAbordaje=false;
 
   }
 
@@ -187,8 +198,24 @@ export class GestorComponentComponent implements OnInit {
     this.verPasajerosVuelo=false;
     this.verDestinos=false;
     this.verEquipaje=true;
+    this.verAbordaje=false;
 
 
+  }
+  onVerAbordaje(){
+    this.verReserva=false;
+    this.verLogin=false;
+    this.verCrearPasajero=false;
+    this.verCrearVuelo=false;
+    this.verCrearTripu=false;
+    this.verReporteVuelo=false;
+    this.verConsultarVuelos=false;
+    this.verConsultarAerolineas=false;
+    this.verConsultarAviones=false;
+    this.verPasajerosVuelo=false;
+    this.verDestinos=false;
+    this.verEquipaje=false;
+    this.verAbordaje=true;
   }
   ocultarAgregarPasajero(){
     this.verReserva=false;

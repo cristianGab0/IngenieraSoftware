@@ -71,7 +71,7 @@
                         </button>
                         <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <div (click)="OnVerReserva()" class="dropdown-item" *ngIf="ROLE_CLIENTE">Reservar Vuelo</div>
-                            <div (click)="null" class="dropdown-item" *ngIf="ROLE_ADMIN_ABORDAJE">Abordaje</div>
+                            <div (click)="onVerAbordaje()" class="dropdown-item" *ngIf="ROLE_ADMIN_ABORDAJE">Abordaje</div>
                       
                         </div>
                     </div>
@@ -98,3 +98,4 @@
 <consultar-pasajeros-vuelo *ngIf="verPasajerosVuelo"></consultar-pasajeros-vuelo>
 <consultar-destinos-autorizados *ngIf="verDestinos"></consultar-destinos-autorizados>
 <consultar-equipaje-vuelo *ngIf="verEquipaje"></consultar-equipaje-vuelo>
+<abordaje *ngIf="verAbordaje"></abordaje>
