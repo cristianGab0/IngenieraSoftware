@@ -5,6 +5,8 @@ import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 import Swal from 'sweetalert2';
+import { Workbook } from 'exceljs';
+import * as fs from 'file-saver';
 @Component({
   selector: 'app-reporte-vuelo',
   templateUrl: './reporte-vuelo.component.html',
@@ -83,4 +85,75 @@ export class ReporteVueloComponent implements OnInit {
  
   }
 
+
+  createExcel(){
+    
+    //Excel Title, Header, Data
+    const title = 'REPORTE DE VUELO';
+    const header = [
+      'Modelo de avión',
+      'Aerolínea',
+      'Origen',
+      'Destino',
+      'Fecha y hora de salida',
+      'Fecha y hora de llegada',
+    ];
+    const data = [
+      [
+        this.Datos.avion,
+        this.Datos.aerolinea,
+        this.Datos.origen,
+        this.Datos.destino,
+        this.Datos.salida,
+        this.Datos.llegada
+      ],
+    ];
+    //Create workbook and worksheet
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('Hoja 1');
+    //Add Row and formatting
+    let titleRow = worksheet.addRow([title]);
+    titleRow.font = { size: 15, bold: true };
+    worksheet.addRow([]);
+    worksheet.mergeCells('A1:D2');
+    worksheet.mergeCells('A3:E3');
+    //Blank Row
+    worksheet.addRow([]);
+    //Add Header Row
+    let headerRow = worksheet.addRow(header);
+
+    // Cell Style : Fill and Border
+    headerRow.eachCell((cell, number) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'D7DAD1' },
+        bgColor: { argb: 'FFFFFF' },
+      };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+    data.forEach((d) => {
+      let row = worksheet.addRow(d);
+    });
+    worksheet.getColumn(1).width = 18;
+    worksheet.getColumn(2).width = 20;
+    worksheet.getColumn(3).width = 40;
+    worksheet.getColumn(4).width = 40;
+    worksheet.getColumn(5).width = 35;
+    worksheet.getColumn(6).width = 35;
+    worksheet.addRow([]);
+
+    //Generate Excel File with given name
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+      fs.saveAs(blob, 'ReporteVuelo.xlsx');
+    });
+  }
 }

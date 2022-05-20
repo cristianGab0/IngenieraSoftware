@@ -23,6 +23,8 @@
     "@ng-bootstrap/ng-bootstrap": "^12.0.1",
     "@popperjs/core": "^2.11.5",
     "bootstrap": "^5.1.3",
+    "exceljs": "^4.3.0",
+    "file-saver": "^2.0.5",
     "jquery": "^3.6.0",
     "material-icons": "^1.10.8",
     "pdfmake": "^0.2.5",
