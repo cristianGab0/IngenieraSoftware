@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   constructor(private GestorService: GestorService) { }
 
   ngOnInit(): void {
+    this.getData()
   }
 
   OnRegistro(){
@@ -33,6 +34,8 @@ export class LoginComponent implements OnInit {
       this.GestorService.roles=res
       console.log(this.GestorService.roles) 
       this.GestorService.pasaporte=pasaporte;
+      
+      this.saveData(this.GestorService.roles);
       Swal.fire({
         text: 'Inicio de Sesion correcto',
         icon: 'success',
@@ -49,5 +52,21 @@ export class LoginComponent implements OnInit {
       })
     });
     
+  } 
+  saveData(sesion:any) {
+    for(let a=0;a<sesion.length;a++){
+      console.log(sesion[a].nombre)
+    }
+    sessionStorage.setItem('sesion', JSON.stringify(sesion));
+    sessionStorage.setItem('pasaporte', this.GestorService.pasaporte);
+  }
+  getData() {
+    this.GestorService.pasaporte=sessionStorage.getItem('pasaporte');
+    this.GestorService.roles=JSON.parse(sessionStorage.getItem('sesion'));
+    console.log(this.GestorService.roles)
+    console.log('Data almacenada',sessionStorage.getItem('pasaporte'))
+    if(sessionStorage.getItem('sesion')!=null){
+    this.Validar.emit(true);
+    }
   }
 }

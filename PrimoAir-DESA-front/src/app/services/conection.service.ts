@@ -32,7 +32,8 @@ export class ConectionService {
   urlObtenerVuelosAbordar='https://ms-aeropuerto-primos.herokuapp.com/obtenerVuelosAbordar/';
   urlVerificarVueloAbordar='https://ms-aeropuerto-primos.herokuapp.com/validarPasaporteVuelo/';
   urlAbordar='https://ms-aeropuerto-primos.herokuapp.com/abordarPasajero/';
-  urlFinalizarAbordaje='https://ms-aeropuerto-primos.herokuapp.com/finalizarAbordaje/'
+  urlFinalizarAbordaje='https://ms-aeropuerto-primos.herokuapp.com/finalizarAbordaje/';
+  urlGetNombre='https://ms-aeropuerto-primos.herokuapp.com/obtenerNombrePasajero/'
   getPaises(){
     let HTTPOptions: Object = {
       headers: new HttpHeaders({
@@ -143,7 +144,7 @@ export class ConectionService {
       }),
       responseType: 'json',
     };
-    return this.httpClient.get<string>(this.urlDetalleVuelo+id, HTTPOptions);
+    return this.httpClient.post<string>(this.urlDetalleVuelo,id, HTTPOptions);
   }
   getReporteVuelo(id:any){
     let HTTPOptions: Object = {
@@ -256,6 +257,15 @@ export class ConectionService {
   setFinalizarAbordaje(data:any){
 
     return this.httpClient.put<string>(this.urlFinalizarAbordaje+data,{});
+  }
+  getNombre(pasaporte:any){
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/text',
+      }),
+      responseType: 'text',
+    };
+    return this.httpClient.get<string>(this.urlGetNombre+pasaporte, HTTPOptions);
   }
 
 

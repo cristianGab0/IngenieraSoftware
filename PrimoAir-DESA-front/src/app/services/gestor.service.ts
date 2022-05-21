@@ -105,5 +105,8 @@ export class GestorService {
   setFinalizarAbordaje(data:any){
     return this.ConectionService.setFinalizarAbordaje(data);
   }
+  getNombre(){
+    return this.ConectionService.getNombre(this.pasaporte);
+  }
 
 }

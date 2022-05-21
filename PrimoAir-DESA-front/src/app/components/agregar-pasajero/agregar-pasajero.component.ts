@@ -164,11 +164,49 @@ export class AgregarPasajeroComponent implements OnInit {
     }, 500)
 
   }
-  verVuelo(vuelo: any) {
+  async verVuelo(vuelo: any) {
+    let respuesta;
+      let data='';
+    await this.GestorService.getDetalleVuelo(vuelo.idsVuelos).toPromise().then(res => {
+      console.log(res)
+      respuesta=res;
 
+    this.dataReport.Fecha=new Date(this.dataReport.Fecha).toLocaleString();
+      for (let a= 0; a <res.length; a++) {
+        data += `
+        <tr style="font-size:1vw; border-style:solid; border-width:1px">
+        <td style="font-size:1vw; border-style:solid; border-width:1px">`+respuesta[a].modeloAvion+`</td>
+        <td style="font-size:1vw; border-style:solid; border-width:1px">`+respuesta[a].idVuelo+`</td>
+        <td style="font-size:1vw; border-style:solid; border-width:1px">`+respuesta[a].origen+`</td>
+        <td style="font-size:1vw; border-style:solid; border-width:1px">`+respuesta[a].destino+`</td>
+        <td style="font-size:1vw; border-style:solid; border-width:1px">`+new Date(respuesta[a].fechaHoraSalida).toLocaleString()+`</td>
+        <td style="font-size:1vw; border-style:solid; border-width:1px"> `+new Date(respuesta[a].fechaHoraLlegada).toLocaleString()+`</td>
+        </tr>`
+      }
+
+    }).catch((err: any) => {
+      console.log(err)
+    });
     Swal.fire({
-      title: 'No hay vuelos disponibles en esta fecha',
-      icon: 'warning',
+      html:`<div id="page">
+      <table>
+          <thead>
+              <tr style="font-size:1vw">
+                  <th style="font-size:1vw; border-style:solid; border-width:1px" scope="col">Modelo del avión</th>
+                  <th style="font-size:1vw; border-style:solid; border-width:1px" scope="col">Número de vuelo</th>
+                  <th style="font-size:1vw; border-style:solid; border-width:1px" scope="col">Origen</th>
+                  <th style="font-size:1vw; border-style:solid; border-width:1px" scope="col">Destino</th>
+                  <th style="font-size:1vw; border-style:solid; border-width:1px" scope="col">Fecha y Hora de despegue</th>
+                  <th style="font-size:1vw; border-style:solid; border-width:1px" scope="col">Fecha y Hora de aterrizaje</th>
+              </tr>
+          </thead>
+          <tbody>
+          `+data+`
+          </tbody>
+      </table>
+  </div>`,
+  width:'60vw',
+      title: 'DetalleVuelo',
       showCancelButton: false,
       confirmButtonColor: '#3085d6'
     })
@@ -222,7 +260,7 @@ export class AgregarPasajeroComponent implements OnInit {
         confirmButtonColor: '#3085d6'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.generarTicket()
+          this.getNombre()
         }})
       this.Registro.emit(true);
     }).catch((err: any) => {
@@ -234,6 +272,26 @@ export class AgregarPasajeroComponent implements OnInit {
       })
     });
 
+  }
+
+  async verDetalles(item:any) {
+    
+  }
+
+  async getNombre() {
+    this.dataReport.Fecha=new Date(this.dataReport.Fecha).toLocaleString();
+    this.dataReport.Sala=new Date(this.dataReport.Sala).toLocaleString();
+    let hora = new Date(this.dataReport.HoraSalida)
+    hora.setMinutes(hora.getMinutes()-30);
+    this.dataReport.HoraSalida=hora.toLocaleString();
+    await this.GestorService.getNombre().toPromise().then(res => {
+      this.dataReport.Nombre = res;
+      console.log(res)
+      this.generarTicket()
+    }).catch((err: any) => {
+      console.log('Error')
+      console.log(err)
+    });
   }
 
 
@@ -287,8 +345,8 @@ export class AgregarPasajeroComponent implements OnInit {
                       ],
                       [
                         { text: this.dataReport.idVuelo, border: [false, false, false, false] },
-                        { text: this.dataReport.Sala, border: [false, false, false, false] },
                         { text: this.dataReport.HoraSalida, border: [false, false, false, false] },
+                        { text: this.dataReport.Sala, border: [false, false, false, false] },
                         { text: this.dataReport.Asiento, border: [false, false, false, false] }
                       ]
                     ]
@@ -304,7 +362,7 @@ export class AgregarPasajeroComponent implements OnInit {
                     body: [
                       [
                         { text: 'Nombre: ', bold: true, border: [false, false, false, false] },
-                        { text: 'Cristian Gabriel Rosales Córdova', border: [false, false, false, false] },
+                        { text: this.dataReport.Nombre, border: [false, false, false, false] },
                       ],
                     ]
                   }

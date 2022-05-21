@@ -19,6 +19,7 @@ import { ConsultarDestinosAutorizadosComponent } from './components/consultar-de
 import { ConsultarEquipajeVueloComponent } from './components/consultar-equipaje-vuelo/consultar-equipaje-vuelo.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from "@angular/material/dialog";
 import { AbordajeComponent } from './components/abordaje/abordaje.component';
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AbordajeComponent } from './components/abordaje/abordaje.component';
     FormsModule,
     NgbModule,
     BrowserAnimationsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
