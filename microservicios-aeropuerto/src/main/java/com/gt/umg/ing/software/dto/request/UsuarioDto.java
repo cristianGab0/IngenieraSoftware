@@ -27,15 +27,15 @@ public class UsuarioDto {
 
     private Date fechaNacimiento;
 
-    @NotEmpty(message = "ID debe ser un número de 20 dígitos")
+    @NotEmpty(message = "El país de nacimiento no puede estar vacio")
     private String paisNacimiento;
 
-    @NotEmpty(message = "ID debe ser un número de 20 dígitos")
+    @NotEmpty(message = "El correo no puede estar vacio")
     @Email(message = "El correo debe ser válido")
     private String correoElectronico;
 
-    @Min(value = 1, message = "El número de télefono debe de ser de 8 digitos")
-    @Max(value = 999, message = "El número de télefono debe de ser de 8 digitos")
+    @Min(value = 1, message = "El código de área debe de ser de 3 digitos")
+    @Max(value = 999, message = "El código de área debe de ser de 3 digitos")
     private int codigoArea;
 
     @Min(value = 10000000, message = "El número de télefono debe de ser de 8 digitos")
@@ -46,7 +46,7 @@ public class UsuarioDto {
     @Max(value = 99999999, message = "El número de télefono de emergencias  debe de ser de 8 digitos")
     private int numeroEmergencias;
 
-    @NotEmpty(message = "ID debe ser un número de 20 dígitos")
+    @NotEmpty(message = "La direccion no puede estar vacia")
     private String direccion;
 
     @Pattern(regexp = "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,16}$", message = "El formato de la contraseña debe incluir al menos una letra mayúscula, un carácter especial y un número")
@@ -54,8 +54,8 @@ public class UsuarioDto {
 
     private Boolean enabled;
 
-    @Size(min = 5, max = 10, message = "El usuario debe ser de 5 a 10 letras")
-    private String username;
+//    @Size(min = 5, max = 10, message = "El usuario debe ser de 5 a 10 letras")
+//    private String username;
 
     public UsuarioDto() {
     }
@@ -72,7 +72,7 @@ public class UsuarioDto {
         this.direccion = direccion;
         this.password = password;
         this.enabled = enabled;
-        this.username = username;
+//        this.username = username;
     }
 
     public Usuario usuarioDtoToUsuario() {
@@ -80,7 +80,7 @@ public class UsuarioDto {
         user.setEmail(this.getCorreoElectronico());
         user.setNombre(this.getNombreCompleto());
         user.setPassword(this.getPassword());
-        user.setUsername(this.getUsername());
+        user.setUsername(this.getNoPasaporte().toString());
         user.setEnabled(this.getEnabled());
         return user;
     }
@@ -194,12 +194,12 @@ public class UsuarioDto {
         this.enabled = enabled;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
 
 }

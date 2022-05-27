@@ -5,6 +5,7 @@
  */
 package com.gt.umg.ing.software.service;
 
+import com.gt.umg.ing.software.dto.request.LoginDto;
 import com.gt.umg.ing.software.models.entity.Usuario;
 import com.gt.umg.ing.software.models.repository.UsuarioRepository;
 import java.util.List;
@@ -53,6 +54,10 @@ public class UsuarioService extends CommonService<Usuario, Integer, UsuarioRepos
         return new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(), true, true, true, authorities);
     }
 
+    public Usuario login(LoginDto dto){
+        return this.repositorio.findByUsernameAndPassword(dto.getUsuario(),dto.getPassword());
+    }
+    
     @Transactional(readOnly = true)
     public Usuario findByUsername(String username) {
         return repositorio.findByUsername(username);

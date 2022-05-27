@@ -6,24 +6,19 @@
 package com.gt.umg.ing.software.service;
 
 import com.gt.umg.ing.software.dto.request.VuelosResumenDto;
+import com.gt.umg.ing.software.dto.response.IDetalleVueloPasajero;
 import com.gt.umg.ing.software.dto.response.IRepoListadoVuelos;
 import com.gt.umg.ing.software.models.entity.Vuelo;
 import com.gt.umg.ing.software.models.repository.VueloRepository;
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -31,9 +26,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class VueloService extends CommonService<Vuelo, Integer, VueloRepository> {
+    
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public Vuelo crearVuelo(Vuelo vuelo, String ipUsuario){
+        vuelo.setIpUsuario(ipUsuario);
+        return this.repository.save(vuelo);
+    }
 
     public Iterable<Vuelo> getVuelosFechaInicial(Date fecha) {
-        return this.repository.getVuelosFechaInicial(fecha);
+        return this.repository.getVuelosFechaInicial(fecha.toGMTString());
     }
 
     public List<Vuelo> limpiarLista(List<Vuelo> vuelosInicial, List<Vuelo> vuelosFinales) {
@@ -80,16 +81,20 @@ public class VueloService extends CommonService<Vuelo, Integer, VueloRepository>
         return respuestaList;
     }
 
+    public IDetalleVueloPasajero obtenerDetalleVuelo(Integer idVuelo){
+        return this.repository.obtenerDetalleVuelo(idVuelo);
+    }
+    
     public int getTieneVuelosUsuario(Date fechaSalida, Date fechaLlegada, Long idUsuario) {
         return this.repository.getTieneVuelosUsuario(idUsuario, fechaSalida.toGMTString(), fechaLlegada.toGMTString());
     }
 
-    public Iterable<Vuelo> getVuelosAbordar(Integer idAerolinea) {
-        return this.repository.getVuelosAbordar(idAerolinea);
+    public Iterable<Vuelo> getVuelosAbordar() {
+        return this.repository.getVuelosAbordar();
     }
 
     public Iterable<IRepoListadoVuelos> getVuelosByFechaHoraSalidaLlegada(Date fechaSalida, Date fechaLlegada) throws ParseException {
-        return this.repository.getVuelosByFechaHoraSalidaLlegada(fechaSalida.toGMTString(), fechaLlegada.toGMTString());
+        return this.repository.getVuelosByFechaHoraSalidaLlegada(fechaSalida, fechaLlegada);
     }
 
     public Optional<IRepoListadoVuelos> getDetalleVuelo(int idVuelo){

@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Cristian
  */
 public interface IRepoListadoVuelos {
-    int getVuelo();
+    Integer getVuelo();
     String getAvion();
     String getAerolinea();
     String getOrigen();

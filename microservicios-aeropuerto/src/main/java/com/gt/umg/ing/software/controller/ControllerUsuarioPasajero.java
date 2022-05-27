@@ -5,9 +5,12 @@
  */
 package com.gt.umg.ing.software.controller;
 
+import com.gt.umg.ing.software.dto.request.LoginDto;
 import com.gt.umg.ing.software.dto.request.UsuarioDto;
 import com.gt.umg.ing.software.models.entity.Pasajero;
+import com.gt.umg.ing.software.models.entity.Usuario;
 import com.gt.umg.ing.software.service.PasajeroService;
+import com.gt.umg.ing.software.service.UsuarioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.text.SimpleDateFormat;
@@ -39,6 +42,9 @@ public class ControllerUsuarioPasajero {
     @Autowired
     private PasajeroService pasajeroService;
     
+    @Autowired
+    private UsuarioService usuarioService;
+    
     @GetMapping("/existePasaporte/{noPasaporte}")
     @ApiOperation(value = "Retorna si existe el pasaporte")
     public ResponseEntity<Boolean> existePasaporte(@PathVariable Long noPasaporte) {
@@ -61,6 +67,12 @@ public class ControllerUsuarioPasajero {
         }
     }
 
+    @PostMapping("/rolesByLogin")
+    public ResponseEntity<?> rolesByLogin(@RequestBody LoginDto dto){
+        Usuario usuario = usuarioService.login(dto);
+        return ResponseEntity.ok(usuario != null ? usuario.getRoles() : null);
+    }
+    
     public ResponseEntity<?> validar(BindingResult result) {
         Map<String, Object> errores = new HashMap<>();
         result.getFieldErrors().forEach(err -> {

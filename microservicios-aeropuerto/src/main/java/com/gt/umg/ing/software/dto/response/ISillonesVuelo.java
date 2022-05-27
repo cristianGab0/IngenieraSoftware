@@ -11,7 +11,7 @@ package com.gt.umg.ing.software.dto.response;
  */
 public interface ISillonesVuelo {
     
-    int getIdSillon();
+    Integer getIdSillon();
     String getNombre();
     Boolean getOcupado();
 }

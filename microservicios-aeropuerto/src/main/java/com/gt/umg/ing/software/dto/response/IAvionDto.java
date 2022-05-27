@@ -11,8 +11,8 @@ package com.gt.umg.ing.software.dto.response;
  */
 public interface IAvionDto {
 
-    int getIdAvion();
-    int getIdAerolinea();
+    Integer getIdAvion();
+    Integer getIdAerolinea();
     String getModelo();
     String getMarca();
     String getAnio();

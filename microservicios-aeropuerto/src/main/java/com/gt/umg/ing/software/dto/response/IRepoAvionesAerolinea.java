@@ -13,6 +13,6 @@ public interface IRepoAvionesAerolinea {
     String getModelo();
     String getMarca();
     String getAnio();
-    int getCantidadPasajeros();
-    int getCantidadVuelos();
+    Integer getCantidadPasajeros();
+    Integer getCantidadVuelos();
 }

@@ -11,5 +11,5 @@ package com.gt.umg.ing.software.dto.response;
  */
 public interface IAerolineaAeropuerto {
     String getNombreAerolinea();
-    int getCantidadAviones();
+    Integer getCantidadAviones();
 }

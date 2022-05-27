@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +52,9 @@ public class ControllerCrearVuelo {
     @Autowired
     private AerolineaService aerolineaService;
 
+    @Autowired 
+    private HttpServletRequest request;
+    
 //    @Secured("ROLE_ADMIN_AEROLINEA")
     @GetMapping("obtenerAerolineas")
     public ResponseEntity<?> getAerolineas() {
@@ -135,6 +139,7 @@ public class ControllerCrearVuelo {
     @PostMapping("crearVuelo")
     @ApiOperation(value = "Crea Nuevo Vuelo")
     public ResponseEntity<?> crearVuelo(@RequestBody Vuelo dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(vueloService.save(dto));
+        dto.setEstado("Pendiente abordar");
+        return ResponseEntity.status(HttpStatus.CREATED).body(vueloService.crearVuelo(dto,request.getRemoteHost()));
     }
 }

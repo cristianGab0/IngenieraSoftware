@@ -70,7 +70,7 @@ public class ControllerReportes {
     @ApiOperation(value = "Obtiene el detalle de los vuelos segun parametros ingresados")
     public ResponseEntity<?> getVuelosByFechaHoraSalidaLlegada(@RequestBody FechasDto fechas) throws ParseException {
         List<IRepoListadoVuelos> vuelos = (List<IRepoListadoVuelos>) vueloService.getVuelosByFechaHoraSalidaLlegada(fechas.getFechaHoraSalida(), fechas.getFechaHoraLlegada());
-        if (vuelos.size() == 0) {
+        if (vuelos.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.ok().body(vuelos);

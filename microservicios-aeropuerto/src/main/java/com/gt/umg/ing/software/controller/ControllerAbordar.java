@@ -29,6 +29,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,19 +56,10 @@ public class ControllerAbordar {
     private VueloPasajeroService vueloPasajeroService;
 
 //    @Secured("ROLE_ADMIN_ABORDAJE")
-    @GetMapping("obtenerVuelosAbordar/{idAerolinea}")
-    public ResponseEntity<?> getVuelosAbordar(@PathVariable int idAerolinea) {
-        Optional<Aerolinea> aerolineaBd = aerolineaService.findById(idAerolinea);
-   
-        
-        
-        
-        
-        
-        if (aerolineaBd.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No tiene una aerolínea asignada.");
-        }
-        List<Vuelo> vuelos = (List<Vuelo>) vueloService.getVuelosAbordar(aerolineaBd.get().getIdAerolinea());
+    @GetMapping("obtenerVuelosAbordar")
+    public ResponseEntity<?> getVuelosAbordar() {
+
+        List<Vuelo> vuelos = (List<Vuelo>) vueloService.getVuelosAbordar();
 
         if (vuelos.size() == 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay vuelos disponibles.");
@@ -106,15 +98,15 @@ public class ControllerAbordar {
 
 //    @Secured("ROLE_ADMIN_ABORDAJE")
     @PutMapping("abordarPasajero/{noPasaporte}/{idVuelo}")
-    public ResponseEntity<?> abordarPasajero(@PathVariable Long noPasaporte, @PathVariable Integer idVuelo, @RequestParam AbordarPasajeroDto dto) {
+    public ResponseEntity<?> abordarPasajero(@PathVariable Long noPasaporte, @PathVariable Integer idVuelo) {
         Optional<VueloPasajero> vp = vueloPasajeroService.findById(new VueloPasajeroId(idVuelo, noPasaporte));
         VueloPasajero respuesta = new VueloPasajero();
         if (vp.isPresent()) {
             VueloPasajero vueloPasajero = vp.get();
-            vueloPasajero.setEquipaje(dto.getEquipaje());
-            vueloPasajero.setPesoEquipaje(dto.getPesoEquipaje());
+//            vueloPasajero.setEquipaje(dto.getEquipaje());
+//            vueloPasajero.setPesoEquipaje(pesoEquipaje);
             vueloPasajero.setEstadoBoleto("ABORDADO");
-            vueloPasajero.setPagoExtra(dto.getPagoExtra());
+//            vueloPasajero.setPagoExtra(dto.getPagoExtra());
 
             respuesta = vueloPasajeroService.save(vueloPasajero);
         }

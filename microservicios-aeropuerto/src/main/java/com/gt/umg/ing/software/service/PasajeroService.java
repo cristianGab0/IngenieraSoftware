@@ -38,7 +38,7 @@ public class PasajeroService extends CommonService<Pasajero, Long, PasajeroRepos
             Usuario userDb = usuario.usuarioDtoToUsuario();
             Pasajero pasajeroDb = usuario.usuarioDtoToPasajero();
 
-            userDb.setPassword(passwordEncoder.encode(userDb.getPassword()));
+//            userDb.setPassword(passwordEncoder.encode(userDb.getPassword()));
             List<Rol> roles = new ArrayList<>();
             roles.add(new Rol(2));
             userDb.setRoles(roles);
